@@ -15,7 +15,7 @@ export default function Index() {
     <SafeAreaView className="h-full">
       <View style={{ flex: 1, alignItems: 'center' }}>
         <TouchableOpacity
-          className="w-10 h-10 absolute top-12 right-6"
+          className="w-10 h-10 absolute top-12 right-6 z-10"
           onPress={() => router.push('/sign-up')}
         >
           <Text className="text-black text-lg font-bold">
