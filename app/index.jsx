@@ -3,14 +3,15 @@ import Swiper from 'react-native-swiper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRef, useState } from "react";
 import { onboarding } from '../constants/WelcomeText'
+import CustomButton from '../components/CustomButton'
 
 export default function Index() {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <SafeAreaView className="h-full items-center">
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <SafeAreaView className="h-full">
+      <View style={{ flex: 1, alignItems: 'center' }}>
         <TouchableOpacity className="w-10 h-10 absolute top-12 right-6">
           <Text className="text-black text-lg font-bold">
             Skip
@@ -18,8 +19,10 @@ export default function Index() {
         </TouchableOpacity>
 
         <Swiper
+          className="mt-20"
           ref={swiperRef}
           loop={false}
+          paginationStyle={{ top: 460 }}
           dot={
             <View className={'w-[32] h-[4] mx-1 bg-[#E2E8F0] rounded-full'} />
           }
@@ -52,6 +55,8 @@ export default function Index() {
             )
           })}
         </Swiper>
+
+        <CustomButton />
       </View>
     </SafeAreaView>
   );
