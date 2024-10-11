@@ -4,10 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRef, useState } from "react";
 import { onboarding } from '../constants/WelcomeText'
 import CustomButton from '../components/CustomButton'
+import { router } from "expo-router";
 
 export default function Index() {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const isLastPage = activeIndex === onboarding.length - 1;
 
   return (
     <SafeAreaView className="h-full">
@@ -22,7 +24,8 @@ export default function Index() {
           className="mt-20"
           ref={swiperRef}
           loop={false}
-          paginationStyle={{ top: 460 }}
+          paginationStyle={{ top: 600 }}
+          onIndexChanged={setActiveIndex}
           dot={
             <View className={'w-[32] h-[4] mx-1 bg-[#E2E8F0] rounded-full'} />
           }
@@ -56,7 +59,11 @@ export default function Index() {
           })}
         </Swiper>
 
-        <CustomButton />
+        <CustomButton
+          title={isLastPage ? 'Get Started' : 'Next'}
+          containerStyle={'mt-8 mb-16'}
+          onPress={isLastPage ? () => router.replace('/sign-up') : () => swiperRef.current?.scrollBy(1)}
+        />
       </View>
     </SafeAreaView>
   );
