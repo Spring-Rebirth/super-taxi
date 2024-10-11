@@ -34,7 +34,6 @@ export default function Index() {
           }
         >
           {onboarding.map(item => {
-            console.log(item);
             return (
               <View
                 className="w-full h-auto items-center justify-start my-6"
