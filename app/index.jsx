@@ -21,10 +21,10 @@ export default function Index() {
         </TouchableOpacity>
 
         <Swiper
-          className="mt-20"
+          className="mt-16"
           ref={swiperRef}
           loop={false}
-          paginationStyle={{ top: 600 }}
+          paginationStyle={{ top: 580 }}
           onIndexChanged={setActiveIndex}
           dot={
             <View className={'w-[32] h-[4] mx-1 bg-[#E2E8F0] rounded-full'} />
@@ -60,7 +60,7 @@ export default function Index() {
 
         <CustomButton
           title={isLastPage ? 'Get Started' : 'Next'}
-          containerStyle={'mt-8 mb-16'}
+          containerStyle={'mb-24'}
           onPress={isLastPage ? () => router.replace('/sign-up') : () => swiperRef.current?.scrollBy(1)}
         />
       </View>
