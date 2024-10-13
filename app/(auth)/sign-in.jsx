@@ -1,13 +1,13 @@
 import { View, Text, ImageBackground, Image } from 'react-native'
 import React from 'react'
-import signUpCar from '../assets/images/signup-car.png'
-import CustomInputBox from '../components/CustomInputBox'
-import personIcon from '../assets/icons/person.png'
-import lockIcon from '../assets/icons/lock.png'
-import emailIcon from '../assets/icons/email.png'
-import CustomButton from '../components/CustomButton'
-import DividerWithText from '../components/DividerWithText'
-import googleIcon from '../assets/icons/google.png'
+import signUpCar from '../../assets/images/signup-car.png'
+import CustomInputBox from '../../components/CustomInputBox'
+import personIcon from '../../assets/icons/person.png'
+import lockIcon from '../../assets/icons/lock.png'
+import emailIcon from '../../assets/icons/email.png'
+import CustomButton from '../../components/CustomButton'
+import DividerWithText from '../../components/DividerWithText'
+import googleIcon from '../../assets/icons/google.png'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
 
@@ -21,15 +21,11 @@ export default function SignUp() {
                 resizeMode={'stretch'}
             >
                 <Text className='ml-4 mb-4 text-xl font-bold'>
-                    Create Your  Account
+                    Welcome 👋
                 </Text>
             </ImageBackground>
 
             <View className='w-full h-auto items-center'>
-                <CustomInputBox
-                    title={'Name'}
-                    icon={personIcon}
-                />
                 <CustomInputBox
                     title={'Email'}
                     icon={emailIcon}
@@ -41,7 +37,7 @@ export default function SignUp() {
                 />
 
                 <CustomButton
-                    title={'Sign Up'}
+                    title={'Log In'}
                 />
 
                 <DividerWithText />
@@ -57,14 +53,13 @@ export default function SignUp() {
                         source={googleIcon}
                     />
                 </View>
+
                 <View className='flex-row mt-12 space-x-2'>
-                    <Text className='text-[#858585]'>
-                        Already have an account ?
-                    </Text>
+                    <Text>Do not have an account ?</Text>
                     <TouchableOpacity
-                        onPress={() => router.push('/sign-in')}
+                        onPress={() => router.back()}
                     >
-                        <Text className='text-[#0286FF]'>Log in</Text>
+                        <Text className='text-[#0286FF]'>Sign up</Text>
                     </TouchableOpacity>
                 </View>
             </View>

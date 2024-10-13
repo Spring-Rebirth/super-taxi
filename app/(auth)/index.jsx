@@ -2,8 +2,8 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import Swiper from 'react-native-swiper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRef, useState } from "react";
-import { onboarding } from '../constants/WelcomeText'
-import CustomButton from '../components/CustomButton'
+import { onboarding } from '../../constants/WelcomeText'
+import CustomButton from '../../components/CustomButton'
 import { router } from "expo-router";
 
 export default function Index() {
