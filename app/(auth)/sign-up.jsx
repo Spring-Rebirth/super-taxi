@@ -58,7 +58,7 @@ export default function SignUp() {
 
             if (completeSignUp.status === 'complete') {
                 await setActive({ session: completeSignUp.createdSessionId })
-                router.replace('/')
+                setVerifySuccess(true);
             } else {
                 console.error(JSON.stringify(completeSignUp, null, 2))
             }
@@ -150,9 +150,11 @@ export default function SignUp() {
                                     py-1.5 text-center'
                         keyboardType={'numeric'}
                         placeholder='Enter Code'
+                        onChangeText={text => setCode(text)}
                     />
 
                     <CustomButton
+                        onPress={onPressVerify}
                         containerStyle={'w-full mt-6 bg-green-500'}
                         title={'Verify Email'}
                     />
