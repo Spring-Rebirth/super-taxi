@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import eyecrosslIcon from '../assets/icons/eyecross.png'
 import { TouchableOpacity } from 'react-native';
 
-export default function CustomInputBox({ title, isSecure, icon }) {
+export default function CustomInputBox({ title, isSecure, icon, onChangeText }) {
     const [isFocused, setIsFocused] = useState(false);
     const [textVisible, setTextVisible] = useState(false);
 
@@ -24,6 +24,7 @@ export default function CustomInputBox({ title, isSecure, icon }) {
                     secureTextEntry={!textVisible}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
+                    onChangeText={onChangeText}
                 />
                 {isSecure && (
                     <TouchableOpacity

@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import signUpCar from '../../assets/images/signup-car.png'
 import CustomInputBox from '../../components/CustomInputBox'
 import personIcon from '../../assets/icons/person.png'
@@ -9,11 +9,63 @@ import CustomButton from '../../components/CustomButton'
 import DividerWithText from '../../components/DividerWithText'
 import googleIcon from '../../assets/icons/google.png'
 import { TouchableOpacity } from 'react-native'
-import { router } from 'expo-router'
-
+import { useRouter } from 'expo-router'
+import { useSignUp } from '@clerk/clerk-expo'
+import CustomModal from '../../components/CustomModal'
 
 export default function SignUp() {
+    const { isLoaded, signUp, setActive } = useSignUp();
+    const router = useRouter();
 
+    const [username, setUsername] = useState('');
+    const [emailAddress, setEmailAddress] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [pendingVerification, setPendingVerification] = React.useState(true); //临时
+    const [code, setCode] = React.useState('');
+
+    const onSignUpPress = async () => {
+        if (!isLoaded) {
+            return
+        }
+
+        try {
+            await signUp.create({
+                emailAddress,
+                password,
+            })
+
+            await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+
+            setPendingVerification(true)
+        } catch (err) {
+            // See https://clerk.com/docs/custom-flows/error-handling
+            // for more info on error handling
+            console.error(JSON.stringify(err, null, 2))
+        }
+    }
+
+    const onPressVerify = async () => {
+        if (!isLoaded) {
+            return
+        }
+
+        try {
+            const completeSignUp = await signUp.attemptEmailAddressVerification({
+                code,
+            })
+
+            if (completeSignUp.status === 'complete') {
+                await setActive({ session: completeSignUp.createdSessionId })
+                router.replace('/')
+            } else {
+                console.error(JSON.stringify(completeSignUp, null, 2))
+            }
+        } catch (err) {
+            // See https://clerk.com/docs/custom-flows/error-handling
+            // for more info on error handling
+            console.error(JSON.stringify(err, null, 2))
+        }
+    }
 
 
     return (
@@ -32,19 +84,23 @@ export default function SignUp() {
                 <CustomInputBox
                     title={'Name'}
                     icon={personIcon}
+                    onChangeText={text => setUsername(text)}
                 />
                 <CustomInputBox
                     title={'Email'}
                     icon={emailIcon}
+                    onChangeText={text => setEmailAddress(text)}
                 />
                 <CustomInputBox
                     title={'Password'}
                     icon={lockIcon}
                     isSecure={true}
+                    onChangeText={text => setPassword(text)}
                 />
 
                 <CustomButton
                     title={'Sign Up'}
+                    onPress={onSignUpPress}
                 />
 
                 <DividerWithText />
@@ -71,6 +127,14 @@ export default function SignUp() {
                     </TouchableOpacity>
                 </View>
             </View>
+
+
+            <CustomModal
+                isVisible={pendingVerification}
+            >
+
+            </CustomModal>
+
         </View>
     )
 }
