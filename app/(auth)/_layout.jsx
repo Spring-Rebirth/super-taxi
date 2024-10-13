@@ -1,7 +1,14 @@
 import React from 'react'
-import { Stack } from 'expo-router'
+import { Redirect, Stack } from 'expo-router'
+import { useAuth } from '@clerk/clerk-expo'
 
 export default function AuthLayout() {
+    const { isSignedIn } = useAuth()
+
+    if (isSignedIn) {
+        return <Redirect href={'(tabs)/home'} />
+    }
+
     return (
         <Stack>
             <Stack.Screen name='index' options={{ headerShown: false }} />

@@ -13,6 +13,9 @@ import { router } from 'expo-router'
 
 
 export default function SignUp() {
+
+
+
     return (
         <View className='w-screen h-full bg-white'>
             <ImageBackground
