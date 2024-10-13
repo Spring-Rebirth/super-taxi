@@ -1,5 +1,5 @@
-import { View, Text, ImageBackground, Image } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, ImageBackground, Image, TextInput } from 'react-native'
+import React from 'react'
 import signUpCar from '../../assets/images/signup-car.png'
 import CustomInputBox from '../../components/CustomInputBox'
 import personIcon from '../../assets/icons/person.png'
@@ -12,15 +12,17 @@ import { TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useSignUp } from '@clerk/clerk-expo'
 import CustomModal from '../../components/CustomModal'
+import check from '../../assets/images/check.png'
 
 export default function SignUp() {
     const { isLoaded, signUp, setActive } = useSignUp();
     const router = useRouter();
 
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = React.useState('');
     const [emailAddress, setEmailAddress] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [pendingVerification, setPendingVerification] = React.useState(true); //临时
+    const [pendingVerification, setPendingVerification] = React.useState(false);
+    const [verifySuccess, setVerifySuccess] = React.useState(false);
     const [code, setCode] = React.useState('');
 
     const onSignUpPress = async () => {
@@ -66,7 +68,6 @@ export default function SignUp() {
             console.error(JSON.stringify(err, null, 2))
         }
     }
-
 
     return (
         <View className='w-screen h-full bg-white'>
@@ -129,10 +130,52 @@ export default function SignUp() {
             </View>
 
 
-            <CustomModal
-                isVisible={pendingVerification}
-            >
+            <CustomModal isVisible={pendingVerification}>
+                <View className='w-full h-full px-8 justify-center'>
 
+                    <View className='mb-3 -mt-4'>
+                        <Text className='text-2xl font-bold'>
+                            Verification
+                        </Text>
+                        <Text>We sent a verification code to</Text>
+                        <Text>{emailAddress}</Text>
+                    </View>
+
+                    <Text className='text-xl font-semibold'>
+                        Code
+                    </Text>
+
+                    <TextInput
+                        className='bg-[#F6F8FA] my-3 h-12 rounded-full border border-sky-400
+                                    py-1.5 text-center'
+                        keyboardType={'numeric'}
+                        placeholder='Enter Code'
+                    />
+
+                    <CustomButton
+                        containerStyle={'w-full mt-6 bg-green-500'}
+                        title={'Verify Email'}
+                    />
+                </View>
+            </CustomModal>
+
+            <CustomModal isVisible={verifySuccess}>
+                <View className='w-full h-full px-8 items-center justify-center'>
+                    <Image
+                        className='w-[100] h-[100] mb-10'
+                        source={check}
+                    />
+                    <Text className='text-2xl font-bold mb-2'>
+                        Verified
+                    </Text>
+                    <Text className='text-center text-gray-500 mb-10'>
+                        You have successfully verified {'\n'} your account.
+                    </Text>
+                    <CustomButton
+                        title={'Browse Home'}
+                        onPress={() => router.replace('(tabs)/home')}
+                    />
+                </View>
             </CustomModal>
 
         </View>
