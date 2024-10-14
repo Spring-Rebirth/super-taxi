@@ -11,7 +11,7 @@ export default function TabsLayout() {
                 options={{
                     title: 'Home',
                     headerShown: false,
-                    tabBarLabel: '',
+                    tabBarLabel: () => null,
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             name={'Home'}
