@@ -25,7 +25,7 @@ export default function SignUp() {
     const [emailAddress, setEmailAddress] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [pendingVerification, setPendingVerification] = React.useState(false);
-    const [verifySuccess, setVerifySuccess] = React.useState(true); //临时
+    const [verifySuccess, setVerifySuccess] = React.useState(false);
     const [code, setCode] = React.useState('');
 
     const onSignUpPress = async () => {
@@ -183,7 +183,7 @@ export default function SignUp() {
                         source={check}
                     />
                     <Text className='text-xl font-bold mb-2 text-center'>
-                        Verification successful
+                        Verification Successful
                     </Text>
 
                     <Text className='text-center text-gray-500 mb-10'>
