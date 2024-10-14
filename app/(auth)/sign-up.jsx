@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, Image, TextInput } from 'react-native'
+import { View, Text, ImageBackground, Image, TextInput, Alert } from 'react-native'
 import React from 'react'
 import signUpCar from '../../assets/images/signup-car.png'
 import CustomInputBox from '../../components/CustomInputBox'
@@ -13,6 +13,9 @@ import { useRouter } from 'expo-router'
 import { useSignUp } from '@clerk/clerk-expo'
 import CustomModal from '../../components/CustomModal'
 import check from '../../assets/images/check.png'
+import { collection, addDoc } from "firebase/firestore";
+import { db } from '../../firebase/config'
+
 
 export default function SignUp() {
     const { isLoaded, signUp, setActive } = useSignUp();
@@ -58,14 +61,28 @@ export default function SignUp() {
 
             if (completeSignUp.status === 'complete') {
                 await setActive({ session: completeSignUp.createdSessionId })
+
+                try {
+                    const docRef = await addDoc(collection(db, "users"), {
+                        username: username,
+                        emailAddress: emailAddress,
+                        password: password
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                }
+
                 setVerifySuccess(true);
+
             } else {
                 console.error(JSON.stringify(completeSignUp, null, 2))
             }
         } catch (err) {
             // See https://clerk.com/docs/custom-flows/error-handling
             // for more info on error handling
-            console.error(JSON.stringify(err, null, 2))
+            console.error(JSON.stringify(err, null, 2));
+            Alert.alert(err);
         }
     }
 
