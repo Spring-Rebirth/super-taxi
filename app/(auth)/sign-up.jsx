@@ -25,7 +25,7 @@ export default function SignUp() {
     const [emailAddress, setEmailAddress] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [pendingVerification, setPendingVerification] = React.useState(false);
-    const [verifySuccess, setVerifySuccess] = React.useState(false);
+    const [verifySuccess, setVerifySuccess] = React.useState(true); //临时
     const [code, setCode] = React.useState('');
 
     const onSignUpPress = async () => {
@@ -182,14 +182,15 @@ export default function SignUp() {
                         className='w-[100] h-[100] mb-10'
                         source={check}
                     />
-                    <Text className='text-2xl font-bold mb-2'>
-                        Verified
+                    <Text className='text-xl font-bold mb-2 text-center'>
+                        Verification successful
                     </Text>
+
                     <Text className='text-center text-gray-500 mb-10'>
-                        You have successfully verified {'\n'} your account.
+                        Auto-redirect to homepage after{'\n'} 3 seconds.
                     </Text>
                     <CustomButton
-                        title={'Browse Home'}
+                        title={'Go Now'}
                         onPress={() => router.replace('(tabs)/home')}
                     />
                 </View>
