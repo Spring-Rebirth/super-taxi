@@ -62,16 +62,7 @@ export default function SignUp() {
             if (completeSignUp.status === 'complete') {
                 await setActive({ session: completeSignUp.createdSessionId })
 
-                try {
-                    const docRef = await addDoc(collection(db, "users"), {
-                        username: username,
-                        emailAddress: emailAddress,
-                        password: password
-                    });
-                    console.log("Document written with ID: ", docRef.id);
-                } catch (e) {
-                    console.error("Error adding document: ", e);
-                }
+                // TODO: 添加用户信息到数据库
 
                 setVerifySuccess(true);
 
