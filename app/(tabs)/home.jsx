@@ -6,7 +6,7 @@ export default function Home() {
     const { user } = useUser()
 
     return (
-        <View>
+        <View className='my-6'>
             <SignedIn>
                 <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
             </SignedIn>

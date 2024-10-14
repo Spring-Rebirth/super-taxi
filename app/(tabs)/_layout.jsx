@@ -1,21 +1,21 @@
-import { Tabs } from 'expo-router'
-import { View, Text } from 'react-native'
 import React from 'react'
+import { Tabs } from 'expo-router'
+import TabIcon from '../../components/TabIcon'
+import homeIcon from '../../assets/icons/pin.png'
 
 export default function TabsLayout() {
     return (
-        <Tabs
-
-        >
+        <Tabs>
             <Tabs.Screen
                 name='home'
                 options={{
                     title: 'Home',
                     headerShown: false,
+                    tabBarLabel: '',
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon
                             name={'Home'}
-                            // icon={icons.home}
+                            icon={homeIcon}
                             color={color}
                             focused={focused} />
                     )
