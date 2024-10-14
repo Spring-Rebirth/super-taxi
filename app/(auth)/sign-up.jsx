@@ -15,6 +15,8 @@ import CustomModal from '../../components/CustomModal'
 import check from '../../assets/images/check.png'
 import { fetchAPI } from '../../lib/fetch'
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 export default function SignUp() {
     const { isLoaded, signUp, setActive } = useSignUp();
     const router = useRouter();
@@ -68,8 +70,9 @@ export default function SignUp() {
                     })
                 });
 
-                await setActive({ session: completeSignUp.createdSessionId });
                 setVerifySuccess(true);
+                await sleep(3000);
+                await setActive({ session: completeSignUp.createdSessionId });
             } else {
                 console.error(JSON.stringify(completeSignUp, null, 2));
             }
