@@ -13,9 +13,7 @@ import { useRouter } from 'expo-router'
 import { useSignUp } from '@clerk/clerk-expo'
 import CustomModal from '../../components/CustomModal'
 import check from '../../assets/images/check.png'
-import { collection, addDoc } from "firebase/firestore";
-import { db } from '../../firebase/config'
-
+import { fetchAPI } from '../../lib/fetch'
 
 export default function SignUp() {
     const { isLoaded, signUp, setActive } = useSignUp();
@@ -60,14 +58,20 @@ export default function SignUp() {
             })
 
             if (completeSignUp.status === 'complete') {
-                await setActive({ session: completeSignUp.createdSessionId })
-
                 // TODO: 添加用户信息到数据库
+                await fetchAPI("/(api)/user", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        name: username,
+                        email: emailAddress,
+                        clerkId: completeSignUp.createdUserId
+                    })
+                });
 
+                await setActive({ session: completeSignUp.createdSessionId });
                 setVerifySuccess(true);
-
             } else {
-                console.error(JSON.stringify(completeSignUp, null, 2))
+                console.error(JSON.stringify(completeSignUp, null, 2));
             }
         } catch (err) {
             // See https://clerk.com/docs/custom-flows/error-handling
