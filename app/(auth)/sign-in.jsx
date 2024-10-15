@@ -12,7 +12,7 @@ import { useRouter } from 'expo-router'
 import { useSignIn } from '@clerk/clerk-expo'
 
 
-export default function SignUp() {
+export default function SignIn() {
     const { signIn, setActive, isLoaded } = useSignIn()
     const router = useRouter()
 
