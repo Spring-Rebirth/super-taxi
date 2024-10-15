@@ -33,7 +33,8 @@
         {
           "origin": "https://uber.com/"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
