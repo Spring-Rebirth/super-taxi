@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Chat() {
     return (
-        <View>
+        <View className='my-8'>
             <Text>Chat</Text>
         </View>
     )

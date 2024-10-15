@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Profile() {
     return (
-        <View>
+        <View className='my-8'>
             <Text>Profile</Text>
         </View>
     )

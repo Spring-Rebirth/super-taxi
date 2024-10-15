@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Rides() {
     return (
-        <View>
+        <View className='my-8'>
             <Text>Rides</Text>
         </View>
     )
