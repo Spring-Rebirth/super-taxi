@@ -11,7 +11,22 @@ export default function TabsLayout() {
         <Tabs
             initialRouteName='index' // 待定
             screenOptions={{
-                tabBarActiveTintColor: 'white'
+                tabBarActiveTintColor: 'white',
+                tabBarInactiveTintColor: 'white',
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    backgroundColor: '#333333',
+                    borderRadius: 50,
+                    paddingBottom: 0,
+                    overflow: 'hidden',
+                    marginHorizontal: 20,
+                    marginBottom: 20,
+                    height: 78,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    position: 'absolute'
+                }
             }}
         >
             <Tabs.Screen
