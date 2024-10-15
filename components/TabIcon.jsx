@@ -15,7 +15,7 @@ export default function TabIcon({ icon, color, focused }) {
                         style={{
                             width: 24,
                             height: 24,
-                            tintColor: focused ? color : '#999', // 根据 focused 状态改变颜色
+                            tintColor: focused ? color : '#fff', // 根据 focused 状态改变颜色
                         }}
                     />
                 )}
