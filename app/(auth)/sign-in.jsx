@@ -1,18 +1,48 @@
 import { View, Text, ImageBackground, Image } from 'react-native'
-import React from 'react'
+import React, { } from 'react'
 import signUpCar from '../../assets/images/signup-car.png'
 import CustomInputBox from '../../components/CustomInputBox'
-import personIcon from '../../assets/icons/person.png'
 import lockIcon from '../../assets/icons/lock.png'
 import emailIcon from '../../assets/icons/email.png'
 import CustomButton from '../../components/CustomButton'
 import DividerWithText from '../../components/DividerWithText'
 import googleIcon from '../../assets/icons/google.png'
 import { TouchableOpacity } from 'react-native'
-import { router } from 'expo-router'
+import { useRouter } from 'expo-router'
+import { useSignIn } from '@clerk/clerk-expo'
 
 
 export default function SignUp() {
+    const { signIn, setActive, isLoaded } = useSignIn()
+    const router = useRouter()
+
+    const [emailAddress, setEmailAddress] = React.useState('')
+    const [password, setPassword] = React.useState('')
+
+    const onSignInPress = React.useCallback(async () => {
+        if (!isLoaded) {
+            return
+        }
+
+        try {
+            const signInAttempt = await signIn.create({
+                identifier: emailAddress,
+                password,
+            })
+
+            if (signInAttempt.status === 'complete') {
+                await setActive({ session: signInAttempt.createdSessionId })
+                router.replace('/')
+            } else {
+                // See https://clerk.com/docs/custom-flows/error-handling
+                // for more info on error handling
+                console.error(JSON.stringify(signInAttempt, null, 2))
+            }
+        } catch (err) {
+            console.error(JSON.stringify(err, null, 2))
+        }
+    }, [isLoaded, emailAddress, password])
+
     return (
         <View className='w-screen h-full bg-white'>
             <ImageBackground
@@ -29,15 +59,18 @@ export default function SignUp() {
                 <CustomInputBox
                     title={'Email'}
                     icon={emailIcon}
+                    onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
                 />
                 <CustomInputBox
                     title={'Password'}
                     icon={lockIcon}
                     isSecure={true}
+                    onChangeText={(password) => setPassword(password)}
                 />
 
                 <CustomButton
                     title={'Log In'}
+                    onPress={onSignInPress}
                 />
 
                 <DividerWithText />
