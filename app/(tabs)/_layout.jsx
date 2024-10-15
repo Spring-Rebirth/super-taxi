@@ -8,7 +8,12 @@ import profileIcon from '../../assets/icons/profile.png'
 
 export default function TabsLayout() {
     return (
-        <Tabs>
+        <Tabs
+            initialRouteName='index' // 待定
+            screenOptions={{
+                tabBarActiveTintColor: 'white'
+            }}
+        >
             <Tabs.Screen
                 name='home'
                 options={{

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 
 // TabIcon 组件
 export default function TabIcon({ icon, color, focused }) {
