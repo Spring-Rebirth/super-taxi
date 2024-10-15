@@ -1,4 +1,4 @@
-import { Redirect, Slot, SplashScreen, Stack } from "expo-router";
+import { Redirect, Slot, SplashScreen } from "expo-router";
 import { ClerkProvider, ClerkLoaded, SignedIn, SignedOut } from '@clerk/clerk-expo';
 import { tokenCache } from '../lib/clerk/auth'
 import { LogBox } from "react-native";
