@@ -10,34 +10,34 @@ SplashScreen.preventAutoHideAsync();
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 if (!publishableKey) {
-  throw new Error(
-    'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
-  );
+	throw new Error(
+		'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
+	);
 }
 
 // 忽略特定的日志
 LogBox.ignoreLogs(["Clerk:"]);
 
 export default function RootLayout() {
-  // 直接在组件挂载后隐藏启动屏幕
-  useEffect(() => {
-    SplashScreen.hideAsync();
-  }, []);
+	// 直接在组件挂载后隐藏启动屏幕
+	useEffect(() => {
+		SplashScreen.hideAsync();
+	}, []);
 
-  return (
-    <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
-      <ClerkLoaded>
-        <SignedIn>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-        </SignedIn>
-        <SignedOut>
-          <Stack>
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          </Stack>
-        </SignedOut>
-      </ClerkLoaded>
-    </ClerkProvider>
-  );
+	return (
+		<ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+			<ClerkLoaded>
+				<SignedIn>
+					<Stack>
+						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+					</Stack>
+				</SignedIn>
+				<SignedOut>
+					<Stack>
+						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
+					</Stack>
+				</SignedOut>
+			</ClerkLoaded>
+		</ClerkProvider>
+	);
 }
