@@ -1,4 +1,4 @@
-import { SplashScreen, Stack } from "expo-router";
+import { Redirect, Slot, SplashScreen, Stack } from "expo-router";
 import { ClerkProvider, ClerkLoaded, SignedIn, SignedOut } from '@clerk/clerk-expo';
 import { tokenCache } from '../lib/clerk/auth'
 import { LogBox } from "react-native";
@@ -28,14 +28,12 @@ export default function RootLayout() {
 		<ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
 			<ClerkLoaded>
 				<SignedIn>
-					<Stack>
-						<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-					</Stack>
+					{/* Render child routes for authenticated users */}
+					<Slot />
 				</SignedIn>
 				<SignedOut>
-					<Stack>
-						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
-					</Stack>
+					{/* Redirect unauthenticated users to the auth screens */}
+					<Redirect href="/(auth)" />
 				</SignedOut>
 			</ClerkLoaded>
 		</ClerkProvider>
