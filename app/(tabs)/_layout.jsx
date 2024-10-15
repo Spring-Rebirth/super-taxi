@@ -12,13 +12,57 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name='home'
                 options={{
-                    title: 'Home',
+                    title: 'home',
                     headerShown: false,
                     tabBarLabel: () => null,
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon
-                            name={'Home'}
                             icon={homeIcon}
+                            color={color}
+                            focused={focused} />
+                    )
+                }}
+            />
+            <Tabs.Screen
+                name='rides'
+                options={{
+                    title: 'rides',
+                    headerShown: false,
+                    tabBarLabel: () => null,
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabIcon
+                            name={'rides'}
+                            icon={listIcon}
+                            color={color}
+                            focused={focused} />
+                    )
+                }}
+            />
+            <Tabs.Screen
+                name='chat'
+                options={{
+                    title: 'chat',
+                    headerShown: false,
+                    tabBarLabel: () => null,
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabIcon
+                            name={'chat'}
+                            icon={chatIcon}
+                            color={color}
+                            focused={focused} />
+                    )
+                }}
+            />
+            <Tabs.Screen
+                name='profile'
+                options={{
+                    title: 'profile',
+                    headerShown: false,
+                    tabBarLabel: () => null,
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabIcon
+                            name={'profile'}
+                            icon={profileIcon}
                             color={color}
                             focused={focused} />
                     )
