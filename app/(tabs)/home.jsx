@@ -8,7 +8,12 @@ export default function Home() {
     return (
         <View className='my-8'>
             <SignedIn>
-                <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+                <Text className='text-2xl'>
+                    Hello {user?.emailAddresses[0].emailAddress}
+                </Text>
+
+
+
             </SignedIn>
             <SignedOut>
                 <Link href="/sign-in">
