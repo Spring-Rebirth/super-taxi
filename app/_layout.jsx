@@ -27,14 +27,7 @@ export default function RootLayout() {
 	return (
 		<ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
 			<ClerkLoaded>
-				<SignedIn>
-					{/* Render child routes for authenticated users */}
-					<Slot />
-				</SignedIn>
-				<SignedOut>
-					{/* Redirect unauthenticated users to the auth screens */}
-					<Redirect href="/(auth)" />
-				</SignedOut>
+				<Slot />
 			</ClerkLoaded>
 		</ClerkProvider>
 	);
