@@ -9,10 +9,11 @@ export default function Home() {
     return (
         <View className='my-8'>
             <SignedIn>
-                <Text className='text-2xl'>
-                    Hello {user?.emailAddresses[0].emailAddress}
-                </Text>
-
+                <View className='my-2 px-4'>
+                    <Text className='text-xl mt-4'>
+                        Hello {user?.emailAddresses[0].emailAddress}
+                    </Text>
+                </View>
 
 
             </SignedIn>
