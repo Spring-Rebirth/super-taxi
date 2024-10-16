@@ -3,7 +3,8 @@ import { Link } from 'expo-router'
 import { Text, View } from 'react-native'
 
 export default function Home() {
-    const { user } = useUser()
+    const { user } = useUser();
+    console.log('user:', JSON.stringify(user, null, 2));
 
     return (
         <View className='my-8'>
