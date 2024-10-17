@@ -1,6 +1,8 @@
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
 import { Link } from 'expo-router'
-import { Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
+import { ridesMock } from '../../constants/MockRides'
+import TaxiTripCard from '../../components/TaxiTripCard'
 
 export default function Home() {
     const { user } = useUser();
@@ -15,6 +17,14 @@ export default function Home() {
                     </Text>
                 </View>
 
+                <FlatList
+                    data={ridesMock}
+                    renderItem={({ item }) => (
+                        <TaxiTripCard
+                            data={item}
+                        />
+                    )}
+                />
 
             </SignedIn>
             <SignedOut>
