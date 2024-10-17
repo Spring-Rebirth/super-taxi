@@ -18,6 +18,7 @@ export default function Home() {
                 </View>
 
                 <FlatList
+                    style={{ marginBottom: 100 }}
                     data={ridesMock}
                     renderItem={({ item }) => (
                         <TaxiTripCard

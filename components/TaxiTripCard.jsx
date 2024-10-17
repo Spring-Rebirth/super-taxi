@@ -2,6 +2,7 @@ import { View, Text, Image } from 'react-native'
 import React from 'react'
 import toIcon from '../assets/icons/to.png'
 import pinIcon from '../assets/icons/pin.png'
+import { formatDate, formatTime } from '../lib/utils'
 
 export default function TaxiTripCard({ data }) {
     const {
@@ -70,26 +71,26 @@ export default function TaxiTripCard({ data }) {
             >
                 {/* 1 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>hfkafhaks</Text>
-                    <Text>1111111111</Text>
+                    <Text>Date & Time</Text>
+                    <Text>{formatDate(created_at)}, {formatTime(ride_time)}</Text>
                 </View>
                 <View className='bg-[#FFFFFF] h-[1px]' />
                 {/* 2 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>hfkafhaks</Text>
-                    <Text>1111111111</Text>
+                    <Text>Driver</Text>
+                    <Text>{first_name + ' ' + last_name}</Text>
                 </View>
                 <View className='bg-[#FFFFFF] h-[1px]' />
                 {/* 3 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>hfkafhaks</Text>
-                    <Text>1111111111</Text>
+                    <Text>Car seats</Text>
+                    <Text>{car_seats}</Text>
                 </View>
                 <View className='bg-[#FFFFFF] h-[1px]' />
                 {/* 4 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>hfkafhaks</Text>
-                    <Text>1111111111</Text>
+                    <Text>Payment Status</Text>
+                    <Text>{payment_status}</Text>
                 </View>
             </View>
 
