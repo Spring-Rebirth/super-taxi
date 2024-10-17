@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import toIcon from '../assets/icons/to.png'
 import pinIcon from '../assets/icons/pin.png'
 import { formatDate, formatTime } from '../lib/utils'
@@ -23,7 +23,6 @@ export default function TaxiTripCard({ data }) {
         'zoom=14',
         `apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
     ].join('&');
-
 
     return (
         <View className='mb-4 mx-4 bg-[#FFFFFF] rounded-xl'>
@@ -71,26 +70,42 @@ export default function TaxiTripCard({ data }) {
             >
                 {/* 1 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>Date & Time</Text>
-                    <Text>{formatDate(created_at)}, {formatTime(ride_time)}</Text>
+                    <Text className='text-[#858585]'>
+                        Date & Time
+                    </Text>
+                    <Text className='text-xs'>
+                        {formatDate(created_at)}, {formatTime(ride_time)}
+                    </Text>
                 </View>
                 <View className='bg-[#FFFFFF] h-[1px]' />
                 {/* 2 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>Driver</Text>
-                    <Text>{first_name + ' ' + last_name}</Text>
+                    <Text className='text-[#858585]'>
+                        Driver
+                    </Text>
+                    <Text className='text-xs'>
+                        {first_name + ' ' + last_name}
+                    </Text>
                 </View>
                 <View className='bg-[#FFFFFF] h-[1px]' />
                 {/* 3 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>Car seats</Text>
-                    <Text>{car_seats}</Text>
+                    <Text className='text-[#858585]'>
+                        Car seats
+                    </Text>
+                    <Text className='text-xs'>
+                        {car_seats}
+                    </Text>
                 </View>
                 <View className='bg-[#FFFFFF] h-[1px]' />
                 {/* 4 */}
                 <View className='flex-row justify-between items-center flex-1 mx-4'>
-                    <Text>Payment Status</Text>
-                    <Text>{payment_status}</Text>
+                    <Text className='text-[#858585]'>
+                        Payment Status
+                    </Text>
+                    <Text className={`capitalize text-xs ${payment_status ? 'text-green-500' : 'text-red-500'}`}>
+                        {payment_status}
+                    </Text>
                 </View>
             </View>
 
