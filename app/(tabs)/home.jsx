@@ -3,6 +3,7 @@ import { Link } from 'expo-router'
 import { FlatList, Text, View } from 'react-native'
 import { ridesMock } from '../../constants/MockRides'
 import TaxiTripCard from '../../components/TaxiTripCard'
+import CustomMap from '../../components/CustomMap'
 
 export default function Home() {
     const { user } = useUser();
@@ -12,7 +13,7 @@ export default function Home() {
         <View className='my-8 bg-[#F6F8FA] h-screen'>
             <SignedIn>
                 <View className='my-2 px-4'>
-                    <Text className='text-xl mt-4'>
+                    <Text className='text-xl mt-4 font-semibold'>
                         Hello {user?.emailAddresses[0].emailAddress}
                     </Text>
                 </View>
@@ -20,6 +21,20 @@ export default function Home() {
                 <FlatList
                     style={{ marginBottom: 100 }}
                     data={ridesMock}
+                    ListHeaderComponent={() => (
+                        <>
+                            <Text className='text-xl font-semibold ml-4 my-5'>
+                                Your current location
+                            </Text>
+                            <View className='h-[300px] bg-transparent mx-4'>
+                                <CustomMap />
+                            </View>
+
+                            <Text className='text-xl font-semibold ml-4 my-5'>
+                                Recent Rides
+                            </Text>
+                        </>
+                    )}
                     renderItem={({ item }) => (
                         <TaxiTripCard
                             data={item}
