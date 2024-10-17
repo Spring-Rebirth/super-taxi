@@ -9,7 +9,7 @@ export default function Home() {
     console.log('user:', JSON.stringify(user, null, 2));
 
     return (
-        <View className='my-8'>
+        <View className='my-8 bg-[#F6F8FA] h-screen'>
             <SignedIn>
                 <View className='my-2 px-4'>
                     <Text className='text-xl mt-4'>

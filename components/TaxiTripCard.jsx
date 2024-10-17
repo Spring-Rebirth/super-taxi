@@ -25,11 +25,14 @@ export default function TaxiTripCard({ data }) {
 
 
     return (
-        <View className='mb-4 mx-4'>
+        <View className='mb-4 mx-4 bg-[#FFFFFF] rounded-xl'>
 
-            <View className='flex-row'>
+            <View
+                className='flex-row mx-4 mt-4'
+                testID='top_main'
+            >
                 <Image
-                    className='w-[80px] h-[90px] rounded-lg'
+                    className='w-[80px] h-[80px] rounded-lg'
                     source={{ uri: mapImageUrl }}
                 />
                 <View
@@ -61,7 +64,34 @@ export default function TaxiTripCard({ data }) {
                     </View>
                 </View>
             </View>
-
+            <View
+                testID='info_content'
+                className='gap-y-1 bg-[#F6F8FA] m-2 h-44 rounded-xl overflow-hidden'
+            >
+                {/* 1 */}
+                <View className='flex-row justify-between items-center flex-1 mx-4'>
+                    <Text>hfkafhaks</Text>
+                    <Text>1111111111</Text>
+                </View>
+                <View className='bg-[#FFFFFF] h-[1px]' />
+                {/* 2 */}
+                <View className='flex-row justify-between items-center flex-1 mx-4'>
+                    <Text>hfkafhaks</Text>
+                    <Text>1111111111</Text>
+                </View>
+                <View className='bg-[#FFFFFF] h-[1px]' />
+                {/* 3 */}
+                <View className='flex-row justify-between items-center flex-1 mx-4'>
+                    <Text>hfkafhaks</Text>
+                    <Text>1111111111</Text>
+                </View>
+                <View className='bg-[#FFFFFF] h-[1px]' />
+                {/* 4 */}
+                <View className='flex-row justify-between items-center flex-1 mx-4'>
+                    <Text>hfkafhaks</Text>
+                    <Text>1111111111</Text>
+                </View>
+            </View>
 
         </View>
     )
