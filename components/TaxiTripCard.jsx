@@ -1,5 +1,7 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
+import toIcon from '../assets/icons/to.png'
+import pinIcon from '../assets/icons/pin.png'
 
 export default function TaxiTripCard({ data }) {
     const {
@@ -24,12 +26,43 @@ export default function TaxiTripCard({ data }) {
 
     return (
         <View className='mb-4 mx-4'>
+
             <View className='flex-row'>
                 <Image
                     className='w-[80px] h-[90px] rounded-lg'
                     source={{ uri: mapImageUrl }}
                 />
+                <View
+                    className='justify-around ml-4'
+                    testID='right_top_container'
+                >
+                    <View
+                        className='flex-row gap-2'
+                        testID='icon_and_text'
+                    >
+                        <Image
+                            className='w-5 h-5'
+                            source={toIcon}
+                            resizeMode='contain'
+                        />
+                        <Text>{destination_address}</Text>
+                    </View>
+
+                    <View
+                        className='flex-row gap-2'
+                        testID='icon_and_text'
+                    >
+                        <Image
+                            className='w-5 h-5'
+                            source={pinIcon}
+                            resizeMode='contain'
+                        />
+                        <Text>{origin_address}</Text>
+                    </View>
+                </View>
             </View>
+
+
         </View>
     )
 }
