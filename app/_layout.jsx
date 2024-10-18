@@ -17,8 +17,6 @@ if (!publishableKey) {
 	);
 }
 
-
-
 export default function RootLayout() {
 	// 直接在组件挂载后隐藏启动屏幕
 	useEffect(() => {
