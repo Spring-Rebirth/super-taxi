@@ -1,5 +1,5 @@
-import { Redirect, Slot, SplashScreen } from "expo-router";
-import { ClerkProvider, ClerkLoaded, SignedIn, SignedOut } from '@clerk/clerk-expo';
+import { Slot, SplashScreen } from "expo-router";
+import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo';
 import { tokenCache } from '../lib/clerk/auth'
 import { LogBox } from "react-native";
 import { useEffect } from "react";
@@ -16,7 +16,9 @@ if (!publishableKey) {
 }
 
 // 忽略特定的日志
-LogBox.ignoreLogs(["Clerk:"]);
+LogBox.ignoreLogs([
+	"Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview [Component Stack]"
+]);
 
 export default function RootLayout() {
 	// 直接在组件挂载后隐藏启动屏幕
