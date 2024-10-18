@@ -4,12 +4,40 @@ import { FlatList, Text, View } from 'react-native'
 import { ridesMock } from '../../constants/MockRides'
 import TaxiTripCard from '../../components/TaxiTripCard'
 import CustomMap from '../../components/CustomMap'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import * as Location from 'expo-location'
+import { useLocationStore } from '../../store/index'
 
 export default function Home() {
-    const { user } = useUser();
-    // console.log('user:', JSON.stringify(user, null, 2));
+    const { user } = useUser(); // console.log('user:', JSON.stringify(user, null, 2));
+    const { setUserLocation, setDestinationLocation } = useLocationStore();
     const [locationPermissions, setLocationPermissions] = useState(false);
+
+    useEffect(() => {
+        async function requestLocation() {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+
+            if (status !== 'granted') {
+                setLocationPermissions(false);
+                return;
+            }
+
+            let location = await Location.getCurrentPositionAsync();
+
+            const address = await Location.reverseGeocodeAsync({
+                latitude: location.coords?.latitude,
+                longitude: location.coords?.longitude
+            });
+
+            setUserLocation({
+                latitude: location.coords?.latitude,
+                longitude: location.coords?.longitude,
+                address: `${address[0].name}, ${address[0].region}`
+            });
+        }
+
+        requestLocation();
+    }, [])
 
     return (
         <View className='my-8 bg-[#F6F8FA] h-screen'>
