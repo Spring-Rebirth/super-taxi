@@ -7,6 +7,8 @@ import CustomMap from '../../components/CustomMap'
 import { useEffect, useState } from 'react'
 import * as Location from 'expo-location'
 import { useLocationStore } from '../../store/index'
+import GoogleTextInput from '../../components/GoogleTextInput'
+import searchIcon from '../../assets/icons/search.png'
 
 export default function Home() {
     const { user } = useUser(); // console.log('user:', JSON.stringify(user, null, 2));
@@ -45,7 +47,7 @@ export default function Home() {
         <View className='my-8 bg-[#F6F8FA] h-screen'>
             <SignedIn>
                 <View className='my-2 px-4'>
-                    <Text className='text-xl mt-4 font-semibold'>
+                    <Text className='text-xl my-4 font-semibold'>
                         Hello {user?.emailAddresses[0].emailAddress}
                     </Text>
                 </View>
@@ -55,6 +57,13 @@ export default function Home() {
                     data={ridesMock}
                     ListHeaderComponent={() => (
                         <>
+                            <View className='items-center'>
+                                <GoogleTextInput
+                                    icon={searchIcon}
+                                />
+                            </View>
+
+
                             <Text className='text-xl font-semibold ml-4 my-5'>
                                 Your current location
                             </Text>

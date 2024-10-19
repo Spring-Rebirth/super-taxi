@@ -44,6 +44,7 @@ export default function CustomMap() {
                         latitude: marker.latitude,
                         longitude: marker.longitude
                     }}
+                    title={marker.title}
                     image={marker.id === selectedDriver ? selectedMkIcon : markerIcon}
                 />
             ))}
