@@ -40,7 +40,7 @@ export default function TaxiTripCard({ data }) {
                     testID='right_top_container'
                 >
                     <View
-                        className='flex-row gap-2'
+                        className='flex-row gap-4'
                         testID='icon_and_text'
                     >
                         <Image
@@ -52,7 +52,7 @@ export default function TaxiTripCard({ data }) {
                     </View>
 
                     <View
-                        className='flex-row gap-2'
+                        className='flex-row gap-4'
                         testID='icon_and_text'
                     >
                         <Image
