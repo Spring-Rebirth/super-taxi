@@ -1,7 +1,7 @@
 // cSpell:words zustand
 import { create } from "zustand";
 
-export const useLocationStore = create((set) => ({
+export const useLocationStore = create(set => ({
     userAddress: null,
     userLongitude: null,
     userLatitude: null,
@@ -21,5 +21,19 @@ export const useLocationStore = create((set) => ({
             destinationLongitude: longitude,
             destinationAddress: address
         }))
+    }
+}))
+
+export const useDriverStore = create(set => ({
+    drivers: [],
+    selectedDriver: null,
+    setSelectedDriver: (driverId) => {
+        set(() => ({ selectedDriver: driverId }))
+    },
+    setDrivers: (drivers) => {
+        set(() => ({ drivers: drivers }))
+    },
+    clearSelectedDriver: () => {
+        set(() => ({ selectedDriver: null }))
     }
 }))
