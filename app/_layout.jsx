@@ -1,10 +1,9 @@
-import { LogBox } from "react-native";
+
 import { Slot, SplashScreen } from "expo-router";
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo';
 import { tokenCache } from '../lib/clerk/auth'
 import { useEffect } from "react";
 
-LogBox.ignoreLogs(["Clerk:"]);
 
 // 防止自动隐藏启动屏幕
 SplashScreen.preventAutoHideAsync();
