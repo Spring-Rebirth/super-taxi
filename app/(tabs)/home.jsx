@@ -37,7 +37,7 @@ export default function Home() {
         setDestinationLocation({
             latitude: item.lat,
             longitude: item.lon,
-            address: 'xxx'
+            address: item.address   // 一个对象
         });
 
 
