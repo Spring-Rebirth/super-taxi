@@ -10,8 +10,7 @@ import { useLocationStore } from '../../store/index'
 import OSMTextInput from '../../components/OSMTextInput'
 import searchIcon from '../../assets/icons/search.png'
 import axios from 'axios'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
-import { create } from 'zustand'
+
 
 export default function Home() {
     const { user } = useUser(); // console.log('user:', JSON.stringify(user, null, 2));
