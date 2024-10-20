@@ -32,7 +32,15 @@ export default function Home() {
 
     const handleResultPress = (item) => {
         // 在这里处理用户点击某个搜索结果的逻辑
-        console.log('Selected location:', item);
+        console.log('Selected location:', JSON.stringify(item, null, 2));
+
+        setDestinationLocation({
+            latitude: item.lat,
+            longitude: item.lon,
+            address: 'xxx'
+        });
+
+
         setSearchResults([]); // 选择后隐藏搜索结果
     };
 
