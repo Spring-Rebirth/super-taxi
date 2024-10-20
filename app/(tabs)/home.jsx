@@ -78,7 +78,7 @@ export default function Home() {
                 <View className='items-center'>
                     <OSMTextInput
                         icon={searchIcon}
-                        onSearch={searchLocation} // 传递搜索回调函数
+                        onSearch={searchLocation}
                     />
                 </View>
 
@@ -94,7 +94,7 @@ export default function Home() {
                                 </View>
                             </TouchableOpacity>
                         )}
-                        style={styles.searchResults} // 样式，确保搜索结果在页面的顶层
+                        style={styles.searchResults}
                     />
                 )}
 
