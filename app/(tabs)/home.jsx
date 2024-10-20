@@ -34,11 +34,17 @@ export default function Home() {
         // 在这里处理用户点击某个搜索结果的逻辑
         console.log('Selected location:', JSON.stringify(item, null, 2));
         const { address, lat, lon } = item;
-        const formattedAddress = `${address.house_number} ${address.road}, ${address.town}, ${address.state} ${address.postcode}, ${address.country}`;
+        const formattedAddress = [
+            address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,  // 检查 house_number 和 road
+            address.town,
+            address.state && address.postcode ? `${address.state} ${address.postcode}` : address.state || address.postcode,  // 检查 state 和 postcode
+            address.country
+        ].filter(Boolean).join(', ');
+
         setDestinationLocation({
             latitude: parseFloat(lat), // 确保转换为浮点数
             longitude: parseFloat(lon), // 确保转换为浮点数
-            address: '' // 一个对象
+            address: formattedAddress // 一个对象
         });
 
         router.push('/search/find-ride');
