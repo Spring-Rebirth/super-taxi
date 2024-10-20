@@ -10,7 +10,12 @@ export default function FindRide() {
 
     return (
         <View>
-            <Text>FindRide</Text>
+            <Text className='text-xl'>
+                {userAddress}
+            </Text>
+            <Text className='text-xl'>
+                {destinationAddress}
+            </Text>
         </View>
     )
 }
