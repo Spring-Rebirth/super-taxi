@@ -104,13 +104,6 @@ export default function Home() {
                     data={ridesMock}
                     ListHeaderComponent={() => (
                         <>
-                            {/* <View className='items-center'>
-                                <OSMTextInput
-                                    icon={searchIcon}
-                                />
-                            </View> */}
-
-
                             <Text className='text-xl font-semibold ml-4 my-5'>
                                 Your current location
                             </Text>
