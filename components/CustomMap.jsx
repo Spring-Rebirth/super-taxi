@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import MapView, { PROVIDER_DEFAULT, Marker } from 'react-native-maps'
+import MapView, { PROVIDER_OSM, Marker } from 'react-native-maps'
 import { useLocationStore } from '../store/index'
 import { calculateRegion, generateMarkersFromData } from '../lib/map'
 import { useEffect, useState } from 'react'
@@ -33,9 +33,12 @@ export default function CustomMap() {
     return (
         <MapView
             className='w-full h-full rounded-2xl'
-            provider={PROVIDER_DEFAULT}
+            provider={PROVIDER_OSM}
             initialRegion={region}
             showsUserLocation={true}
+            tintColor={'black'}
+            userInterfaceStyle={'light'}
+            showsPointsOfInterest={false}
         >
             {markers.map(marker => (
                 <Marker
