@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import { ridesMock } from '../../constants/MockRides'
 import TaxiTripCard from '../../components/TaxiTripCard'
@@ -35,11 +35,12 @@ export default function Home() {
         console.log('Selected location:', JSON.stringify(item, null, 2));
 
         setDestinationLocation({
-            latitude: item.lat,
-            longitude: item.lon,
+            latitude: parseFloat(item.lat), // 确保转换为浮点数
+            longitude: parseFloat(item.lon), // 确保转换为浮点数
             address: item.address   // 一个对象
         });
 
+        router.push('/search/find-ride');
 
         setSearchResults([]); // 选择后隐藏搜索结果
     };
