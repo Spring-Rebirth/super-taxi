@@ -1,6 +1,8 @@
+import 'react-native-get-random-values'
 import { View, Text, Image, TextInput } from 'react-native'
 import React from 'react'
 import pinIcon from '../assets/icons/pin.png'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 export default function GoogleTextInput({ icon }) {
     return (
@@ -11,9 +13,19 @@ export default function GoogleTextInput({ icon }) {
                 source={pinIcon}
                 resizeMode={'contain'}
             />
-            <TextInput
+            {/* <TextInput
                 className='ml-14'
                 placeholder='Search here'
+            /> */}
+            <GooglePlacesAutocomplete
+                placeholder='Search here'
+                fetchDetails={true}
+                debounce={200}
+                styles={{
+                    textInputContainer: {
+                        marginHorizontal: 50
+                    }
+                }}
             />
             <Image
                 className='w-5 h-5 absolute right-4'
