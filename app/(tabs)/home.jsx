@@ -7,7 +7,7 @@ import CustomMap from '../../components/CustomMap'
 import { useEffect, useState } from 'react'
 import * as Location from 'expo-location'
 import { useLocationStore } from '../../store/index'
-import GoogleTextInput from '../../components/GoogleTextInput'
+import OSMTextInput from '../../components/GoogleTextInput'
 import searchIcon from '../../assets/icons/search.png'
 
 export default function Home() {
@@ -58,7 +58,7 @@ export default function Home() {
                     ListHeaderComponent={() => (
                         <>
                             <View className='items-center'>
-                                <GoogleTextInput
+                                <OSMTextInput
                                     icon={searchIcon}
                                 />
                             </View>
