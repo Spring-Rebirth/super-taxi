@@ -33,11 +33,12 @@ export default function Home() {
     const handleResultPress = (item) => {
         // 在这里处理用户点击某个搜索结果的逻辑
         console.log('Selected location:', JSON.stringify(item, null, 2));
-
+        const { address, lat, lon } = item;
+        const formattedAddress = `${address.house_number} ${address.road}, ${address.town}, ${address.state} ${address.postcode}, ${address.country}`;
         setDestinationLocation({
-            latitude: parseFloat(item.lat), // 确保转换为浮点数
-            longitude: parseFloat(item.lon), // 确保转换为浮点数
-            address: item.address   // 一个对象
+            latitude: parseFloat(lat), // 确保转换为浮点数
+            longitude: parseFloat(lon), // 确保转换为浮点数
+            address: '' // 一个对象
         });
 
         router.push('/search/find-ride');

@@ -5,6 +5,9 @@ import { useLocationStore } from '../../store'
 export default function FindRide() {
     const { userAddress, destinationAddress, setUserLocation, setDestinationLocation } = useLocationStore();
 
+
+
+
     return (
         <View>
             <Text>FindRide</Text>
