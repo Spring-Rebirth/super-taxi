@@ -7,7 +7,7 @@ import CustomMap from '../../components/CustomMap'
 import { useEffect, useState } from 'react'
 import * as Location from 'expo-location'
 import { useLocationStore } from '../../store/index'
-import OSMTextInput from '../../components/GoogleTextInput'
+import OSMTextInput from '../../components/OSMTextInput'
 import searchIcon from '../../assets/icons/search.png'
 
 export default function Home() {
