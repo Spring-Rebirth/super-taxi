@@ -42,9 +42,9 @@ export default function Home() {
         ].filter(Boolean).join(', ');
 
         setDestinationLocation({
-            latitude: parseFloat(lat), // 确保转换为浮点数
+            latitude: parseFloat(lat),  // 确保转换为浮点数
             longitude: parseFloat(lon), // 确保转换为浮点数
-            address: formattedAddress // 一个对象
+            address: formattedAddress   // 一个字符串
         });
 
         router.push('/search/find-ride');
