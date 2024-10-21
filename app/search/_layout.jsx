@@ -17,9 +17,9 @@ export default function RideLayout() {
         if (pathname === '/search/confirm-ride') {
             // 当路由为某个特定页面时，设置不同的 snapPoints
             setSnapPoints(["65%", "95%"]);
-        } else if (pathname === '/another-route') {
+        } else if (pathname === '/search/book-ride') {
             // 设置另一个特定页面的 snapPoints
-            setSnapPoints(["10%", "95%"]);
+            setSnapPoints(["85%", "95%"]);
         } else {
             // 默认 snapPoints
             setSnapPoints(["44%", "95%"]);

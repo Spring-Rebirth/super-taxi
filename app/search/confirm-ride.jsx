@@ -3,6 +3,7 @@ import React from 'react'
 import { driverMock } from '../../constants/MockDrivers'
 import DriverCard from '../../components/DriverCard'
 import CustomButton from '../../components/CustomButton'
+import { router } from 'expo-router'
 
 export default function ConfirmRide() {
     return (
@@ -13,6 +14,7 @@ export default function ConfirmRide() {
                     <View className='mt-3'>
                         <CustomButton
                             title={'Select Ride'}
+                            onPress={() => router.push('/search/book-ride')}
                         />
                     </View>
                 )}
