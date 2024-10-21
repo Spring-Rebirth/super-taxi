@@ -29,7 +29,7 @@ export default function OSMTextInput({
             <View className={`flex-row items-center w-11/12 h-12 rounded-full relative ${containerStyle}`}>
                 <Image className='w-5 h-5 absolute left-4' source={pinIcon} resizeMode={'contain'} />
                 <TextInput
-                    className='ml-14'
+                    className='mx-12'
                     placeholder='Search here'
                     value={query}
                     onChangeText={handleInputChange}
