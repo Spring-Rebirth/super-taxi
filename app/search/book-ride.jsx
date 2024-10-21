@@ -9,7 +9,7 @@ const BookRide = () => {
     const { userAddress, destinationAddress } = useLocationStore();
     const { drivers, selectedDriver } = useDriverStore();
 
-    console.log('drivers:', drivers);
+    // console.log('drivers:', drivers);
 
     const driverDetails = drivers?.filter(
         (driver) => +driver.id === selectedDriver,
@@ -52,14 +52,14 @@ const BookRide = () => {
                 <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
                     <Text className="text-lg">Ride Price</Text>
                     <Text className="text-lg text-[#0CC25F]">
-                        ${driverDetails?.price}
+                        ${driverDetails?.price || 999}
                     </Text>
                 </View>
 
                 <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
                     <Text className="text-lg">Pickup Time</Text>
                     <Text className="text-lg">
-                        {formatTime(driverDetails?.time)}
+                        {formatTime(driverDetails?.time || 5)}
                     </Text>
                 </View>
 
