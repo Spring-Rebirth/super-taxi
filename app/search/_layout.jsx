@@ -1,6 +1,6 @@
-import { Slot } from 'expo-router'
+import { Slot, usePathname } from 'expo-router'
 import { View, Text, Image } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
@@ -10,6 +10,21 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 
 export default function RideLayout() {
     const bottomSheetRef = useRef(null);
+    const pathname = usePathname(); // 获取当前路由路径
+    const [snapPoints, setSnapPoints] = useState(["44%", "95%"]);
+
+    useEffect(() => {
+        if (pathname === '/some-route') {
+            // 当路由为某个特定页面时，设置不同的 snapPoints
+            setSnapPoints(["20%", "70%"]);
+        } else if (pathname === '/another-route') {
+            // 设置另一个特定页面的 snapPoints
+            setSnapPoints(["10%", "50%"]);
+        } else {
+            // 默认 snapPoints
+            setSnapPoints(["44%", "95%"]);
+        }
+    }, [pathname]); // 路由变化时触发
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -38,7 +53,7 @@ export default function RideLayout() {
 
                 <BottomSheet
                     ref={bottomSheetRef}
-                    snapPoints={["44%", "95%"]}
+                    snapPoints={snapPoints}
                     index={0}
                 >
                     <BottomSheetView style={{ flex: 1, padding: 15 }}>
