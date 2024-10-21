@@ -12,7 +12,7 @@ export default function RideLayout() {
     const bottomSheetRef = useRef(null);
 
     return (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView style={{ flex: 1 }}>
             <View className='flex-1 bg-white'>
                 <View className='flex-1 bg-blue-500'>
                     <View className='flex-row absolute z-10 top-16 items-center justify-start px-5'>
@@ -38,10 +38,10 @@ export default function RideLayout() {
 
                 <BottomSheet
                     ref={bottomSheetRef}
-                    snapPoints={["40%", "85%"]}
+                    snapPoints={["85%", "100%"]}
                     index={0}
                 >
-                    <BottomSheetScrollView style={{ flex: 1, padding: 20 }}>
+                    <BottomSheetScrollView style={{ flex: 1, padding: 15 }}>
                         <Slot />
                     </BottomSheetScrollView>
                 </BottomSheet>
