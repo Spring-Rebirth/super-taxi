@@ -10,6 +10,7 @@ import { useLocationStore } from '../../store/index'
 import OSMTextInput from '../../components/OSMTextInput'
 import searchIcon from '../../assets/icons/search.png'
 import axios from 'axios'
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 
 
 export default function Home() {
@@ -17,9 +18,12 @@ export default function Home() {
     const { setUserLocation, setDestinationLocation } = useLocationStore();
     const [locationPermissions, setLocationPermissions] = useState(false);
 
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
+    const [query, setQuery] = useState('');  // 保存搜索框的内容
 
+    // 处理地点搜索
     const searchLocation = async (query) => {
+        setQuery(query); // 保存当前的查询
         if (query.length > 2) {
             const response = await axios.get(
                 `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`
@@ -96,25 +100,10 @@ export default function Home() {
                         containerStyle={'bg-[#FFFFFF]'}
                         icon={searchIcon}
                         onSearch={searchLocation}
+                        searchResults={searchResults}
+                        onSelectResult={handleResultPress}
                     />
                 </View>
-
-                {/* 将搜索结果的FlatList移到主布局外 */}
-                {searchResults.length > 0 && (
-                    <FlatList
-                        data={searchResults}
-                        keyExtractor={(item) => item.place_id.toString()}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleResultPress(item)}>
-                                <View style={styles.resultItem}>
-                                    <Text>{item.display_name}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )}
-                        style={styles.searchResults}
-                    />
-                )}
-
 
                 <FlatList
                     style={{ marginBottom: 100 }}
@@ -152,28 +141,3 @@ export default function Home() {
         </View>
     )
 }
-const styles = StyleSheet.create({
-    input: {
-        flex: 1,
-        backgroundColor: 'white',
-        fontWeight: '400',
-        paddingHorizontal: 16,
-        height: '100%',
-        borderRadius: 25,
-    },
-    searchResults: {
-        position: 'absolute', // 确保FlatList绝对定位
-        top: 120, // 根据需要调整
-        left: 0,
-        right: 0,
-        zIndex: 999, // 保证其在顶层
-        backgroundColor: 'white',
-        borderRadius: 10,
-        maxHeight: 200, // 限制高度，防止溢出
-    },
-    resultItem: {
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#d4d4d4',
-    },
-});
