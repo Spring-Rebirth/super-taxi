@@ -10,7 +10,6 @@ import { useLocationStore } from '../../store/index'
 import OSMTextInput from '../../components/OSMTextInput'
 import searchIcon from '../../assets/icons/search.png'
 import axios from 'axios'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 
 
 export default function Home() {

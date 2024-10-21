@@ -1,10 +1,19 @@
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import React from 'react'
+import { driverMock } from '../../constants/MockDrivers'
+import DriverCard from '../../components/DriverCard'
 
 export default function ConfirmRide() {
     return (
         <View>
-            <Text>Confirm Ride</Text>
+            <FlatList
+                data={driverMock}
+                renderItem={({ item }) => (
+                    <DriverCard
+                        item={item}
+                    />
+                )}
+            />
         </View>
     )
 }
