@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
 import backArrowIcon from '../../assets/icons/back-arrow.png'
 import CustomMap from '../../components/CustomMap'
-import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 
 export default function RideLayout() {
     const bottomSheetRef = useRef(null);
@@ -41,9 +41,9 @@ export default function RideLayout() {
                     snapPoints={["95%"]}
                     index={0}
                 >
-                    <BottomSheetScrollView style={{ flex: 1, padding: 15 }}>
+                    <BottomSheetView style={{ flex: 1, padding: 15 }}>
                         <Slot />
-                    </BottomSheetScrollView>
+                    </BottomSheetView>
                 </BottomSheet>
             </View>
         </GestureHandlerRootView>
