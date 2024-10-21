@@ -23,7 +23,7 @@ export default function RideLayout() {
                             </View>
                         </TouchableOpacity>
                         <Text className='text-xl ml-5'>
-                            {title || 'Go Back'}
+                            Go Back
                         </Text>
                     </View>
 
