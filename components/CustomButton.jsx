@@ -4,7 +4,7 @@ import React from 'react'
 export default function CustomButton({ containerStyle, titleStyle, title, onPress }) {
     return (
         <TouchableOpacity
-            className={`w-11/12 h-12 rounded-full bg-[#0286FF] justify-center \
+            className={`w-full h-12 rounded-full bg-[#0286FF] justify-center \
              items-center ${containerStyle}`}
             onPress={onPress}
         >

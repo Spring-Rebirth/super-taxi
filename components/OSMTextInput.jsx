@@ -26,7 +26,7 @@ export default function OSMTextInput({
     return (
         <View>
             {/* 搜索框 */}
-            <View className={`flex-row items-center w-11/12 h-12 rounded-full relative ${containerStyle}`}>
+            <View className={`flex-row items-center w-full h-12 rounded-full relative ${containerStyle}`}>
                 <Image className='w-5 h-5 absolute left-4' source={pinIcon} resizeMode={'contain'} />
                 <TextInput
                     className='mx-10'
