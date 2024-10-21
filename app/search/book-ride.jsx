@@ -9,13 +9,17 @@ const BookRide = () => {
     const { userAddress, destinationAddress } = useLocationStore();
     const { drivers, selectedDriver } = useDriverStore();
 
+    console.log('drivers:', drivers);
+
     const driverDetails = drivers?.filter(
         (driver) => +driver.id === selectedDriver,
     )[0];
 
+    console.log('driverDetails:', driverDetails);
+
     return (
         <>
-            <Text className="text-xl font-JakartaSemiBold mb-3">
+            <Text className="text-xl font-semibold mb-3">
                 Ride Information
             </Text>
 
@@ -26,7 +30,7 @@ const BookRide = () => {
                 />
 
                 <View className="flex flex-row items-center justify-center mt-5 space-x-2">
-                    <Text className="text-lg font-JakartaSemiBold">
+                    <Text className="text-lg font-semibold">
                         {driverDetails?.title}
                     </Text>
 
@@ -36,7 +40,7 @@ const BookRide = () => {
                             className="w-5 h-5"
                             resizeMode="contain"
                         />
-                        <Text className="text-lg font-JakartaRegular">
+                        <Text className="text-lg">
                             {driverDetails?.rating}
                         </Text>
                     </View>
@@ -46,22 +50,22 @@ const BookRide = () => {
             <View
                 className="flex flex-col w-full items-start justify-center py-3 px-5 rounded-3xl bg-general-600 mt-5">
                 <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
-                    <Text className="text-lg font-JakartaRegular">Ride Price</Text>
-                    <Text className="text-lg font-JakartaRegular text-[#0CC25F]">
+                    <Text className="text-lg">Ride Price</Text>
+                    <Text className="text-lg text-[#0CC25F]">
                         ${driverDetails?.price}
                     </Text>
                 </View>
 
                 <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
-                    <Text className="text-lg font-JakartaRegular">Pickup Time</Text>
-                    <Text className="text-lg font-JakartaRegular">
+                    <Text className="text-lg">Pickup Time</Text>
+                    <Text className="text-lg">
                         {formatTime(driverDetails?.time)}
                     </Text>
                 </View>
 
                 <View className="flex flex-row items-center justify-between w-full py-3">
-                    <Text className="text-lg font-JakartaRegular">Car Seats</Text>
-                    <Text className="text-lg font-JakartaRegular">
+                    <Text className="text-lg ">Car Seats</Text>
+                    <Text className="text-lg ">
                         {driverDetails?.car_seats}
                     </Text>
                 </View>

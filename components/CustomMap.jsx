@@ -10,6 +10,7 @@ import selectedMkIcon from '../assets/icons/selected-marker.png'
 import * as Location from 'expo-location'; // 用于获取用户位置
 import userLocationIcon from '../assets/icons/target.png';
 
+
 export default function CustomMap({ myLocationHeight = 20 }) {
     const { userLongitude, userLatitude, destinationLongitude, destinationLatitude } = useLocationStore();
     const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });
@@ -39,6 +40,9 @@ export default function CustomMap({ myLocationHeight = 20 }) {
     };
 
     useEffect(() => {
+        // TODO Remove
+        setDrivers(driverMock);
+
         if (Array.isArray(drivers)) {
             if (!userLatitude || !userLongitude) return;
 
