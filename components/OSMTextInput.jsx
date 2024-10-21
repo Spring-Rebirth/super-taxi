@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
     },
     searchResults: {
         position: 'absolute', // 确保FlatList绝对定位
-        top: 60, // 根据需要调整
+        top: 52, // 根据需要调整
         left: 0,
         right: 0,
         zIndex: 999, // 保证其在顶层
-        backgroundColor: '#F6F6F6',
+        backgroundColor: '#F0F8FF',
         borderRadius: 10,
         maxHeight: 200, // 限制高度，防止溢出
     },
