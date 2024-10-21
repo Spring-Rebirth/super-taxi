@@ -12,17 +12,21 @@ export default function RideLayout() {
     const bottomSheetRef = useRef(null);
     const pathname = usePathname(); // 获取当前路由路径
     const [snapPoints, setSnapPoints] = useState(["44%", "95%"]);
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         if (pathname === '/search/confirm-ride') {
             // 当路由为某个特定页面时，设置不同的 snapPoints
             setSnapPoints(["65%", "95%"]);
+            setIndex(0);
         } else if (pathname === '/search/book-ride') {
             // 设置另一个特定页面的 snapPoints
-            setSnapPoints(["85%", "95%"]);
+            setSnapPoints(["65%", "95%"]);
+            setIndex(1);
         } else {
             // 默认 snapPoints
             setSnapPoints(["44%", "95%"]);
+            setIndex(0);
         }
     }, [pathname]); // 路由变化时触发
 
@@ -54,7 +58,7 @@ export default function RideLayout() {
                 <BottomSheet
                     ref={bottomSheetRef}
                     snapPoints={snapPoints}
-                    index={0}
+                    index={index}
                 >
                     <BottomSheetView style={{ flex: 1, padding: 15 }}>
                         <Slot />

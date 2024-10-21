@@ -3,6 +3,7 @@ import { Image, Text, View } from "react-native";
 import { icons } from "@/constants";
 import { formatTime } from "@/lib/utils";
 import { useDriverStore, useLocationStore } from "@/store";
+import Payment from "../../components/payment";
 
 const BookRide = () => {
     const { user } = useUser();
@@ -87,6 +88,8 @@ const BookRide = () => {
                     </Text>
                 </View>
             </View>
+
+            <Payment />
         </>
     );
 };
