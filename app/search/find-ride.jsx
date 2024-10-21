@@ -10,13 +10,13 @@ export default function FindRide() {
 
 
     return (
-        <SafeAreaView>
-            <Text className='text-xl'>
-                {userAddress}
-            </Text>
-            <Text className='text-xl'>
-                {destinationAddress}
-            </Text>
-        </SafeAreaView>
+        <>
+            <View className='my-3'>
+                <Text className='text-lg mb-3'>
+                    From
+                </Text>
+
+            </View>
+        </>
     )
 }
