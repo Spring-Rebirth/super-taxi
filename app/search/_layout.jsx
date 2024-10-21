@@ -1,13 +1,16 @@
 import { Slot } from 'expo-router'
 import { View, Text, Image } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
 import backArrowIcon from '../../assets/icons/back-arrow.png'
 import CustomMap from '../../components/CustomMap'
+import BottomSheet from '@gorhom/bottom-sheet'
 
 export default function RideLayout() {
+    const bottomSheetRef = useRef(null);
+
     return (
         <GestureHandlerRootView>
             <View className='flex-1 bg-white'>
@@ -33,6 +36,13 @@ export default function RideLayout() {
 
                 </View>
 
+                <BottomSheet
+                    ref={bottomSheetRef}
+                    snapPoints={["40%", "85%"]}
+                    index={0}
+                >
+
+                </BottomSheet>
             </View>
         </GestureHandlerRootView>
     )
