@@ -1,7 +1,8 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { useLocationStore } from '../../store'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import OSMTextInput from '../../components/OSMTextInput'
+import searchIcon from '../../assets/icons/search.png'
 
 export default function FindRide() {
     const { userAddress, destinationAddress, setUserLocation, setDestinationLocation } = useLocationStore();
@@ -15,7 +16,13 @@ export default function FindRide() {
                 <Text className='text-lg mb-3'>
                     From
                 </Text>
-
+                <View className='items-center '>
+                    <OSMTextInput
+                        containerStyle={'bg-neutral-100'}
+                        icon={searchIcon}
+                        textInputStyle={{ backgroundColor: 'transparent' }}
+                    />
+                </View>
             </View>
         </>
     )

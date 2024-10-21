@@ -93,6 +93,7 @@ export default function Home() {
                 {/* 将 OSMTextInput 作为头部组件 */}
                 <View className='items-center'>
                     <OSMTextInput
+                        containerStyle={'bg-[#FFFFFF]'}
                         icon={searchIcon}
                         onSearch={searchLocation}
                     />

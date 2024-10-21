@@ -4,22 +4,9 @@ import React, { useState } from 'react';
 import pinIcon from '../assets/icons/pin.png';
 import axios from 'axios';
 
-export default function OSMTextInput({ icon, handlePress, onSearch }) {
+export default function OSMTextInput({ icon, handlePress, onSearch, containerStyle, textInputStyle }) {
     // const [searchResults, setSearchResults] = useState([]);
     const [query, setQuery] = useState('');
-
-    // Nominatim Search API
-    // const searchLocation = async (text) => {
-    //     setQuery(text);
-    //     if (text.length > 2) {
-    //         const response = await axios.get(
-    //             `https://nominatim.openstreetmap.org/search?q=${text}&format=json&addressdetails=1&limit=5`
-    //         );
-    //         setSearchResults(response.data);
-    //     } else {
-    //         setSearchResults([]);
-    //     }
-    // };
 
     // 当输入内容变化时，触发onSearch回调
     const handleInputChange = (text) => {
@@ -28,14 +15,14 @@ export default function OSMTextInput({ icon, handlePress, onSearch }) {
     };
 
     return (
-        <View className='flex-row bg-[#FFFFFF] items-center w-11/12 h-12 rounded-full relative'>
+        <View className={`flex-row items-center w-11/12 h-12 rounded-full relative ${containerStyle}`}>
             <Image className='w-5 h-5 absolute left-4' source={pinIcon} resizeMode={'contain'} />
             <TextInput
                 className='ml-14'
                 placeholder='Search here'
                 value={query}
                 onChangeText={handleInputChange}
-                style={styles.input}
+                style={[styles.input, textInputStyle]}
             />
             <Image className='w-5 h-5 absolute right-4' source={icon} resizeMode={'contain'} />
         </View>
