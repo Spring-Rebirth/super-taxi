@@ -8,43 +8,63 @@ import mapIcon from '../../assets/icons/map.png'
 import CustomButton from '../../components/CustomButton'
 import axios from 'axios'
 import { router } from 'expo-router'
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 
 
 export default function FindRide() {
     const { userAddress, destinationAddress, setUserLocation, setDestinationLocation } = useLocationStore();
-    const [searchResults, setSearchResults] = useState([]);
+    const [fromSearchResults, setFromSearchResults] = useState([]); // 为 From 输入框管理搜索结果
+    const [toSearchResults, setToSearchResults] = useState([]); // 为 To 输入框管理搜索结果
 
-    const searchLocation = async (query) => {
+    const searchLocation = async (query, type) => {
         if (query.length > 2) {
             const response = await axios.get(
                 `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`
             );
-            setSearchResults(response.data); // 设置搜索结果
+            if (type === 'from') {
+                setFromSearchResults(response.data); // 设置 From 搜索结果
+            } else if (type === 'to') {
+                setToSearchResults(response.data); // 设置 To 搜索结果
+            }
         } else {
-            setSearchResults([]); // 如果输入少于3个字符，清空结果
+            if (type === 'from') {
+                setFromSearchResults([]); // 清空 From 搜索结果
+            } else if (type === 'to') {
+                setToSearchResults([]); // 清空 To 搜索结果
+            }
         }
     };
 
-    const handleResultPress = (item) => {
-        // 在这里处理用户点击某个搜索结果的逻辑
+    const handleResultPress = (item, type) => {
         console.log('Selected location:', JSON.stringify(item, null, 2));
         const { address, lat, lon } = item;
         const formattedAddress = [
-            address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,  // 检查 house_number 和 road
+            address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,
             address.town,
-            address.state && address.postcode ? `${address.state} ${address.postcode}` : address.state || address.postcode,  // 检查 state 和 postcode
+            address.state && address.postcode ? `${address.state} ${address.postcode}` : address.state || address.postcode,
             address.country
         ].filter(Boolean).join(', ');
 
-        setDestinationLocation({
-            latitude: parseFloat(lat),  // 确保转换为浮点数
-            longitude: parseFloat(lon), // 确保转换为浮点数
-            address: formattedAddress   // 一个字符串
-        });
+        if (type === 'from') {
+            setUserLocation({
+                latitude: parseFloat(lat),
+                longitude: parseFloat(lon),
+                address: formattedAddress
+            });
+        } else if (type === 'to') {
+            setDestinationLocation({
+                latitude: parseFloat(lat),
+                longitude: parseFloat(lon),
+                address: formattedAddress
+            });
+        }
 
-        router.push('/search/find-ride');
-
-        setSearchResults([]); // 选择后隐藏搜索结果
+        // 隐藏结果列表
+        if (type === 'from') {
+            setFromSearchResults([]);
+        } else if (type === 'to') {
+            setToSearchResults([]);
+        }
     };
 
     return (
@@ -59,9 +79,9 @@ export default function FindRide() {
                         icon={targetIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
                         value={userAddress}
-                        onSearch={searchLocation}
-                        searchResults={searchResults}
-                        onSelectResult={handleResultPress}
+                        onSearch={(query) => searchLocation(query, 'from')}
+                        searchResults={fromSearchResults}
+                        onSelectResult={(item) => handleResultPress(item, 'from')}
                     />
                 </View>
             </View>
@@ -76,9 +96,9 @@ export default function FindRide() {
                         icon={mapIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
                         value={destinationAddress}
-                        onSearch={searchLocation}
-                        searchResults={searchResults}
-                        onSelectResult={handleResultPress}
+                        onSearch={(query) => searchLocation(query, 'to')}
+                        searchResults={toSearchResults}
+                        onSelectResult={(item) => handleResultPress(item, 'to')}
                     />
                 </View>
             </View>

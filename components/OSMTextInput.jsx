@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         zIndex: 999, // 保证其在顶层
-        backgroundColor: 'white',
+        backgroundColor: '#F6F6F6',
         borderRadius: 10,
         maxHeight: 200, // 限制高度，防止溢出
     },
