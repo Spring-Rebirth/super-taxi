@@ -4,9 +4,10 @@ import CustomButton from './CustomButton'
 
 export default function Payment() {
     return (
-        <View className='h-20'>
+        <View className='my-10'>
             <CustomButton
-                className='my-10'
+                className=''
+                title={'Confirm Ride'}
             />
         </View>
     )
