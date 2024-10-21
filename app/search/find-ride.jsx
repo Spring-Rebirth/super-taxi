@@ -2,13 +2,10 @@ import { View, Text } from 'react-native'
 import React, { useState } from 'react'
 import { useLocationStore } from '../../store'
 import OSMTextInput from '../../components/OSMTextInput'
-import searchIcon from '../../assets/icons/search.png'
 import targetIcon from '../../assets/icons/target.png'
 import mapIcon from '../../assets/icons/map.png'
 import CustomButton from '../../components/CustomButton'
 import axios from 'axios'
-import { router } from 'expo-router'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 
 
 export default function FindRide() {
@@ -102,7 +99,7 @@ export default function FindRide() {
                     />
                 </View>
             </View>
-            <View className='items-center mt-3 h-24'>
+            <View className='items-center mt-8 h-24'>
                 <CustomButton
                     title={'Find Now'}
                 />
