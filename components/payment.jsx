@@ -3,6 +3,8 @@ import React from 'react'
 import CustomButton from './CustomButton'
 
 export default function Payment() {
+
+
     const openPaymentSheet = () => {
 
     }
