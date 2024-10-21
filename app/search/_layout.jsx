@@ -14,12 +14,12 @@ export default function RideLayout() {
     const [snapPoints, setSnapPoints] = useState(["44%", "95%"]);
 
     useEffect(() => {
-        if (pathname === '/some-route') {
+        if (pathname === '/search/confirm-ride') {
             // 当路由为某个特定页面时，设置不同的 snapPoints
-            setSnapPoints(["20%", "70%"]);
+            setSnapPoints(["65%", "95%"]);
         } else if (pathname === '/another-route') {
             // 设置另一个特定页面的 snapPoints
-            setSnapPoints(["10%", "50%"]);
+            setSnapPoints(["10%", "95%"]);
         } else {
             // 默认 snapPoints
             setSnapPoints(["44%", "95%"]);
