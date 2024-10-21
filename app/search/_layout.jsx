@@ -38,7 +38,7 @@ export default function RideLayout() {
 
                 <BottomSheet
                     ref={bottomSheetRef}
-                    snapPoints={["85%", "100%"]}
+                    snapPoints={["85%"]}
                     index={0}
                 >
                     <BottomSheetScrollView style={{ flex: 1, padding: 15 }}>
