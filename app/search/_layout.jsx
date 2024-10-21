@@ -1,18 +1,20 @@
+import { Slot } from 'expo-router'
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { TouchableOpacity } from 'react-native'
 import { router } from 'expo-router'
-import backArrowIcon from '../assets/icons/back-arrow.png'
+import backArrowIcon from '../../assets/icons/back-arrow.png'
+import CustomMap from '../../components/CustomMap'
 
-export default function RideLayout({ children }) {
+export default function RideLayout() {
     return (
         <GestureHandlerRootView>
             <View className='flex-1 bg-white'>
                 <View className='h-screen bg-blue-500'>
                     <View className='flex-row absolute z-10 top-16 items-center justify-start px-5'>
                         <TouchableOpacity onPress={() => router.back()}>
-                            <View>
+                            <View className='w-10 h-10 bg-white rounded-full justify-center items-center'>
                                 <Image
                                     className='w-6 h-6'
                                     source={backArrowIcon}
@@ -20,7 +22,13 @@ export default function RideLayout({ children }) {
                                 />
                             </View>
                         </TouchableOpacity>
+                        <Text className='text-xl ml-5'>
+                            {title || 'Go Back'}
+                        </Text>
                     </View>
+
+                    <CustomMap />
+
                 </View>
 
             </View>
