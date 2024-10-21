@@ -3,6 +3,8 @@ import React from 'react'
 import { useLocationStore } from '../../store'
 import OSMTextInput from '../../components/OSMTextInput'
 import searchIcon from '../../assets/icons/search.png'
+import targetIcon from '../../assets/icons/target.png'
+import mapIcon from '../../assets/icons/map.png'
 import CustomButton from '../../components/CustomButton'
 
 export default function FindRide() {
@@ -20,7 +22,7 @@ export default function FindRide() {
                 <View className='items-center'>
                     <OSMTextInput
                         containerStyle={'bg-neutral-100'}
-                        icon={searchIcon}
+                        icon={targetIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
                     />
                 </View>
@@ -33,7 +35,7 @@ export default function FindRide() {
                 <View className='items-center'>
                     <OSMTextInput
                         containerStyle={'bg-neutral-100'}
-                        icon={searchIcon}
+                        icon={mapIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
                     />
                 </View>
