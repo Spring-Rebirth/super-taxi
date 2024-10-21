@@ -6,12 +6,12 @@ import { router } from 'expo-router'
 import { useDriverStore } from '../../store'
 
 export default function ConfirmRide() {
-    const { driver, selectedDriver, setSelectedDriver } = useDriverStore();
-
+    const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();
+    console.log('drivers:', JSON.stringify(drivers, null, 2));
     return (
         <View>
             <FlatList
-                data={driver}
+                data={drivers}
                 ListFooterComponent={() => (
                     <View className='mt-3'>
                         <CustomButton
