@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import pinIcon from '../assets/icons/pin.png';
 import axios from 'axios';
 
-export default function OSMTextInput({ icon, handlePress, onSearch, containerStyle, textInputStyle }) {
+export default function OSMTextInput({ icon, handlePress, onSearch, containerStyle, textInputStyle, value }) {
     // const [searchResults, setSearchResults] = useState([]);
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState(value || '');
 
     // 当输入内容变化时，触发onSearch回调
     const handleInputChange = (text) => {

@@ -24,6 +24,7 @@ export default function FindRide() {
                         containerStyle={'bg-neutral-100'}
                         icon={targetIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
+                        value={userAddress}
                     />
                 </View>
             </View>
@@ -37,6 +38,7 @@ export default function FindRide() {
                         containerStyle={'bg-neutral-100'}
                         icon={mapIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
+                        value={destinationAddress}
                     />
                 </View>
             </View>
