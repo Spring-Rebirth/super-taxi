@@ -82,7 +82,7 @@ const BookRide = () => {
 
                 <View className="flex flex-row items-center justify-start border-b border-general-700 w-full py-3">
                     <Image source={icons.point} className="w-6 h-6" />
-                    <Text className="text-lg font-JakartaRegular ml-2">
+                    <Text className="text-lg mx-2">
                         {destinationAddress}
                     </Text>
                 </View>
