@@ -95,7 +95,7 @@ export default function Home() {
                 </View>
 
                 {/* 将 OSMTextInput 作为头部组件 */}
-                <View className='items-center'>
+                <View className='items-center px-4'>
                     <OSMTextInput
                         containerStyle={'bg-[#FFFFFF]'}
                         icon={searchIcon}
