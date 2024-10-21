@@ -11,7 +11,7 @@ export default function RideLayout() {
     return (
         <GestureHandlerRootView>
             <View className='flex-1 bg-white'>
-                <View className='h-screen bg-blue-500'>
+                <View className='flex-1 bg-blue-500'>
                     <View className='flex-row absolute z-10 top-16 items-center justify-start px-5'>
                         <TouchableOpacity onPress={() => router.back()}>
                             <View className='w-10 h-10 bg-white rounded-full justify-center items-center'>
@@ -22,12 +22,14 @@ export default function RideLayout() {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Text className='text-xl ml-5'>
-                            Go Back
-                        </Text>
+                        {/* <Text className='text-xl ml-5'>
+                            Back
+                        </Text> */}
                     </View>
 
-                    <CustomMap />
+                    <View className='absolute top-0 bottom-0 left-0 right-0'>
+                        <CustomMap />
+                    </View>
 
                 </View>
 
