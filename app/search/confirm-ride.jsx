@@ -4,7 +4,7 @@ import React from 'react'
 export default function ConfirmRide() {
     return (
         <View>
-            <Text>ConfirmRide</Text>
+            <Text>Confirm Ride</Text>
         </View>
     )
 }

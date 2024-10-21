@@ -6,6 +6,7 @@ import targetIcon from '../../assets/icons/target.png'
 import mapIcon from '../../assets/icons/map.png'
 import CustomButton from '../../components/CustomButton'
 import axios from 'axios'
+import { router } from 'expo-router'
 
 
 export default function FindRide() {
@@ -102,6 +103,7 @@ export default function FindRide() {
             <View className='items-center mt-8 h-24'>
                 <CustomButton
                     title={'Find Now'}
+                    onPress={() => router.push('/search/confirm-ride')}
                 />
             </View>
         </>
