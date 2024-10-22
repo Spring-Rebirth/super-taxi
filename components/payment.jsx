@@ -4,7 +4,7 @@ import CustomButton from './CustomButton'
 import { PaymentSheetError, useStripe } from '@stripe/stripe-react-native'
 
 
-export default function Payment() {
+export default function Payment({ fullName, email, amount, driverId, rideTime }) {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [success, setSuccess] = useState(false);
 
@@ -17,7 +17,10 @@ export default function Payment() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    // name: fullName
+                    name: fullName || email.split("@")[0],
+                    email: email,
+                    amount: amount,
+                    paymentMethodId: paymentMethod.id
                 })
             }
         );
