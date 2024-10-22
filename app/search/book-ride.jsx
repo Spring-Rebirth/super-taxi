@@ -23,8 +23,8 @@ const BookRide = () => {
     return (
         <StripeProvider
             publishableKey={process.env.EXPO_PUBLIC_STRIPE_API_KEY}
-            merchantIdentifier="merchant.identifier" // required for Apple Pay
-            urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+            merchantIdentifier="merchant.uber.com"
+            urlScheme="myapp"
         >
             <Text className="text-xl font-semibold mb-3">
                 Ride Information
