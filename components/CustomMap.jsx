@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import MapView, { PROVIDER_OSM, Marker } from 'react-native-maps'
 import { useLocationStore } from '../store/index'
-import { calculateRegion, generateMarkersFromData } from '../lib/map'
+import { calculateDriverTimes, calculateRegion, generateMarkersFromData } from '../lib/map'
 import { useEffect, useRef, useState } from 'react'
 import { useDriverStore } from '../store/index'
 import markerIcon from '../assets/icons/marker.png'
@@ -51,6 +51,20 @@ export default function CustomMap({ myLocationHeight = 20 }) {
             setMarkers(newMarkers);
         }
     }, [drivers, userLatitude, userLongitude])
+
+    useEffect(() => {
+        if (markers.length > 0 && destinationLatitude && destinationLongitude) {
+            calculateDriverTimes({
+                markers,
+                userLatitude,
+                userLongitude,
+                destinationLatitude,
+                destinationLongitude
+            }).then((drivers) => {
+                setDrivers(drivers);
+            })
+        }
+    }, [markers, destinationLatitude, destinationLongitude])
 
     if (loading || !userLatitude || !userLongitude) {
         return (

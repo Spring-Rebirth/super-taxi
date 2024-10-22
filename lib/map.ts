@@ -1,12 +1,13 @@
-import {Driver, MarkerData} from "@/types/type";
+import { Driver, MarkerData } from "@/types/type";
+import axios from 'axios';
 
 const directionsAPI = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
 export const generateMarkersFromData = ({
-                                            data,
-                                            userLatitude,
-                                            userLongitude,
-                                        }: {
+    data,
+    userLatitude,
+    userLongitude,
+}: {
     data: Driver[];
     userLatitude: number;
     userLongitude: number;
@@ -25,11 +26,11 @@ export const generateMarkersFromData = ({
 };
 
 export const calculateRegion = ({
-                                    userLatitude,
-                                    userLongitude,
-                                    destinationLatitude,
-                                    destinationLongitude,
-                                }: {
+    userLatitude,
+    userLongitude,
+    destinationLatitude,
+    destinationLongitude,
+}: {
     userLatitude: number | null;
     userLongitude: number | null;
     destinationLatitude?: number | null;
@@ -72,19 +73,15 @@ export const calculateRegion = ({
     };
 };
 
+
+
 export const calculateDriverTimes = async ({
-                                               markers,
-                                               userLatitude,
-                                               userLongitude,
-                                               destinationLatitude,
-                                               destinationLongitude,
-                                           }: {
-    markers: MarkerData[];
-    userLatitude: number | null;
-    userLongitude: number | null;
-    destinationLatitude: number | null;
-    destinationLongitude: number | null;
-}) => {
+    markers,
+    userLatitude,
+    userLongitude,
+    destinationLatitude,
+    destinationLongitude,
+}: any) => {
     if (
         !userLatitude ||
         !userLongitude ||
@@ -94,28 +91,41 @@ export const calculateDriverTimes = async ({
         return;
 
     try {
-        const timesPromises = markers.map(async (marker) => {
-            const responseToUser = await fetch(
-                `https://maps.googleapis.com/maps/api/directions/json?origin=${marker.latitude},${marker.longitude}&destination=${userLatitude},${userLongitude}&key=${directionsAPI}`,
+        const timesPromises = markers.map(async (marker: { longitude: any; latitude: any; }) => {
+            // 请求用户到目的地的路线
+            const responseToUser = await axios.get(
+                `https://router.project-osrm.org/route/v1/driving/${marker.longitude},${marker.latitude};${userLongitude},${userLatitude}?overview=false&geometries=polyline`
             );
-            const dataToUser = await responseToUser.json();
-            const timeToUser = dataToUser.routes[0].legs[0].duration.value; // Time in seconds
+            const dataToUser = responseToUser.data;
 
-            const responseToDestination = await fetch(
-                `https://maps.googleapis.com/maps/api/directions/json?origin=${userLatitude},${userLongitude}&destination=${destinationLatitude},${destinationLongitude}&key=${directionsAPI}`,
+            if (!dataToUser.routes || dataToUser.routes.length === 0) {
+                console.error('No routes found for marker to user');
+                return null;
+            }
+
+            const timeToUser = dataToUser.routes[0].duration / 60; // Time in minutes
+
+            // 请求用户到目的地的路线
+            const responseToDestination = await axios.get(
+                `https://router.project-osrm.org/route/v1/driving/${userLongitude},${userLatitude};${destinationLongitude},${destinationLatitude}?overview=false&geometries=polyline`
             );
-            const dataToDestination = await responseToDestination.json();
-            const timeToDestination =
-                dataToDestination.routes[0].legs[0].duration.value; // Time in seconds
+            const dataToDestination = responseToDestination.data;
 
-            const totalTime = (timeToUser + timeToDestination) / 60; // Total time in minutes
-            const price = (totalTime * 0.5).toFixed(2); // Calculate price based on time
+            if (!dataToDestination.routes || dataToDestination.routes.length === 0) {
+                console.error('No routes found for user to destination');
+                return null;
+            }
 
-            return {...marker, time: totalTime, price};
+            const timeToDestination = dataToDestination.routes[0].duration / 60; // Time in minutes
+
+            const totalTime = timeToUser + timeToDestination; // Total time in minutes
+            const price = (totalTime * 0.5).toFixed(2); // 计算基于时间的价格
+
+            return { ...marker, time: totalTime, price };
         });
 
-        return await Promise.all(timesPromises);
+        return (await Promise.all(timesPromises)).filter(marker => marker !== null);
     } catch (error) {
-        console.error("Error calculating driver times:", error);
+        console.error('Error calculating driver times:', error);
     }
 };
