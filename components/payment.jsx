@@ -37,6 +37,10 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
                     customer_id: customer
                 }),
             });
+
+            if (result.client_secret) {
+
+            }
         }
 
         const { clientSecret, error } = await Response.json();
