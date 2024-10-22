@@ -9,7 +9,18 @@ export default function Payment() {
     const [success, setSuccess] = useState(false);
 
     const confirmHandler = async (paymentMethod, intentCreationCallBack) => {
-
+        const { paymentIntent, customer } = await fetchAPI(
+            "/(api)/(stripe)/create",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // name: fullName
+                })
+            }
+        );
 
         const { clientSecret, error } = await Response.json();
         if (clientSecret) {
