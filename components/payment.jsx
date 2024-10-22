@@ -25,6 +25,10 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
             }
         );
 
+        if (paymentIntent.client_secret) {
+
+        }
+
         const { clientSecret, error } = await Response.json();
         if (clientSecret) {
             intentCreationCallBack({ clientSecret });
