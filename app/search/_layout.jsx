@@ -13,20 +13,24 @@ export default function RideLayout() {
     const pathname = usePathname(); // 获取当前路由路径
     const [snapPoints, setSnapPoints] = useState(["44%", "95%"]);
     const [index, setIndex] = useState(0);
+    const [pageName, setPageName] = useState('');
 
     useEffect(() => {
         if (pathname === '/search/confirm-ride') {
             // 当路由为某个特定页面时，设置不同的 snapPoints
             setSnapPoints(["65%", "95%"]);
             setIndex(0);
+            setPageName('Choose a Driver')
         } else if (pathname === '/search/book-ride') {
             // 设置另一个特定页面的 snapPoints
             setSnapPoints(["65%", "95%"]);
             setIndex(1);
+            setPageName('Book Ride');
         } else {
             // 默认 snapPoints
             setSnapPoints(["44%", "95%"]);
             setIndex(0);
+            setPageName('Ride');
         }
     }, [pathname]); // 路由变化时触发
 
@@ -44,9 +48,9 @@ export default function RideLayout() {
                                 />
                             </View>
                         </TouchableOpacity>
-                        {/* <Text className='text-xl ml-5'>
-                            Back
-                        </Text> */}
+                        <Text className='text-xl ml-5'>
+                            {pageName}
+                        </Text>
                     </View>
 
                     <View className='absolute top-0 bottom-0 left-0 right-0'>
