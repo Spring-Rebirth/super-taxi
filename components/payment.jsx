@@ -1,12 +1,24 @@
-import { View, Text, Alert } from 'react-native'
+import { View, Alert } from 'react-native'
 import React, { useState } from 'react'
 import CustomButton from './CustomButton'
-import { PaymentSheetError, useStripe } from '@stripe/stripe-react-native'
+import { useStripe } from '@stripe/stripe-react-native'
+import { useLocationStore } from '../store';
+import { fetchAPI } from '../lib/fetch';
+import { useAuth } from '@clerk/clerk-expo';
 
 
 export default function Payment({ fullName, email, amount, driverId, rideTime }) {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [success, setSuccess] = useState(false);
+    const { userId } = useAuth();
+    const {
+        userAddress,
+        userLongitude,
+        userLatitude,
+        destinationLongitude,
+        destinationLatitude,
+        destinationAddress
+    } = useLocationStore();
 
     const confirmHandler = async (paymentMethod, intentCreationCallBack) => {
         const { paymentIntent, customer } = await fetchAPI(
@@ -39,8 +51,31 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
             });
 
             if (result.client_secret) {
-
+                try {
+                    await fetchAPI("/(api)/ride/create", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            origin_address: userAddress || "Unknown",  // 确保有值
+                            destination_address: destinationAddress || "Unknown",
+                            origin_latitude: userLatitude,
+                            origin_longitude: userLongitude,
+                            destination_latitude: destinationLatitude,
+                            destination_longitude: destinationLongitude,
+                            ride_time: rideTime ? rideTime.toFixed(0) : 0,  // 确保 rideTime 有效
+                            fare_price: parseInt(amount) * 100 || 0,  // 确保 amount 是数字
+                            payment_status: "paid",
+                            driver_id: driverId,
+                            user_id: userId,
+                        })
+                    });
+                } catch (error) {
+                    console.error("Error creating ride:", error);
+                }
             }
+
         }
 
         const { clientSecret, error } = await Response.json();
