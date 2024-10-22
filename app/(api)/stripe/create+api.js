@@ -2,6 +2,19 @@ import { Stripe } from 'stripe'
 
 const stripe = new Stripe(process.env.EXPO_SECRET_STRIPE_API_KEY);
 
+export async function POST(request) {
+    const body = await request.json();
+    const { name, email, amount } = body;
+    if (!name || !email || !amount) {
+        return new Response(
+            JSON.stringify({
+                error: 'Please enter a valid email address',
+                status: 400
+            })
+        )
+    }
+}
+
 app.post('/payment-sheet', async (req, res) => {
     // Use an existing Customer ID if this is a returning customer.
     const customer = await stripe.customers.create();
