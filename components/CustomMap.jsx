@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
-import MapView, { PROVIDER_OSM, Marker } from 'react-native-maps'
+import MapView, { PROVIDER_OSM, Marker, Polyline } from 'react-native-maps'
 import { useLocationStore } from '../store/index'
 import { calculateDriverTimes, calculateRegion, generateMarkersFromData } from '../lib/map'
 import { useEffect, useRef, useState } from 'react'
@@ -10,14 +10,16 @@ import * as Location from 'expo-location'; // 用于获取用户位置
 import userLocationIcon from '../assets/icons/target.png';
 import { useFetch } from '../lib/fetch'
 import pinIcon from '../assets/icons/pin.png'
-import MapViewDirections from 'react-native-maps-directions'
+import axios from 'axios';
+import polyline, { decode } from '@mapbox/polyline';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 
 export default function CustomMap({ myLocationHeight = 20 }) {
     const { data: drivers, loading, error } = useFetch('/(api)/driver');
     const { userLongitude, userLatitude, destinationLongitude, destinationLatitude } = useLocationStore();
     const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });
     const { selectedDriver, setDrivers } = useDriverStore();
-
+    const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [markers, setMarkers] = useState([]);
     const mapRef = useRef(null);
 
@@ -67,6 +69,91 @@ export default function CustomMap({ myLocationHeight = 20 }) {
             })
         }
     }, [markers, destinationLatitude, destinationLongitude])
+
+    const routeCache = useRef({});
+    const debounceTimer = useRef(null);
+    const lastRequestTime = useRef(0);
+
+    const getRouteFromOSRM = async (origin, destination) => {
+        // 清空条件
+        if (!origin || !destination) {
+            setRouteCoordinates([]); // 如果没有提供起点或终点，清空路线
+            return;
+        }
+
+        // 防抖机制
+        clearTimeout(debounceTimer.current);
+        debounceTimer.current = setTimeout(async () => {
+            const cacheKey = `${origin};${destination}`;
+
+            // 如果缓存中已有结果，则直接返回缓存中的数据
+            if (routeCache.current[cacheKey]) {
+                setRouteCoordinates(routeCache.current[cacheKey]);  // 直接从缓存中获取路线数据
+                return;
+            }
+
+            const now = new Date().getTime();
+
+            // 检查是否距离上次请求超过1秒
+            if (now - lastRequestTime.current < 1000) {
+                console.log('请求太频繁，请稍后再试');
+                return;
+            }
+
+            lastRequestTime.current = now;  // 更新最后请求时间
+
+            // 发起请求
+            try {
+                const response = await axios.get(
+                    `https://router.project-osrm.org/route/v1/driving/${origin};${destination}?overview=full&geometries=polyline`,
+                    {
+                        headers: {
+                            'User-Agent': 'super-taxi/1.0 (https://uber.com)',  // 提供有效的 User-Agent
+                        }
+                    }
+                );
+
+                // 解码 polyline 字符串
+                const coordinates = polyline.decode(response.data.routes[0].geometry);
+                const routeCoords = coordinates.map(([lat, lng]) => ({
+                    latitude: lat,
+                    longitude: lng
+                }));
+
+                // 缓存结果
+                routeCache.current[cacheKey] = routeCoords;
+
+                // 设置解码后的路线坐标
+                setRouteCoordinates(routeCoords);
+
+            } catch (error) {
+                console.error("Error fetching route:", error);
+            }
+
+        }, 500);  // 500 毫秒的防抖时间
+    };
+
+    useEffect(() => {
+        // 检查所有必需的经纬度是否存在
+        if (userLatitude && userLongitude && destinationLatitude && destinationLongitude) {
+            const origin = `${userLongitude},${userLatitude}`;  // 起点
+            const destination = `${destinationLongitude},${destinationLatitude}`;  // 终点
+
+            // 调用 getRouteFromOSRM 获取路线
+            getRouteFromOSRM(origin, destination);
+        }
+    }, [userLatitude, userLongitude, destinationLatitude, destinationLongitude]);  // 当这些值变化时重新调用
+
+
+    useEffect(() => {
+        if (routeCoordinates.length > 0 && mapRef.current) {
+            mapRef.current.fitToCoordinates(routeCoordinates, {
+                edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+                animated: true,
+            });
+        }
+    }, [routeCoordinates]);
+
 
     if (loading || !userLatitude || !userLongitude) {
         return (
@@ -121,6 +208,13 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                         />
 
                         {/* 显示路线 */}
+                        {routeCoordinates.length > 0 && (
+                            <Polyline
+                                coordinates={routeCoordinates}
+                                strokeWidth={4}
+                                strokeColor="blue"
+                            />
+                        )}
                     </>
                 )}
             </MapView>
