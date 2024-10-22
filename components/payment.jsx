@@ -74,15 +74,11 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
                 } catch (error) {
                     console.error("Error creating ride:", error);
                 }
+
+                intentCreationCallBack({
+                    clientSecret: result.client_secret
+                });
             }
-
-        }
-
-        const { clientSecret, error } = Response.json();
-        if (clientSecret) {
-            intentCreationCallBack({ clientSecret });
-        } else {
-            intentCreationCallBack({ error });
         }
     }
 
@@ -95,14 +91,13 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
                     currencyCode: "USD",
                 },
                 confirmHandler: confirmHandler
-            }
+            },
+            returnURL: 'myapp://book-ride'
         });
         if (error) {
-
+            console.log(error);
         }
     }
-
-
 
     const openPaymentSheet = async () => {
         await initializePaymentSheet();
