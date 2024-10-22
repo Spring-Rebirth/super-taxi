@@ -3,16 +3,27 @@ import React, { useState } from 'react'
 import CustomButton from './CustomButton'
 import { PaymentSheetError, useStripe } from '@stripe/stripe-react-native'
 
+
 export default function Payment() {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [success, setSuccess] = useState(false);
 
+
+
     const initializePaymentSheet = async () => {
-        const {
-            setupIntent,
-            ephemeralKey,
-            customer,
-        } = await fetchPaymentSheetParams();
+        const { error } = await initPaymentSheet({
+            merchantDisplayName: "Example, Inc.",
+            intentConfiguration: {
+                mode: {
+                    amount: 1099,
+                    currencyCode: "USD",
+                },
+                confirmHandler: confirmHandler
+            }
+        });
+        if (error) {
+
+        }
     }
 
     const confirmHandler = async (paymentMethod, shouldSavePaymentMethod, intentCreationCallBack) => {
