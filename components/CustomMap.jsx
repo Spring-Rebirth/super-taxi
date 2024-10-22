@@ -40,9 +40,6 @@ export default function CustomMap({ myLocationHeight = 20 }) {
     };
 
     useEffect(() => {
-        // TODO Remove
-        setDrivers(driverMock);
-
         if (Array.isArray(drivers)) {
             if (!userLatitude || !userLongitude) return;
 
