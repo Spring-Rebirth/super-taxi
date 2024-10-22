@@ -61,14 +61,14 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            origin_address: userAddress || "Unknown",  // 确保有值
-                            destination_address: destinationAddress || "Unknown",
+                            origin_address: userAddress,
+                            destination_address: destinationAddress,
                             origin_latitude: userLatitude,
                             origin_longitude: userLongitude,
                             destination_latitude: destinationLatitude,
                             destination_longitude: destinationLongitude,
-                            ride_time: rideTime ? rideTime.toFixed(0) : 0,  // 确保 rideTime 有效
-                            fare_price: parseInt(amount) * 100 || 0,  // 确保 amount 是数字
+                            ride_time: rideTime.toFixed(0),
+                            fare_price: parseInt(amount) * 100,
                             payment_status: "paid",
                             driver_id: driverId,
                             user_id: userId,
