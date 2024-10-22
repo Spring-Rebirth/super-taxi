@@ -12,7 +12,7 @@ import { router } from 'expo-router';
 
 export default function Payment({ fullName, email, amount, driverId, rideTime }) {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
-    const [success, setSuccess] = useState(true); // 临时
+    const [success, setSuccess] = useState(false);
     const { userId } = useAuth();
     const {
         userAddress,
