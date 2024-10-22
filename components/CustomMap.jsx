@@ -9,13 +9,13 @@ import markerIcon from '../assets/icons/marker.png'
 import selectedMkIcon from '../assets/icons/selected-marker.png'
 import * as Location from 'expo-location'; // 用于获取用户位置
 import userLocationIcon from '../assets/icons/target.png';
-
+import { useFetch } from '../lib/fetch'
 
 export default function CustomMap({ myLocationHeight = 20 }) {
+    const { data: drivers, loading, error } = useFetch('/(api)/driver');
     const { userLongitude, userLatitude, destinationLongitude, destinationLatitude } = useLocationStore();
     const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });
     const { selectedDriver, setDrivers } = useDriverStore();
-    const drivers = driverMock;
 
     const [markers, setMarkers] = useState([]);
     const mapRef = useRef(null);
