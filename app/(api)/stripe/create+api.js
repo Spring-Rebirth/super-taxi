@@ -1,8 +1,6 @@
-const { create } = require('react-test-renderer');
+import { Stripe } from 'stripe'
 
-const stripe = require('stripe')('sk_test_51QCQ22FtcuUTeLbKwAOxfPrig4sP3x9yjC58rt5r0qL6hfNctS8h56yst11AcRVu8C7WCUl2jTeQ8m7FAopYkEv900t2imyZVh');
-// This example sets up an endpoint using the Express framework.
-// Watch this video to get started: https://youtu.be/rPR2aJ6XnAc.
+const stripe = new Stripe(process.env.EXPO_SECRET_STRIPE_API_KEY);
 
 app.post('/payment-sheet', async (req, res) => {
     // Use an existing Customer ID if this is a returning customer.
