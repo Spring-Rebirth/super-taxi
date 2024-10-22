@@ -87,10 +87,10 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
 
     const initializePaymentSheet = async () => {
         const { error } = await initPaymentSheet({
-            merchantDisplayName: "Example, Inc.",
+            merchantDisplayName: "Ride, Inc.",
             intentConfiguration: {
                 mode: {
-                    amount: 1099,
+                    amount: parseInt(amount) * 100,
                     currencyCode: "USD",
                 },
                 confirmHandler: confirmHandler
