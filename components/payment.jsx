@@ -1,4 +1,4 @@
-import { View, Alert, Image } from 'react-native'
+import { View, Alert, Image, Text } from 'react-native'
 import React, { useState } from 'react'
 import CustomButton from './CustomButton'
 import { useStripe } from '@stripe/stripe-react-native'
@@ -7,11 +7,12 @@ import { fetchAPI } from '../lib/fetch';
 import { useAuth } from '@clerk/clerk-expo';
 import ReactNativeModal from 'react-native-modal';
 import checkIcon from '../assets/images/check.png'
+import { router } from 'expo-router';
 
 
 export default function Payment({ fullName, email, amount, driverId, rideTime }) {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState(true); // 临时
     const { userId } = useAuth();
     const {
         userAddress,
@@ -130,6 +131,20 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
                         className='w-28 h-28 mt-5'
                         source={checkIcon}
                         resizeMode={'contain'}
+                    />
+                    <Text className='text-2xl text-center mt-8 font-semibold'>
+                        Booking placed successfully
+                    </Text>
+                    <Text className='text-[#858585] mt-4 text-center'>
+                        Thank you for your booking! Your reservation has been successfully placed. Please proceed with your trip.
+                    </Text>
+                    <CustomButton
+                        containerStyle={'mt-6'}
+                        title={'Back Home'}
+                        onPress={() => {
+                            setSuccess(false);
+                            router.replace('/(tabs)/home');
+                        }}
                     />
                 </View>
             </ReactNativeModal>
