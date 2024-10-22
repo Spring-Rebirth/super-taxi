@@ -8,8 +8,15 @@ export default function Payment() {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [success, setSuccess] = useState(false);
 
-    const confirmHandler = async (paymentMethod, shouldSavePaymentMethod, intentCreationCallBack) => {
+    const confirmHandler = async (paymentMethod, intentCreationCallBack) => {
 
+
+        const { clientSecret, error } = await Response.json();
+        if (clientSecret) {
+            intentCreationCallBack({ clientSecret });
+        } else {
+            intentCreationCallBack({ error });
+        }
     }
 
     const initializePaymentSheet = async () => {
