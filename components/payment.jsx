@@ -95,7 +95,7 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
                 },
                 confirmHandler: confirmHandler
             },
-            returnURL: 'myapp://book-ride'
+            returnURL: "myapp://book-ride"
         });
         if (error) {
             console.log(error);
