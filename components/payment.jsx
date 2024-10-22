@@ -1,10 +1,12 @@
-import { View, Alert } from 'react-native'
+import { View, Alert, Image } from 'react-native'
 import React, { useState } from 'react'
 import CustomButton from './CustomButton'
 import { useStripe } from '@stripe/stripe-react-native'
 import { useLocationStore } from '../store';
 import { fetchAPI } from '../lib/fetch';
 import { useAuth } from '@clerk/clerk-expo';
+import ReactNativeModal from 'react-native-modal';
+import checkIcon from '../assets/images/check.png'
 
 
 export default function Payment({ fullName, email, amount, driverId, rideTime }) {
@@ -114,11 +116,23 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
 
 
     return (
-        <View className='my-10'>
-            <CustomButton
-                onPress={openPaymentSheet}
-                title={'Confirm Ride'}
-            />
-        </View>
+        <>
+            <View className='my-10'>
+                <CustomButton
+                    onPress={openPaymentSheet}
+                    title={'Confirm Ride'}
+                />
+            </View>
+
+            <ReactNativeModal isVisible={success} onBackdropPress={() => setSuccess(false)}>
+                <View className='justify-center items-center bg-white p-7 rounded-2xl'>
+                    <Image
+                        className='w-28 h-28 mt-5'
+                        source={checkIcon}
+                        resizeMode={'contain'}
+                    />
+                </View>
+            </ReactNativeModal>
+        </>
     )
 }
