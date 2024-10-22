@@ -10,6 +10,7 @@ import * as Location from 'expo-location'; // 用于获取用户位置
 import userLocationIcon from '../assets/icons/target.png';
 import { useFetch } from '../lib/fetch'
 import pinIcon from '../assets/icons/pin.png'
+import MapViewDirections from 'react-native-maps-directions'
 
 export default function CustomMap({ myLocationHeight = 20 }) {
     const { data: drivers, loading, error } = useFetch('/(api)/driver');
@@ -118,6 +119,8 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                             }}
                             image={pinIcon}
                         />
+
+                        {/* 显示路线 */}
                     </>
                 )}
             </MapView>
