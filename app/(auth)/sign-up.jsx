@@ -115,6 +115,7 @@ export default function SignUp() {
                 />
 
                 <CustomButton
+                    containerStyle={'w-11/12'}
                     title={'Sign Up'}
                     onPress={onSignUpPress}
                 />

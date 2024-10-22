@@ -69,6 +69,7 @@ export default function SignIn() {
                 />
 
                 <CustomButton
+                    containerStyle={'w-11/12'}
                     title={'Log In'}
                     onPress={onSignInPress}
                 />
