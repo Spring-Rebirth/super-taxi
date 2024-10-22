@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import MapView, { PROVIDER_OSM, Marker } from 'react-native-maps'
 import { useLocationStore } from '../store/index'
 import { calculateRegion, generateMarkersFromData } from '../lib/map'
 import { useEffect, useRef, useState } from 'react'
-import { driverMock } from '../constants/MockDrivers'
 import { useDriverStore } from '../store/index'
 import markerIcon from '../assets/icons/marker.png'
 import selectedMkIcon from '../assets/icons/selected-marker.png'
@@ -52,6 +51,22 @@ export default function CustomMap({ myLocationHeight = 20 }) {
             setMarkers(newMarkers);
         }
     }, [drivers, userLatitude, userLongitude])
+
+    if (loading || !userLatitude || !userLongitude) {
+        return (
+            <View className='w-full justify-between items-center'>
+                <ActivityIndicator size={'small'} color={'#000'} />
+            </View>
+        );
+    }
+
+    if (error) {
+        return (
+            <View className='w-full justify-between items-center'>
+                <Text>Error: {error}</Text>
+            </View>
+        );
+    }
 
     return (
         <>
