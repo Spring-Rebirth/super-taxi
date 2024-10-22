@@ -69,7 +69,7 @@ export default function Index() {
 
             <CustomButton
               title={isLastPage ? 'Get Started' : 'Next'}
-              containerStyle={'mb-24'}
+              containerStyle={'mb-24 w-11/12'}
               onPress={isLastPage ? () => router.replace('/sign-up') : () => swiperRef.current?.scrollBy(1)}
             />
           </View>
