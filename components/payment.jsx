@@ -26,7 +26,17 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
         );
 
         if (paymentIntent.client_secret) {
-
+            const { result } = await fetchAPI("/(api)/(stripe)/pay", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    payment_method_id: paymentMethod.id,
+                    payment_intent_id: paymentIntent.id,
+                    customer_id: customer
+                }),
+            });
         }
 
         const { clientSecret, error } = await Response.json();
