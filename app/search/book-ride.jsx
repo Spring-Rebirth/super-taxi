@@ -4,6 +4,8 @@ import { icons } from "@/constants";
 import { formatTime } from "@/lib/utils";
 import { useDriverStore, useLocationStore } from "@/store";
 import Payment from "../../components/payment";
+import { StripeProvider } from '@stripe/stripe-react-native';
+
 
 const BookRide = () => {
     const { user } = useUser();
@@ -19,7 +21,11 @@ const BookRide = () => {
     console.log('driverDetails:', driverDetails);
 
     return (
-        <>
+        <StripeProvider
+            publishableKey={process.env.EXPO_PUBLIC_STRIPE_API_KEY}
+            merchantIdentifier="merchant.identifier" // required for Apple Pay
+            urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+        >
             <Text className="text-xl font-semibold mb-3">
                 Ride Information
             </Text>
@@ -90,7 +96,7 @@ const BookRide = () => {
             </View>
 
             <Payment />
-        </>
+        </StripeProvider>
     );
 };
 
