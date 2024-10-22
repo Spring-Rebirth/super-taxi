@@ -20,6 +20,7 @@
     "@gorhom/bottom-sheet": "^5.0.4",
     "@neondatabase/serverless": "^0.10.1",
     "@react-navigation/native": "^6.0.2",
+    "@stripe/stripe-react-native": "^0.39.0",
     "axios": "^1.7.7",
     "expo": "~51.0.28",
     "expo-auth-session": "~5.5.2",
