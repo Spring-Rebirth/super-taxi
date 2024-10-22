@@ -9,6 +9,7 @@ import selectedMkIcon from '../assets/icons/selected-marker.png'
 import * as Location from 'expo-location'; // 用于获取用户位置
 import userLocationIcon from '../assets/icons/target.png';
 import { useFetch } from '../lib/fetch'
+import pinIcon from '../assets/icons/pin.png'
 
 export default function CustomMap({ myLocationHeight = 20 }) {
     const { data: drivers, loading, error } = useFetch('/(api)/driver');
@@ -105,6 +106,20 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                         image={marker.id === selectedDriver ? selectedMkIcon : markerIcon}
                     />
                 ))}
+
+                {destinationLatitude && destinationLongitude && (
+                    <>
+                        <Marker
+                            key={'destination'}
+                            title='Destination'
+                            coordinate={{
+                                latitude: destinationLatitude,
+                                longitude: destinationLongitude
+                            }}
+                            image={pinIcon}
+                        />
+                    </>
+                )}
             </MapView>
 
             <TouchableOpacity
