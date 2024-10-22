@@ -48,10 +48,9 @@ export async function POST(request) {
 
     return new Response(
         JSON.stringify({
-            paymentIntent: paymentIntent.client_secret,
-            ephemeralKey: ephemeralKey.secret,
+            paymentIntent: paymentIntent,
+            ephemeralKey: ephemeralKey,
             customer: customer.id,
-            publishableKey: 'pk_test_51QCQ22FtcuUTeLbKDvnvy8gGAuaeGDOTqjCgMjp8FGXvzdtRNHroyDrG6oZwPackuIHdiGSg0FTXwFcDweegTUey00VmF3aOgV'
         })
     );
 }
