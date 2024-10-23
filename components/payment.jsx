@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { Image, Text, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
-import { images } from "@/constants";
+import { images, icons } from "@/constants";
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 
 
@@ -25,7 +25,17 @@ const Payment = () => {
                 index={0}
             >
                 <BottomSheetView style={{ flex: 1, padding: 15 }}>
-                    <Text>BottomSheetView</Text>
+                    <View className='px-2'>
+                        <Image
+                            className='w-5 h-5'
+                            source={icons.pin}
+                            resizeMode={'contain'}
+                        />
+                        <Text className='text-2xl font-bold mt-5'>
+                            添加您的支付信息
+                        </Text>
+
+                    </View>
                 </BottomSheetView>
             </BottomSheet>
 
