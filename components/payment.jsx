@@ -28,7 +28,7 @@ const Payment = () => {
                     <View className='px-2'>
                         <Image
                             className='w-5 h-5'
-                            source={icons.pin}
+                            source={icons.close}
                             resizeMode={'contain'}
                         />
                         <Text className='text-2xl font-bold mt-5'>
@@ -57,9 +57,6 @@ const Payment = () => {
                     </View>
                 </BottomSheetView>
             </BottomSheet>
-
-
-
 
             {/* ---------------------------------------------------- */}
             <ReactNativeModal
