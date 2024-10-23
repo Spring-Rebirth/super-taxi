@@ -28,7 +28,7 @@ const Profile = () => {
                 <View className="flex flex-col items-start justify-center bg-white rounded-lg shadow-sm shadow-neutral-300 px-5 py-3">
                     <View className="flex flex-col items-start justify-start w-full">
                         <CustomInputBox
-                            label="First name"
+                            title="First name"
                             placeholder={user?.firstName || "Not Found"}
                             containerStyle="w-full"
                             inputStyle="p-3.5"
@@ -36,7 +36,7 @@ const Profile = () => {
                         />
 
                         <CustomInputBox
-                            label="Last name"
+                            title="Last name"
                             placeholder={user?.lastName || "Not Found"}
                             containerStyle="w-full"
                             inputStyle="p-3.5"
@@ -44,7 +44,7 @@ const Profile = () => {
                         />
 
                         <CustomInputBox
-                            label="Email"
+                            title="Email"
                             placeholder={
                                 user?.primaryEmailAddress?.emailAddress || "Not Found"
                             }
@@ -54,7 +54,7 @@ const Profile = () => {
                         />
 
                         <CustomInputBox
-                            label="Phone"
+                            title="Phone"
                             placeholder={user?.primaryPhoneNumber?.phoneNumber || "Not Found"}
                             containerStyle="w-full"
                             inputStyle="p-3.5"
