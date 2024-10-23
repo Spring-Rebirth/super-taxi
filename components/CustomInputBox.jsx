@@ -12,6 +12,7 @@ export default function CustomInputBox({
     className = '', // 外部自定义容器样式
     inputClassName = '', // 外部自定义 TextInput 样式
     placeholder = '',
+    editable
 }) {
     const [isFocused, setIsFocused] = useState(false);
     const [textVisible, setTextVisible] = useState(false);
@@ -50,6 +51,7 @@ export default function CustomInputBox({
                     onBlur={() => setIsFocused(false)}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
+                    editable={editable}
                 />
                 {isSecure && (
                     <TouchableOpacity onPress={handleVisibilityToggle} className="p-2">
