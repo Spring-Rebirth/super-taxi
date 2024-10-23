@@ -7,6 +7,7 @@ import mapIcon from '../../assets/icons/map.png'
 import CustomButton from '../../components/CustomButton'
 import axios from 'axios'
 import { router } from 'expo-router'
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 
 
 export default function FindRide() {
@@ -15,23 +16,65 @@ export default function FindRide() {
     const [toSearchResults, setToSearchResults] = useState([]); // 为 To 输入框管理搜索结果
 
     const searchLocation = async (query, type) => {
-        if (query.length > 2) {
-            const response = await axios.get(
-                `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`
-            );
+        // 清空结果条件
+        if (query.length <= 2) {
             if (type === 'from') {
-                setFromSearchResults(response.data); // 设置 From 搜索结果
+                setFromSearchResults([]);  // 清空 From 搜索结果
             } else if (type === 'to') {
-                setToSearchResults(response.data); // 设置 To 搜索结果
+                setToSearchResults([]);  // 清空 To 搜索结果
             }
-        } else {
-            if (type === 'from') {
-                setFromSearchResults([]); // 清空 From 搜索结果
-            } else if (type === 'to') {
-                setToSearchResults([]); // 清空 To 搜索结果
-            }
+            return;  // 直接返回，避免不必要的请求
         }
+
+        // 防抖机制
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+
+            // 如果缓存中已有结果，则直接返回缓存中的数据
+            if (cache[query]) {
+                if (type === 'from') {
+                    setFromSearchResults(cache[query]);  // 直接从缓存中获取 From 数据
+                } else if (type === 'to') {
+                    setToSearchResults(cache[query]);  // 直接从缓存中获取 To 数据
+                }
+                return;
+            }
+
+            const now = new Date().getTime();
+
+            // 检查是否距离上次请求超过1秒
+            if (now - lastRequestTime < 1000) {
+                console.log('请求太频繁，请稍后再试');
+                return;
+            }
+
+            lastRequestTime = now;  // 更新最后请求时间
+
+            // 发起请求
+            try {
+                const response = await axios.get(
+                    `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`,
+                    {
+                        headers: {
+                            'User-Agent': 'super-taxi/1.0 (https://uber.com)',  // 提供有效的 User-Agent
+                        }
+                    }
+                );
+                cache[query] = response.data;  // 缓存请求结果
+
+                // 根据类型设置相应的搜索结果
+                if (type === 'from') {
+                    setFromSearchResults(response.data);  // 设置 From 搜索结果
+                } else if (type === 'to') {
+                    setToSearchResults(response.data);  // 设置 To 搜索结果
+                }
+            } catch (error) {
+                console.error('请求错误:', error);
+            }
+
+        }, 500);  // 500 毫秒的防抖时间
     };
+
 
     const handleResultPress = (item, type) => {
         console.log('Selected location:', JSON.stringify(item, null, 2));
