@@ -21,7 +21,8 @@ const Payment = () => {
 
             <BottomSheet
                 ref={bottomSheetRef}
-                snapPoints={["60%"]}
+                handleComponent={null}
+                snapPoints={["93%"]}
                 index={0}
             >
                 <BottomSheetView style={{ flex: 1, padding: 15 }}>
@@ -48,6 +49,7 @@ const Payment = () => {
                             <TextInput
                                 className='px-4'
                                 placeholder="Enter password"
+                                secureTextEntry={true}
                             />
                         </View>
                         <CustomButton
