@@ -27,7 +27,7 @@ const Payment = ({
     } = useLocationStore();
 
     const { userId } = useAuth();
-    const [success, setSuccess] = useState < boolean > (false);
+    const [success, setSuccess] = useState(false);
 
     const openPaymentSheet = async () => {
         await initializePaymentSheet();
@@ -51,7 +51,6 @@ const Payment = ({
                 },
                 confirmHandler: async (
                     paymentMethod,
-                    shouldSavePaymentMethod,
                     intentCreationCallback,
                 ) => {
                     const { paymentIntent, customer } = await fetchAPI(
