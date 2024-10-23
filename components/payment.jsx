@@ -108,7 +108,7 @@ export default function Payment({ fullName, email, amount, driverId, rideTime })
         const { error } = await presentPaymentSheet();
 
         if (error) {
-            Alert.alert(`Error code: ${error.code}`, error.message);
+            console.log(error);
         } else {
             Alert.alert('Success', 'Your payment method is successfully set up for future payments!');
             setSuccess(true);
