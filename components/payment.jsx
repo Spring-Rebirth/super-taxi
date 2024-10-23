@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useState, useRef } from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, TextInput, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
 import { images, icons } from "@/constants";
@@ -32,9 +32,24 @@ const Payment = () => {
                             resizeMode={'contain'}
                         />
                         <Text className='text-2xl font-bold mt-5'>
-                            添加您的支付信息
+                            Add your payment information
                         </Text>
-
+                        <Text className='mt-4'>
+                            Bank card information
+                        </Text>
+                        <View className='border border-gray-400 w-full h-32 mt-2'>
+                            <Text className='m-2'>Card number</Text>
+                            <TextInput
+                                className='px-4'
+                                placeholder="Enter card number"
+                            />
+                            <View className='bg-gray-400 h-[1px]' />
+                            <Text className='m-2'>Password</Text>
+                            <TextInput
+                                className='px-4'
+                                placeholder="Enter password"
+                            />
+                        </View>
                     </View>
                 </BottomSheetView>
             </BottomSheet>
