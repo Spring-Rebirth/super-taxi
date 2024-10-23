@@ -27,6 +27,7 @@ const Payment = ({
     } = useLocationStore();
 
     const { userId } = useAuth();
+    console.log('userId:', userId);
     const [success, setSuccess] = useState(false);
 
     const openPaymentSheet = async () => {
