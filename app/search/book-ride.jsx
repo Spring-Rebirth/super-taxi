@@ -21,11 +21,7 @@ const BookRide = () => {
     console.log('driverDetails:', driverDetails);
 
     return (
-        <StripeProvider
-            publishableKey={process.env.EXPO_PUBLIC_STRIPE_API_KEY}
-            merchantIdentifier="merchant.uber.com"
-            urlScheme="myapp"
-        >
+        <>
             <Text className="text-xl font-semibold mb-3">
                 Ride Information
             </Text>
@@ -102,7 +98,7 @@ const BookRide = () => {
                 driverId={driverDetails?.id}
                 rideTime={driverDetails?.time}
             />
-        </StripeProvider>
+        </>
     );
 };
 

@@ -1,73 +1,38 @@
-import { useAuth } from "@clerk/clerk-expo";
-import { useStripe } from "@stripe/stripe-react-native";
 import { router } from "expo-router";
-import React, { useState } from "react";
-import { Alert, Image, Text, View } from "react-native";
+import { useState, useRef } from "react";
+import { Image, Text, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
 import { images } from "@/constants";
-import { fetchAPI } from "@/lib/fetch";
-import { useLocationStore } from "@/store";
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 
-const Payment = ({
-    fullName,
-    email,
-    amount,
-    driverId,
-    rideTime,
-}) => {
-    const { initPaymentSheet, presentPaymentSheet } = useStripe();
-    const {
-        userAddress,
-        userLongitude,
-        userLatitude,
-        destinationLatitude,
-        destinationAddress,
-        destinationLongitude,
-    } = useLocationStore();
 
-    const { userId } = useAuth();
-    console.log('userId:', userId);
+const Payment = () => {
     const [success, setSuccess] = useState(false);
-
-    const openPaymentSheet = async () => {
-        await initializePaymentSheet();
-
-        const { error } = await presentPaymentSheet();
-
-        if (error) {
-            Alert.alert(`Error code: ${error.code}`, error.message);
-        } else {
-            setSuccess(true);
-        }
-    };
-
-    const initializePaymentSheet = async () => {
-        const { error } = await initPaymentSheet({
-            merchantDisplayName: "Example, Inc.",
-            intentConfiguration: {
-                mode: {
-                    amount: parseInt(amount) * 100,
-                    currencyCode: "usd",
-                },
-                confirmHandler: () => { setSuccess(true) }
-            },
-            returnURL: "myapp://book-ride",
-        });
-
-        if (!error) {
-            // setLoading(true);
-        }
-    };
+    const bottomSheetRef = useRef(null);
 
     return (
         <>
             <CustomButton
                 title="Confirm Ride"
                 className="my-10"
-                onPress={openPaymentSheet}
+                onPress={() => { }}
             />
 
+            <BottomSheet
+                ref={bottomSheetRef}
+                snapPoints={["60%"]}
+                index={0}
+            >
+                <BottomSheetView style={{ flex: 1, padding: 15 }}>
+                    <Text>BottomSheetView</Text>
+                </BottomSheetView>
+            </BottomSheet>
+
+
+
+
+            {/* ---------------------------------------------------- */}
             <ReactNativeModal
                 isVisible={success}
                 onBackdropPress={() => setSuccess(false)}
