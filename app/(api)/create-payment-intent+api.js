@@ -10,26 +10,39 @@ export async function POST(request) {
     try {
         const { amount, currency, driverId, rideTime } = await request.json();
 
-        // 在此可以添加其他逻辑，例如验证数据、记录订单等
+        // 创建客户
+        const customer = await stripe.customers.create();
 
+        // 创建支付意图
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency,
+            customer: customer.id,
             metadata: {
                 driverId: driverId.toString(),
                 rideTime: rideTime.toString(),
             },
         });
 
+        // 创建临时密钥
+        const ephemeralKey = await stripe.ephemeralKeys.create(
+            { customer: customer.id },
+            { apiVersion: '2024-09-30.acacia' }
+        );
+
         return new Response(
-            JSON.stringify({ clientSecret: paymentIntent.client_secret }),
+            JSON.stringify({
+                paymentIntent: paymentIntent.client_secret,
+                ephemeralKey: ephemeralKey.secret,
+                customer: customer.id,
+            }),
             {
                 status: 200,
                 headers: { 'Content-Type': 'application/json' },
             }
         );
     } catch (error) {
-        console.error('Error creating payment intent:', error);
+        console.error('Error creating payment sheet params:', error);
         return new Response(
             JSON.stringify({ error: error.message }),
             {
@@ -39,4 +52,3 @@ export async function POST(request) {
         );
     }
 }
-
