@@ -32,7 +32,7 @@ const Payment = () => {
                             resizeMode={'contain'}
                         />
                         <Text className='text-2xl font-bold mt-5'>
-                            Add your payment information
+                            Add payment info
                         </Text>
                         <Text className='mt-4'>
                             Bank card information
@@ -50,6 +50,10 @@ const Payment = () => {
                                 placeholder="Enter password"
                             />
                         </View>
+                        <CustomButton
+                            containerStyle={'mt-8'}
+                            title='Confirm'
+                        />
                     </View>
                 </BottomSheetView>
             </BottomSheet>
