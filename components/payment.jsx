@@ -5,60 +5,66 @@ import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
 import { images, icons } from "@/constants";
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
+import { TouchableOpacity } from "react-native";
 
 
 const Payment = () => {
     const [success, setSuccess] = useState(false);
     const bottomSheetRef = useRef(null);
+    const [showCheck, setShowCheck] = useState(false);
 
     return (
         <>
             <CustomButton
                 title="Confirm Ride"
                 className="my-10"
-                onPress={() => { }}
+                onPress={() => { setShowCheck(true) }}
             />
-
-            <BottomSheet
-                ref={bottomSheetRef}
-                handleComponent={null}
-                snapPoints={["93%"]}
-                index={0}
-            >
-                <BottomSheetView style={{ flex: 1, padding: 15 }}>
-                    <View className='px-2'>
-                        <Image
-                            className='w-5 h-5'
-                            source={icons.close}
-                            resizeMode={'contain'}
-                        />
-                        <Text className='text-2xl font-bold mt-5'>
-                            Add payment info
-                        </Text>
-                        <Text className='mt-4'>
-                            Bank card information
-                        </Text>
-                        <View className='border border-gray-400 w-full h-32 mt-2'>
-                            <Text className='m-2'>Card number</Text>
-                            <TextInput
-                                className='px-4'
-                                placeholder="Enter card number"
-                            />
-                            <View className='bg-gray-400 h-[1px]' />
-                            <Text className='m-2'>Password</Text>
-                            <TextInput
-                                className='px-4'
-                                placeholder="Enter password"
-                                secureTextEntry={true}
+            {showCheck && (
+                <BottomSheet
+                    ref={bottomSheetRef}
+                    handleComponent={null}
+                    snapPoints={["93%"]}
+                    index={0}
+                >
+                    <BottomSheetView style={{ flex: 1, padding: 15 }}>
+                        <View className='px-2'>
+                            <TouchableOpacity onPress={() => setShowCheck(false)}>
+                                <Image
+                                    className='w-5 h-5'
+                                    source={icons.close}
+                                    resizeMode={'contain'}
+                                />
+                            </TouchableOpacity>
+                            <Text className='text-2xl font-bold mt-5'>
+                                Add payment info
+                            </Text>
+                            <Text className='mt-4'>
+                                Bank card information
+                            </Text>
+                            <View className='border border-gray-400 w-full h-32 mt-2'>
+                                <Text className='m-2'>Card number</Text>
+                                <TextInput
+                                    className='px-4'
+                                    placeholder="Enter card number"
+                                />
+                                <View className='bg-gray-400 h-[1px]' />
+                                <Text className='m-2'>Password</Text>
+                                <TextInput
+                                    className='px-4'
+                                    placeholder="Enter password"
+                                    secureTextEntry={true}
+                                />
+                            </View>
+                            <CustomButton
+                                containerStyle={'mt-8'}
+                                title='Confirm'
                             />
                         </View>
-                        <CustomButton
-                            containerStyle={'mt-8'}
-                            title='Confirm'
-                        />
-                    </View>
-                </BottomSheetView>
-            </BottomSheet>
+                    </BottomSheetView>
+                </BottomSheet>
+
+            )}
 
             {/* ---------------------------------------------------- */}
             <ReactNativeModal
