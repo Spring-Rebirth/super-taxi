@@ -1,6 +1,6 @@
-import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
+import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo'
 import { Link, router } from 'expo-router'
-import { FlatList, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
+import { FlatList, Image, Text, View } from 'react-native'
 import { ridesMock } from '../../constants/MockRides'
 import TaxiTripCard from '../../components/TaxiTripCard'
 import CustomMap from '../../components/CustomMap'
@@ -10,16 +10,17 @@ import { useLocationStore } from '../../store/index'
 import OSMTextInput from '../../components/OSMTextInput'
 import searchIcon from '../../assets/icons/search.png'
 import axios from 'axios'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
+import signOutIcon from '../../assets/icons/out.png'
+import { TouchableOpacity } from 'react-native'
 
 
 export default function Home() {
     const { user } = useUser(); // console.log('user:', JSON.stringify(user, null, 2));
     const { setUserLocation, setDestinationLocation } = useLocationStore();
     const [locationPermissions, setLocationPermissions] = useState(false);
-
     const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
     const [query, setQuery] = useState('');  // 保存搜索框的内容
+    const { signOut } = useAuth();
 
     // 处理地点搜索
     let lastRequestTime = 0;
@@ -129,57 +130,56 @@ export default function Home() {
 
     return (
         <View className='my-8 bg-[#F6F8FA] h-screen'>
-            <SignedIn>
-                <View className='my-2 px-4'>
-                    <Text className='text-xl my-4 font-semibold'>
-                        Hello {user?.emailAddresses[0].emailAddress}
-                    </Text>
-                </View>
-
-                {/* 将 OSMTextInput 作为头部组件 */}
-                <View className='items-center px-4'>
-                    <OSMTextInput
-                        containerStyle={'bg-[#FFFFFF]'}
-                        icon={searchIcon}
-                        onSearch={searchLocation}
-                        searchResults={searchResults}
-                        onSelectResult={handleResultPress}
+            <View className='my-2 px-8 flex-row justify-between items-center'>
+                <Text className='text-xl my-4 font-semibold'>
+                    Hello Mark
+                </Text>
+                <TouchableOpacity onPress={async () => {
+                    await signOut();  // 等待 signOut 完成
+                    router.replace('/(auth)/sign-in');  // 完成退出后再跳转页面
+                }}>
+                    <Image
+                        className='w-5 h-5'
+                        source={signOutIcon}
+                        resizeMode={'contain'}
                     />
-                </View>
+                </TouchableOpacity>
+            </View>
 
-                <FlatList
-                    style={{ marginBottom: 100 }}
-                    data={ridesMock}
-                    ListHeaderComponent={() => (
-                        <>
-                            <Text className='text-xl font-semibold ml-4 my-5'>
-                                Your current location
-                            </Text>
-                            <View className='h-[300px] bg-transparent mx-4'>
-                                <CustomMap />
-                            </View>
-
-                            <Text className='text-xl font-semibold ml-4 my-5'>
-                                Recent Rides
-                            </Text>
-                        </>
-                    )}
-                    renderItem={({ item }) => (
-                        <TaxiTripCard
-                            data={item}
-                        />
-                    )}
+            {/* 将 OSMTextInput 作为头部组件 */}
+            <View className='items-center px-4'>
+                <OSMTextInput
+                    containerStyle={'bg-[#FFFFFF]'}
+                    icon={searchIcon}
+                    onSearch={searchLocation}
+                    searchResults={searchResults}
+                    onSelectResult={handleResultPress}
                 />
+            </View>
 
-            </SignedIn>
-            <SignedOut>
-                <Link href="/sign-in">
-                    <Text>Sign In</Text>
-                </Link>
-                <Link href="/sign-up">
-                    <Text>Sign Up</Text>
-                </Link>
-            </SignedOut>
+            <FlatList
+                style={{ marginBottom: 100 }}
+                data={ridesMock}
+                ListHeaderComponent={() => (
+                    <>
+                        <Text className='text-xl font-semibold ml-4 my-5'>
+                            Your current location
+                        </Text>
+                        <View className='h-[300px] bg-transparent mx-4'>
+                            <CustomMap />
+                        </View>
+
+                        <Text className='text-xl font-semibold ml-4 my-5'>
+                            Recent Rides
+                        </Text>
+                    </>
+                )}
+                renderItem={({ item }) => (
+                    <TaxiTripCard
+                        data={item}
+                    />
+                )}
+            />
         </View>
     )
 }

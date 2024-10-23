@@ -91,7 +91,7 @@ export default function SignIn() {
                 <View className='flex-row mt-12 space-x-2'>
                     <Text>Do not have an account ?</Text>
                     <TouchableOpacity
-                        onPress={() => router.back()}
+                        onPress={() => router.navigate('/(auth)/sign-up')}
                     >
                         <Text className='text-[#0286FF]'>Sign up</Text>
                     </TouchableOpacity>
