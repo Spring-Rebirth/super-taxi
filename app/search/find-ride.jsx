@@ -7,7 +7,6 @@ import mapIcon from '../../assets/icons/map.png'
 import CustomButton from '../../components/CustomButton'
 import axios from 'axios'
 import { router } from 'expo-router'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 
 
 export default function FindRide() {
@@ -15,6 +14,9 @@ export default function FindRide() {
     const [fromSearchResults, setFromSearchResults] = useState([]); // 为 From 输入框管理搜索结果
     const [toSearchResults, setToSearchResults] = useState([]); // 为 To 输入框管理搜索结果
 
+    let lastRequestTime = 0;
+    let debounceTimer;
+    const cache = {};
     const searchLocation = async (query, type) => {
         // 清空结果条件
         if (query.length <= 2) {
