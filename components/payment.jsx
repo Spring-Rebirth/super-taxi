@@ -3,9 +3,7 @@ import { useState, useRef } from "react";
 import { Image, Text, TextInput, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
-import { images, icons } from "@/constants";
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
-import { TouchableOpacity } from "react-native";
+import { images } from "@/constants";
 
 
 const Payment = () => {
@@ -81,11 +79,11 @@ const Payment = () => {
 
                     <CustomButton
                         title="Back Home"
+                        containerStyle={"mt-5"}
                         onPress={() => {
                             setSuccess(false);
                             router.push("/(root)/(tabs)/home");
                         }}
-                        className="mt-5"
                     />
                 </View>
             </ReactNativeModal>
