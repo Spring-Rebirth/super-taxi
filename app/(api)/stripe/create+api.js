@@ -1,4 +1,3 @@
-import { create } from 'react-test-renderer';
 import { Stripe } from 'stripe'
 
 const stripe = new Stripe(process.env.EXPO_SECRET_STRIPE_API_KEY);
