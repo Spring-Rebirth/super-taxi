@@ -20,51 +20,39 @@ const Payment = () => {
                 className="my-10"
                 onPress={() => { setShowCheck(true) }}
             />
-            {showCheck && (
-                <BottomSheet
-                    ref={bottomSheetRef}
-                    handleComponent={null}
-                    snapPoints={["54%"]}
-                    index={0}
-                >
-                    <BottomSheetView style={{ flex: 1, padding: 15 }}>
-                        <View className='px-2'>
-                            <TouchableOpacity onPress={() => setShowCheck(false)}>
-                                <Image
-                                    className='w-5 h-5'
-                                    source={icons.close}
-                                    resizeMode={'contain'}
-                                />
-                            </TouchableOpacity>
-                            <Text className='text-2xl font-bold mt-5'>
-                                Add payment info
-                            </Text>
-                            <Text className='mt-4'>
-                                Bank card information
-                            </Text>
-                            <View className='border border-gray-400 w-full h-32 mt-2'>
-                                <Text className='m-2'>Card Number</Text>
-                                <TextInput
-                                    className='px-4'
-                                    placeholder="Enter card number"
-                                />
-                                <View className='bg-gray-400 h-[1px]' />
-                                <Text className='m-2'>Password</Text>
-                                <TextInput
-                                    className='px-4'
-                                    placeholder="Enter password"
-                                    secureTextEntry={true}
-                                />
-                            </View>
-                            <CustomButton
-                                containerStyle={'mt-8'}
-                                title='Confirm'
-                            />
-                        </View>
-                    </BottomSheetView>
-                </BottomSheet>
 
-            )}
+            <ReactNativeModal
+                isVisible={showCheck}
+                onBackdropPress={() => setShowCheck(false)}
+            >
+                <View className='flex flex-col items-center justify-center bg-white p-7 rounded-2xl'>
+                    <Text className='text-2xl font-bold'>
+                        Add payment info
+                    </Text>
+                    <Text className='mt-4'>
+                        Bank card information
+                    </Text>
+                    <View className='border border-gray-400 w-full h-32 mt-2'>
+                        <Text className='m-2'>Card Number</Text>
+                        <TextInput
+                            className='px-4'
+                            placeholder="Enter card number"
+                        />
+                        <View className='bg-gray-400 h-[1px]' />
+                        <Text className='m-2'>Password</Text>
+                        <TextInput
+                            className='px-4'
+                            placeholder="Enter password"
+                            secureTextEntry={true}
+                        />
+                    </View>
+                    <CustomButton
+                        containerStyle={'mt-8'}
+                        title='Confirm'
+                    />
+                </View>
+
+            </ReactNativeModal>
 
             {/* ---------------------------------------------------- */}
             <ReactNativeModal
