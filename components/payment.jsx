@@ -49,6 +49,11 @@ const Payment = () => {
                     <CustomButton
                         containerStyle={'mt-8'}
                         title='Confirm'
+                        onPress={() => {
+                            setSuccess(true);
+                            setShowCheck(false);
+                        }}
+
                     />
                 </View>
 
