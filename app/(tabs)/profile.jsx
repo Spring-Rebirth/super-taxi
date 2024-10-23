@@ -32,6 +32,7 @@ const Profile = () => {
                             placeholder={user?.firstName || "Not Found"}
                             containerStyle="w-full"
                             inputStyle="p-3.5"
+                            titleStyle=' mb-2'
                             editable={false}
                         />
 
@@ -40,6 +41,7 @@ const Profile = () => {
                             placeholder={user?.lastName || "Not Found"}
                             containerStyle="w-full"
                             inputStyle="p-3.5"
+                            titleStyle=' mb-2'
                             editable={false}
                         />
 
@@ -50,6 +52,7 @@ const Profile = () => {
                             }
                             containerStyle="w-full"
                             inputStyle="p-3.5"
+                            titleStyle=' mb-2'
                             editable={false}
                         />
 
@@ -58,6 +61,7 @@ const Profile = () => {
                             placeholder={user?.primaryPhoneNumber?.phoneNumber || "Not Found"}
                             containerStyle="w-full"
                             inputStyle="p-3.5"
+                            titleStyle=' mb-2'
                             editable={false}
                         />
                     </View>

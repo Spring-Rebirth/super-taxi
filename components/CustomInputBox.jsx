@@ -12,7 +12,8 @@ export default function CustomInputBox({
     className = '', // 外部自定义容器样式
     inputClassName = '', // 外部自定义 TextInput 样式
     placeholder = '',
-    editable
+    editable,
+    titleStyle
 }) {
     const [isFocused, setIsFocused] = useState(false);
     const [textVisible, setTextVisible] = useState(false);
@@ -30,7 +31,7 @@ export default function CustomInputBox({
 
     return (
         <View className={`w-full items-center mb-4 ${className}`}>
-            <Text className="self-start ml-5 mb-1 font-semibold">
+            <Text className={`self-start ml-5 mb-1 font-semibold ${titleStyle}`}>
                 {title}
             </Text>
             <View
