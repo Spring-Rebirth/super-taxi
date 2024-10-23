@@ -12,6 +12,7 @@ const Payment = () => {
     const [success, setSuccess] = useState(false);
     const bottomSheetRef = useRef(null);
     const [showCheck, setShowCheck] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     return (
         <>
@@ -19,6 +20,7 @@ const Payment = () => {
                 title="Confirm Ride"
                 className="my-10"
                 onPress={() => { setShowCheck(true) }}
+                disabled={isDisabled}
             />
 
             <ReactNativeModal
@@ -52,6 +54,7 @@ const Payment = () => {
                         onPress={() => {
                             setSuccess(true);
                             setShowCheck(false);
+                            setIsDisabled(true);
                         }}
 
                     />
