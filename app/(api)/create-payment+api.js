@@ -1,9 +1,7 @@
-// /app/(api)/create-payment-intent.js
-
 import Stripe from 'stripe';
 
-const stripe = new Stripe(`${process.env.EXPO_SECRET_STRIPE_API_KEY}`, {
-    apiVersion: '2024-09-30.acacia',
+const stripe = new Stripe(process.env.EXPO_SECRET_STRIPE_API_KEY, {
+    apiVersion: '2023-08-16',
 });
 
 export async function POST(request) {
@@ -13,22 +11,23 @@ export async function POST(request) {
         // 创建客户
         const customer = await stripe.customers.create();
 
+        // 创建临时密钥
+        const ephemeralKey = await stripe.ephemeralKeys.create(
+            { customer: customer.id },
+            { apiVersion: '2023-08-16' }
+        );
+
         // 创建支付意图
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency,
             customer: customer.id,
+            automatic_payment_methods: { enabled: true },
             metadata: {
                 driverId: driverId.toString(),
                 rideTime: rideTime.toString(),
             },
         });
-
-        // 创建临时密钥
-        const ephemeralKey = await stripe.ephemeralKeys.create(
-            { customer: customer.id },
-            { apiVersion: '2024-09-30.acacia' }
-        );
 
         return new Response(
             JSON.stringify({
@@ -42,7 +41,7 @@ export async function POST(request) {
             }
         );
     } catch (error) {
-        console.error('Error creating payment sheet params:', error);
+        console.error('创建支付表参数时出错：', error);
         return new Response(
             JSON.stringify({ error: error.message }),
             {
@@ -52,3 +51,4 @@ export async function POST(request) {
         );
     }
 }
+import { create } from 'zustand';
