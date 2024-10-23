@@ -43,7 +43,7 @@ const Payment = () => {
                                 Bank card information
                             </Text>
                             <View className='border border-gray-400 w-full h-32 mt-2'>
-                                <Text className='m-2'>Card number</Text>
+                                <Text className='m-2'>Card Number</Text>
                                 <TextInput
                                     className='px-4'
                                     placeholder="Enter card number"
