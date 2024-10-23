@@ -82,7 +82,7 @@ const Payment = () => {
                         containerStyle={"mt-5"}
                         onPress={() => {
                             setSuccess(false);
-                            router.push("/(root)/(tabs)/home");
+                            router.push("/(tabs)/home");
                         }}
                     />
                 </View>
