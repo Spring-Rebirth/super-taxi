@@ -1,10 +1,10 @@
-import {useState, useEffect, useCallback} from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export const fetchAPI = async (url: string, options?: RequestInit) => {
     try {
         const response = await fetch(url, options);
         if (!response.ok) {
-            new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         return await response.json();
     } catch (error) {
@@ -36,5 +36,5 @@ export const useFetch = <T>(url: string, options?: RequestInit) => {
         fetchData();
     }, [fetchData]);
 
-    return {data, loading, error, refetch: fetchData};
+    return { data, loading, error, refetch: fetchData };
 };

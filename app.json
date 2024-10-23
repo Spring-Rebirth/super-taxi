@@ -3,6 +3,11 @@
     "name": "super-taxi",
     "slug": "super-taxi",
     "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -40,6 +45,7 @@
       "typedRoutes": true
     },
     "extra": {
+      "apiUrl": "http://localhost:8081",
       "eas": {
         "projectId": "e107d9c5-851d-4682-a0f2-293d99ddd1ca"
       }

@@ -1,153 +1,87 @@
-import { View, Alert, Image, Text } from 'react-native'
-import React, { useState } from 'react'
-import CustomButton from './CustomButton'
-import { useStripe } from '@stripe/stripe-react-native'
-import { useLocationStore } from '../store';
+import React, { useState } from 'react';
+import { View, Button, Alert, StyleSheet } from 'react-native';
+import { CardField, useConfirmPayment } from '@stripe/stripe-react-native';
 import { fetchAPI } from '../lib/fetch';
-import { useAuth } from '@clerk/clerk-expo';
-import ReactNativeModal from 'react-native-modal';
-import checkIcon from '../assets/images/check.png'
-import { router } from 'expo-router';
-
 
 export default function Payment({ fullName, email, amount, driverId, rideTime }) {
-    const { initPaymentSheet, presentPaymentSheet } = useStripe();
-    const [success, setSuccess] = useState(false);
-    const { userId } = useAuth();
-    const {
-        userAddress,
-        userLongitude,
-        userLatitude,
-        destinationLongitude,
-        destinationLatitude,
-        destinationAddress
-    } = useLocationStore();
+    const [cardDetails, setCardDetails] = useState();
+    const { confirmPayment, loading } = useConfirmPayment();
 
-    const confirmHandler = async (paymentMethod, intentCreationCallBack) => {
-        const { paymentIntent, customer } = await fetchAPI(
-            "/(api)/(stripe)/create",
-            {
-                method: "POST",
+
+    const fetchPaymentIntentClientSecret = async () => {
+        try {
+            const data = await fetchAPI(`/(api)/create-payment-intent`, {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: fullName || email.split("@")[0],
-                    email: email,
-                    amount: amount,
-                    paymentMethodId: paymentMethod.id
-                })
-            }
-        );
-
-        if (paymentIntent.client_secret) {
-            const { result } = await fetchAPI("/(api)/(stripe)/pay", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    payment_method_id: paymentMethod.id,
-                    payment_intent_id: paymentIntent.id,
-                    customer_id: customer
+                    amount: Math.round(amount * 100), // 将金额转换为最小货币单位（分）
+                    currency: 'usd',
+                    driverId,
+                    rideTime,
                 }),
             });
-
-            if (result.client_secret) {
-                try {
-                    await fetchAPI("/(api)/ride/create", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            origin_address: userAddress,
-                            destination_address: destinationAddress,
-                            origin_latitude: userLatitude,
-                            origin_longitude: userLongitude,
-                            destination_latitude: destinationLatitude,
-                            destination_longitude: destinationLongitude,
-                            ride_time: rideTime.toFixed(0),
-                            fare_price: parseInt(amount) * 100,
-                            payment_status: "paid",
-                            driver_id: driverId,
-                            user_id: userId,
-                        })
-                    });
-                } catch (error) {
-                    console.error("Error creating ride:", error);
-                }
-
-                intentCreationCallBack({
-                    clientSecret: result.client_secret
-                });
-            }
-        }
-    }
-
-    const initializePaymentSheet = async () => {
-        const { error } = await initPaymentSheet({
-            merchantDisplayName: "Ride Inc.",
-            intentConfiguration: {
-                mode: {
-                    amount: parseInt(amount) * 100,
-                    currencyCode: "USD",
-                },
-                confirmHandler: confirmHandler
-            },
-            returnURL: "myapp://book-ride"
-        });
-        if (error) {
-            console.log(error);
-        }
-    }
-
-    const openPaymentSheet = async () => {
-        await initializePaymentSheet();
-
-        const { error } = await presentPaymentSheet();
-
-        if (error) {
-            console.log(error);
-        } else {
-            Alert.alert('Success', 'Your payment method is successfully set up for future payments!');
-            setSuccess(true);
+            const { clientSecret } = data;
+            return clientSecret;
+        } catch (error) {
+            console.error('Error fetching payment intent client secret:', error);
+            Alert.alert('Error', '无法初始化支付');
+            return null;
         }
     };
 
+    const handlePayPress = async () => {
+        // 1. 获取客户端密钥
+        const clientSecret = await fetchPaymentIntentClientSecret();
+        if (!clientSecret) return;
+        // 2. 确认支付
+        const { paymentIntent, error } = await confirmPayment(clientSecret, {
+            paymentMethodType: 'Card',
+            paymentMethodData: {
+                billingDetails: {
+                    name: fullName,
+                    email: email,
+                },
+            },
+        });
+
+        if (error) {
+            Alert.alert(`支付失败：${error.message}`);
+        } else if (paymentIntent) {
+            Alert.alert('支付成功', `支付状态：${paymentIntent.status}`);
+            // 在此处执行任何额外操作，例如更新数据库或导航到其他页面
+        }
+    };
 
     return (
-        <>
-            <View className='my-10'>
-                <CustomButton
-                    onPress={openPaymentSheet}
-                    title={'Confirm Ride'}
-                />
-            </View>
-
-            <ReactNativeModal isVisible={success} onBackdropPress={() => setSuccess(false)}>
-                <View className='justify-center items-center bg-white p-7 rounded-2xl'>
-                    <Image
-                        className='w-28 h-28 mt-5'
-                        source={checkIcon}
-                        resizeMode={'contain'}
-                    />
-                    <Text className='text-2xl text-center mt-8 font-semibold'>
-                        Booking placed successfully
-                    </Text>
-                    <Text className='text-[#858585] mt-4 text-center'>
-                        Thank you for your booking! Your reservation has been successfully placed. Please proceed with your trip.
-                    </Text>
-                    <CustomButton
-                        containerStyle={'mt-6'}
-                        title={'Back Home'}
-                        onPress={() => {
-                            setSuccess(false);
-                            router.replace('/(tabs)/home');
-                        }}
-                    />
-                </View>
-            </ReactNativeModal>
-        </>
-    )
+        <View style={styles.container}>
+            <CardField
+                postalCodeEnabled={false}
+                placeholder={{
+                    number: '4242 4242 4242 4242',
+                }}
+                cardStyle={{
+                    backgroundColor: '#FFFFFF',
+                    textColor: '#000000',
+                }}
+                style={styles.cardField}
+                onCardChange={(cardDetails) => {
+                    setCardDetails(cardDetails);
+                }}
+            />
+            <Button onPress={handlePayPress} title="Pay" disabled={loading} />
+        </View>
+    );
 }
+const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        paddingHorizontal: 16,
+        marginTop: 20,
+    },
+    cardField: {
+        height: 50,
+        marginVertical: 30,
+    },
+});
