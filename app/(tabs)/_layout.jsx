@@ -9,7 +9,7 @@ import profileIcon from '../../assets/icons/profile.png'
 export default function TabsLayout() {
     return (
         <Tabs
-            initialRouteName='index' // 待定
+            initialRouteName='home'
             screenOptions={{
                 tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: 'white',
