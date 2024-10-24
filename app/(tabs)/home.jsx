@@ -12,19 +12,7 @@ import searchIcon from '../../assets/icons/search.png';
 import axios from 'axios';
 import signOutIcon from '../../assets/icons/out.png';
 
-function ListHeader({ memoizedMap }) {
-    return (
-        <>
-            <Text className="text-xl font-semibold ml-4 my-5">
-                Your current location
-            </Text>
-            <View className="h-[300px] bg-transparent mx-4">{memoizedMap}</View>
-            <Text className="text-xl font-semibold ml-4 my-5">
-                Recent Rides
-            </Text>
-        </>
-    );
-}
+
 
 export default function Home() {
     const { user } = useUser(); // 获取当前用户信息
@@ -36,7 +24,6 @@ export default function Home() {
     const lastRequestTime = useRef(0);
     const debounceTimer = useRef(null);
     const cache = useRef({});
-    const memoizedMap = useMemo(() => <CustomMap />, []);
 
     // 处理地点搜索
     const searchLocation = async (query) => {
@@ -152,9 +139,7 @@ export default function Home() {
         requestLocation();
     }, []);
 
-    const memoizedHeader = useMemo(() => {
-        return <ListHeader memoizedMap={memoizedMap} />;
-    }, [memoizedMap]);
+    const memoizedMap = useMemo(() => <CustomMap />, []);
 
     return (
         <View className="my-8 bg-[#F6F8FA] h-screen">
@@ -187,10 +172,19 @@ export default function Home() {
                 />
             </View>
 
+            <Text className="text-xl font-semibold ml-4 my-5">
+                Your current location
+            </Text>
+            <View className="h-[300px] bg-transparent mx-4">{memoizedMap}</View>
+
             <FlatList
                 style={{ marginBottom: 100 }}
                 data={ridesMock}
-                ListHeaderComponent={memoizedHeader}
+                ListHeaderComponent={() => (
+                    <Text className="text-xl font-semibold ml-4 my-5">
+                        Recent Rides
+                    </Text>
+                )}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
             />
         </View>
