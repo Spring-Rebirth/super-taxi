@@ -79,7 +79,7 @@ export default function FindRide() {
 
 
     const handleResultPress = (item, type) => {
-        console.log('Selected location:', JSON.stringify(item, null, 2));
+        // console.log('Selected location:', JSON.stringify(item, null, 2));
         const { address, lat, lon } = item;
         const formattedAddress = [
             address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,

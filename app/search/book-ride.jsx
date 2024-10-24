@@ -18,7 +18,7 @@ const BookRide = () => {
         (driver) => +driver.id === selectedDriver,
     )[0];
 
-    console.log('driverDetails:', driverDetails);
+    // console.log('driverDetails:', driverDetails);
 
     return (
         <>

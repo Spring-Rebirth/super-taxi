@@ -7,7 +7,7 @@ import { useDriverStore } from '../../store'
 
 export default function ConfirmRide() {
     const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();
-    console.log('drivers:', JSON.stringify(drivers, null, 2));
+    // console.log('drivers:', JSON.stringify(drivers, null, 2));
     return (
         <View>
             <FlatList

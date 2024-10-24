@@ -79,7 +79,7 @@ export default function Home() {
 
     const handleResultPress = (item) => {
         // 在这里处理用户点击某个搜索结果的逻辑
-        console.log('Selected location:', JSON.stringify(item, null, 2));
+        // console.log('Selected location:', JSON.stringify(item, null, 2));
         const { address, lat, lon } = item;
         const formattedAddress = [
             address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,  // 检查 house_number 和 road
