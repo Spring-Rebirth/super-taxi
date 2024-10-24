@@ -11,8 +11,7 @@ import userLocationIcon from '../assets/icons/target.png';
 import { useFetch } from '../lib/fetch'
 import pinIcon from '../assets/icons/pin.png'
 import axios from 'axios';
-import polyline, { decode } from '@mapbox/polyline';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
+import polyline from '@mapbox/polyline';
 
 export default function CustomMap({ myLocationHeight = 20 }) {
     const { data: drivers, loading, error } = useFetch('/(api)/driver');
