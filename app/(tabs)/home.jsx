@@ -1,5 +1,5 @@
-import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo'
-import { Link, router } from 'expo-router'
+import { useAuth, useUser } from '@clerk/clerk-expo'
+import { router } from 'expo-router'
 import { FlatList, Image, Text, View } from 'react-native'
 import { ridesMock } from '../../constants/MockRides'
 import TaxiTripCard from '../../components/TaxiTripCard'
