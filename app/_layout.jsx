@@ -4,7 +4,6 @@ import { tokenCache } from '../lib/clerk/auth'
 import { useEffect } from "react";
 
 const originalWarn = console.warn;
-
 console.warn = (message) => {
 	if (message.includes('Clerk')) {
 		return;

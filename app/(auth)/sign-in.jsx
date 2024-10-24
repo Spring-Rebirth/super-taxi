@@ -12,7 +12,6 @@ import { useRouter } from 'expo-router'
 import { useSignIn } from '@clerk/clerk-expo'
 import OAuth from '../../components/OAuth'
 
-
 export default function SignIn() {
     const { signIn, setActive, isLoaded } = useSignIn()
     const router = useRouter()

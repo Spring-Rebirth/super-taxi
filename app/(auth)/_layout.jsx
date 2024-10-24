@@ -1,10 +1,6 @@
-import { LogBox } from "react-native";
-LogBox.ignoreLogs(["Clerk:"]);
-
 import React from 'react';
 import { Redirect, Stack } from 'expo-router';
 import { useAuth } from '@clerk/clerk-expo';
-
 
 export default function AuthLayout() {
     const { isSignedIn } = useAuth();

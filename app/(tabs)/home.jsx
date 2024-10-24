@@ -12,8 +12,6 @@ import searchIcon from '../../assets/icons/search.png';
 import axios from 'axios';
 import signOutIcon from '../../assets/icons/out.png';
 
-
-
 export default function Home() {
     const { user } = useUser(); // 获取当前用户信息
     const { setUserLocation, setDestinationLocation } = useLocationStore();

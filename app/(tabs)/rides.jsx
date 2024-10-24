@@ -1,19 +1,13 @@
 import { useUser } from "@clerk/clerk-expo";
 import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import TaxiTripCard from "@/components/TaxiTripCard";
 import { images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 
 const Rides = () => {
     const { user } = useUser();
-
-    const {
-        data: recentRides,
-        loading,
-        error,
-    } = useFetch(`/(api)/ride/${user?.id}`);
+    const { data: recentRides, loading } = useFetch(`/(api)/ride/${user?.id}`);
 
     return (
         <SafeAreaView className="flex-1 bg-white">

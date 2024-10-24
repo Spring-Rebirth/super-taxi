@@ -4,21 +4,15 @@ import { icons } from "@/constants";
 import { formatTime } from "@/lib/utils";
 import { useDriverStore, useLocationStore } from "@/store";
 import Payment from "../../components/payment";
-import { StripeProvider } from '@stripe/stripe-react-native';
-
 
 const BookRide = () => {
     const { user } = useUser();
     const { userAddress, destinationAddress } = useLocationStore();
     const { drivers, selectedDriver } = useDriverStore();
 
-    // console.log('drivers:', drivers);
-
     const driverDetails = drivers?.filter(
         (driver) => +driver.id === selectedDriver,
     )[0];
-
-    // console.log('driverDetails:', driverDetails);
 
     return (
         <>

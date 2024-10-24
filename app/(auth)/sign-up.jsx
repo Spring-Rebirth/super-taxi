@@ -21,7 +21,6 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export default function SignUp() {
     const { isLoaded, signUp, setActive } = useSignUp();
     const router = useRouter();
-
     const [username, setUsername] = React.useState('');
     const [emailAddress, setEmailAddress] = React.useState('');
     const [password, setPassword] = React.useState('');
