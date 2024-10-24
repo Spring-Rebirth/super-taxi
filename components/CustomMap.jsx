@@ -156,7 +156,7 @@ export default function CustomMap({ myLocationHeight = 20 }) {
 
     if (loading || !userLatitude || !userLongitude) {
         return (
-            <View className='w-full justify-between items-center'>
+            <View className='w-full h-full justify-center items-center'>
                 <ActivityIndicator size={'small'} color={'#000'} />
             </View>
         );
@@ -164,7 +164,7 @@ export default function CustomMap({ myLocationHeight = 20 }) {
 
     if (error) {
         return (
-            <View className='w-full justify-between items-center'>
+            <View className='w-full h-full justify-center items-center'>
                 <Text>Error: {error}</Text>
             </View>
         );
