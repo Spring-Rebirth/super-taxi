@@ -190,5 +190,3 @@ export default function Home() {
         </View>
     );
 }
-import { requestForegroundPermissionsAsync, getCurrentPositionAsync, reverseGeocodeAsync } from 'expo-location';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
