@@ -4,13 +4,27 @@ import { FlatList, Image, Text, View, TouchableOpacity } from 'react-native';
 import { ridesMock } from '../../constants/MockRides';
 import TaxiTripCard from '../../components/TaxiTripCard';
 import CustomMap from '../../components/CustomMap';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import * as Location from 'expo-location';
 import { useLocationStore } from '../../store/index';
 import OSMTextInput from '../../components/OSMTextInput';
 import searchIcon from '../../assets/icons/search.png';
 import axios from 'axios';
 import signOutIcon from '../../assets/icons/out.png';
+
+function ListHeader({ memoizedMap }) {
+    return (
+        <>
+            <Text className="text-xl font-semibold ml-4 my-5">
+                Your current location
+            </Text>
+            <View className="h-[300px] bg-transparent mx-4">{memoizedMap}</View>
+            <Text className="text-xl font-semibold ml-4 my-5">
+                Recent Rides
+            </Text>
+        </>
+    );
+}
 
 export default function Home() {
     const { user } = useUser(); // 获取当前用户信息
@@ -22,6 +36,7 @@ export default function Home() {
     const lastRequestTime = useRef(0);
     const debounceTimer = useRef(null);
     const cache = useRef({});
+    const memoizedMap = useMemo(() => <CustomMap />, []);
 
     // 处理地点搜索
     const searchLocation = async (query) => {
@@ -137,6 +152,10 @@ export default function Home() {
         requestLocation();
     }, []);
 
+    const memoizedHeader = useMemo(() => {
+        return <ListHeader memoizedMap={memoizedMap} />;
+    }, [memoizedMap]);
+
     return (
         <View className="my-8 bg-[#F6F8FA] h-screen">
             <View className="my-2 px-8 flex-row justify-between items-center">
@@ -171,20 +190,7 @@ export default function Home() {
             <FlatList
                 style={{ marginBottom: 100 }}
                 data={ridesMock}
-                ListHeaderComponent={() => (
-                    <>
-                        <Text className="text-xl font-semibold ml-4 my-5">
-                            Your current location
-                        </Text>
-                        <View className="h-[300px] bg-transparent mx-4">
-                            <CustomMap />
-                        </View>
-
-                        <Text className="text-xl font-semibold ml-4 my-5">
-                            Recent Rides
-                        </Text>
-                    </>
-                )}
+                ListHeaderComponent={memoizedHeader}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
             />
         </View>
