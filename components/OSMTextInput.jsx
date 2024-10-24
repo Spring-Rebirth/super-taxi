@@ -2,11 +2,9 @@ import 'react-native-get-random-values';
 import { View, Text, Image, TextInput, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import pinIcon from '../assets/icons/pin.png';
-import axios from 'axios';
 
 export default function OSMTextInput({
     icon,
-    handlePress,
     onSearch,
     containerStyle,
     textInputStyle,
