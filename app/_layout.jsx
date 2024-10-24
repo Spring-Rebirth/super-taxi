@@ -1,4 +1,3 @@
-
 import { Slot, SplashScreen } from "expo-router";
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo';
 import { tokenCache } from '../lib/clerk/auth'
