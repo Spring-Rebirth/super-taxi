@@ -82,11 +82,15 @@ export default function FindRide() {
         // console.log('Selected location:', JSON.stringify(item, null, 2));
         const { address, lat, lon } = item;
         const formattedAddress = [
+            // 检查 house_number 和 road
             address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,
-            address.town,
-            address.state && address.postcode ? `${address.state} ${address.postcode}` : address.state || address.postcode,
-            address.country
-        ].filter(Boolean).join(', ');
+            // 针对中国地址格式，优先显示 commercial（商业区/建筑名）、suburb（街道）和 city（市）
+            address.commercial,  // 显示商业区名（如 "腾讯大厦"）
+            address.suburb,  // 显示街道（如 "粤海街道"）
+            address.city,  // 显示市（如 "南山区"）
+            address.state && address.postcode ? `${address.state} ${address.postcode}` : address.state || address.postcode,  // 检查 state 和 postcode
+            address.country  // 显示国家
+        ].filter(Boolean).join(', ');  // 使用 filter(Boolean) 去除任何 undefined 或空值
 
         if (type === 'from') {
             setUserLocation({

@@ -82,11 +82,15 @@ export default function Home() {
         // console.log('Selected location:', JSON.stringify(item, null, 2));
         const { address, lat, lon } = item;
         const formattedAddress = [
-            address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,  // 检查 house_number 和 road
-            address.town,
+            // 检查 house_number 和 road
+            address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,
+            // 针对中国地址格式，优先显示 commercial（商业区/建筑名）、suburb（街道）和 city（市）
+            address.commercial,  // 显示商业区名（如 "腾讯大厦"）
+            address.suburb,  // 显示街道（如 "粤海街道"）
+            address.city,  // 显示市（如 "南山区"）
             address.state && address.postcode ? `${address.state} ${address.postcode}` : address.state || address.postcode,  // 检查 state 和 postcode
-            address.country
-        ].filter(Boolean).join(', ');
+            address.country  // 显示国家
+        ].filter(Boolean).join(', ');  // 使用 filter(Boolean) 去除任何 undefined 或空值
 
         setDestinationLocation({
             latitude: parseFloat(lat),  // 确保转换为浮点数
@@ -114,11 +118,29 @@ export default function Home() {
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude
             });
+            // console.log('user location:', JSON.stringify(address, null, 2));
+
+            const formattedAddress = [
+                // 针对外国地址，优先显示 house_number 和 road
+                address[0].streetNumber && address[0].street ? `${address[0].streetNumber} ${address[0].street}` : address[0].street,
+
+                // 处理中国地址中的商业区、街道、区和市
+                address[0].commercial,  // 显示商业区名（如 "腾讯大厦"）
+                address[0].subregion || address[0].suburb,  // 显示街道（如 "粤海街道" 或 subregion）
+                address[0].district,  // 显示区（如 "宝安区"）
+                address[0].city,  // 显示城市（如 "深圳市"）
+
+                // 处理省/州和邮政编码
+                address[0].region && address[0].postalCode ? `${address[0].region} ${address[0].postalCode}` : address[0].region || address[0].postalCode,
+
+                // 最后显示国家
+                address[0].country  // 显示国家
+            ].filter(Boolean).join(', ');  // 过滤空值并拼接
 
             setUserLocation({
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude,
-                address: `${address[0].name}, ${address[0].region}`
+                address: formattedAddress
                 // latitude: 37.78825,
                 // longitude: -122.4324,
                 // address: 'San Francisco, CA, USA'
