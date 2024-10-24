@@ -14,6 +14,7 @@ import { useSignUp } from '@clerk/clerk-expo'
 import CustomModal from '../../components/CustomModal'
 import check from '../../assets/images/check.png'
 import { fetchAPI } from '../../lib/fetch'
+import OAuth from '../../components/OAuth'
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -123,11 +124,7 @@ export default function SignUp() {
                 <DividerWithText />
 
                 <View className='w-full items-center relative'>
-                    <CustomButton
-                        title={'Log In with Google'}
-                        containerStyle={'bg-transparent border border-[#EBEBEB]'}
-                        titleStyle={'text-black font-normal'}
-                    />
+                    <OAuth />
                     <Image
                         className='w-5 h-5 absolute left-20 top-3.5'
                         source={googleIcon}
