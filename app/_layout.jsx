@@ -6,12 +6,11 @@ import { useEffect } from "react";
 const originalWarn = console.warn;
 
 console.warn = (message) => {
-	if (message.includes('Clerk: Clerk has been loaded with development keys.')) {
+	if (message.includes('Clerk')) {
 		return;
 	}
 	originalWarn(message);
 };
-
 
 // 防止自动隐藏启动屏幕
 SplashScreen.preventAutoHideAsync();
