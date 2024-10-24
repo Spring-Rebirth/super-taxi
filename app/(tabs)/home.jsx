@@ -132,7 +132,7 @@ export default function Home() {
         <View className='my-8 bg-[#F6F8FA] h-screen'>
             <View className='my-2 px-8 flex-row justify-between items-center'>
                 <Text className='text-xl my-4 font-semibold'>
-                    Hello Mark
+                    Hello {user?.firstName || 'Mike'}
                 </Text>
                 <TouchableOpacity onPress={async () => {
                     await signOut();  // 等待 signOut 完成
