@@ -83,8 +83,7 @@ export default function Home() {
         const { address, lat, lon } = item;
         const formattedAddress = [
             // 检查 house_number 和 road
-            address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,
-            // 针对中国地址格式，优先显示 commercial（商业区/建筑名）、suburb（街道）和 city（市）
+            address.house_number && address.road ? `${address.house_number} ${address.road}` : address.road,  // 针对中国地址格式，优先显示 commercial（商业区/建筑名）、suburb（街道）和 city（市）
             address.commercial,  // 显示商业区名（如 "腾讯大厦"）
             address.suburb,  // 显示街道（如 "粤海街道"）
             address.city,  // 显示市（如 "南山区"）

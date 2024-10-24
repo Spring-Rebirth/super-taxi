@@ -14,7 +14,6 @@ export default function OSMTextInput({
     searchResults,
     onSelectResult,
 }) {
-    // const [searchResults, setSearchResults] = useState([]);
     const [query, setQuery] = useState(value || '');
 
     // 当输入内容变化时，触发onSearch回调
