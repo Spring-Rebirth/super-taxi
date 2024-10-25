@@ -112,7 +112,6 @@ export default function TaxiTripCard({ data }) {
                     </Text>
                 </View>
             </View>
-
         </View>
     )
 }

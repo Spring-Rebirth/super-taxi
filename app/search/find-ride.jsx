@@ -97,9 +97,7 @@ export default function FindRide() {
             address.commercial,
             address.suburb,
             address.city,
-            address.state && address.postcode
-                ? `${address.state} ${address.postcode}`
-                : address.state || address.postcode,
+            address.state,
             address.country,
         ]
             .filter(Boolean)

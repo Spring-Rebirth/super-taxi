@@ -88,9 +88,7 @@ export default function Home() {
             address.commercial,
             address.suburb,
             address.city,
-            address.state && address.postcode
-                ? `${address.state} ${address.postcode}`
-                : address.state || address.postcode,
+            address.state,
             address.country,
         ]
             .filter(Boolean)
@@ -130,9 +128,7 @@ export default function Home() {
                 address[0].subregion || address[0].suburb,
                 address[0].district,
                 address[0].city,
-                address[0].region && address[0].postalCode
-                    ? `${address[0].region} ${address[0].postalCode}`
-                    : address[0].region || address[0].postalCode,
+                address[0].region,
                 address[0].country,
             ]
                 .filter(Boolean)
