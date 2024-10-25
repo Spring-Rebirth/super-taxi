@@ -97,7 +97,9 @@ export default function Home() {
 
     const handleResultPress = (item) => {
         const { address, lat, lon } = item;
+        // console.log('address:', JSON.stringify(address, null, 2));
         const formattedAddress = [
+            address.building,
             address.house_number && address.road
                 ? `${address.house_number} ${address.road}`
                 : address.road,
@@ -135,25 +137,13 @@ export default function Home() {
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude,
             });
+            console.log('address:', JSON.stringify(address, null, 2));
 
-            const formattedAddress = [
-                address[0].streetNumber && address[0].street
-                    ? `${address[0].streetNumber} ${address[0].street}`
-                    : address[0].street,
-                address[0].commercial,
-                address[0].subregion || address[0].suburb,
-                address[0].district,
-                address[0].city,
-                address[0].region,
-                address[0].country,
-            ]
-                .filter(Boolean)
-                .join(', ');
 
             setUserLocation({
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude,
-                address: formattedAddress,
+                address: address[0].formattedAddress,
             });
         }
 

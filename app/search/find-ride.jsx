@@ -91,6 +91,7 @@ export default function FindRide() {
     const handleResultPress = (item, type) => {
         const { address, lat, lon } = item;
         const formattedAddress = [
+            address.building,
             address.house_number && address.road
                 ? `${address.house_number} ${address.road}`
                 : address.road,
