@@ -91,18 +91,17 @@ export default function FindRide() {
     const handleResultPress = (item, type) => {
         const { address, lat, lon } = item;
         const formattedAddress = [
-            address.building,
-            address.house_number && address.road
-                ? `${address.house_number} ${address.road}`
-                : address.road,
-            address.commercial,
-            address.suburb,
-            address.city,
             address.state,
-            address.country,
+            address.city,
+            address.suburb,
+            address.commercial,
+            address.road && address.house_number
+                ? `${address.road} ${address.house_number}`
+                : address.road,
+            address.building
         ]
             .filter(Boolean)
-            .join(', ');
+            .join(' ');
 
         if (type === 'from') {
             setUserLocation({

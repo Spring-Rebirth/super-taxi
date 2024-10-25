@@ -99,18 +99,17 @@ export default function Home() {
         const { address, lat, lon } = item;
         // console.log('address:', JSON.stringify(address, null, 2));
         const formattedAddress = [
-            address.building,
-            address.house_number && address.road
-                ? `${address.house_number} ${address.road}`
-                : address.road,
-            address.commercial,
-            address.suburb,
-            address.city,
             address.state,
-            address.country,
+            address.city,
+            address.suburb,
+            address.commercial,
+            address.road && address.house_number
+                ? `${address.road} ${address.house_number}`
+                : address.road,
+            address.building
         ]
             .filter(Boolean)
-            .join(', ');
+            .join(' ');
 
         setDestinationLocation({
             latitude: parseFloat(lat),
