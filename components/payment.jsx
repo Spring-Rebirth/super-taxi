@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useState, useRef } from "react";
-import { Image, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Image, Text, TextInput, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
 import { images } from "@/constants";
@@ -14,6 +14,7 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
     const [showCheck, setShowCheck] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const { userId } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
     const {
         userAddress,
         userLongitude,
@@ -24,26 +25,32 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
     } = useLocationStore();
 
     const handleCreateRide = async () => {
-        await fetchAPI("/(api)/ride/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                origin_address: userAddress,
-                destination_address: destinationAddress,
-                origin_latitude: userLatitude,
-                origin_longitude: userLongitude,
-                destination_latitude: destinationLatitude,
-                destination_longitude: destinationLongitude,
-                ride_time: rideTime.toFixed(0),
-                fare_price: parseInt(amount) * 100,
-                payment_status: "paid",
-                driver_id: driverId,
-                user_id: userId,
-            }),
-        });
-
+        try {
+            setIsLoading(true);
+            await fetchAPI("/(api)/ride/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    origin_address: userAddress,
+                    destination_address: destinationAddress,
+                    origin_latitude: userLatitude,
+                    origin_longitude: userLongitude,
+                    destination_latitude: destinationLatitude,
+                    destination_longitude: destinationLongitude,
+                    ride_time: rideTime.toFixed(0),
+                    fare_price: parseInt(amount) * 100,
+                    payment_status: "paid",
+                    driver_id: driverId,
+                    user_id: userId,
+                }),
+            });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -80,16 +87,28 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
                             secureTextEntry={true}
                         />
                     </View>
-                    <CustomButton
-                        containerStyle={'mt-8'}
-                        title='Confirm'
-                        onPress={() => {
-                            setSuccess(true);
-                            setShowCheck(false);
-                            setIsDisabled(true);
-                            handleCreateRide();
-                        }}
-                    />
+                    <View className='w-full flex-row'>
+                        {isLoading && (
+                            <ActivityIndicator
+                                className='absolute bottom-3 right-[80] z-10'
+                                size={'small'}
+                                color="#fff"
+                            />
+                        )}
+
+                        <CustomButton
+                            containerStyle={'mt-8'}
+                            title={isLoading ? 'Paying' : 'Confirm'}
+                            onPress={() => {
+                                setSuccess(true);
+                                setShowCheck(false);
+                                setIsDisabled(true);
+                                handleCreateRide();
+                            }}
+                        />
+                    </View>
+
+
                 </View>
 
             </ReactNativeModal>
