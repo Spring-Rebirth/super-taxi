@@ -42,6 +42,7 @@ export default function Home() {
             // 如果缓存中已有结果，直接使用缓存
             if (cache.current[query]) {
                 setSearchResults(cache.current[query]);
+                setIsLoading(false);
                 return;
             }
 
