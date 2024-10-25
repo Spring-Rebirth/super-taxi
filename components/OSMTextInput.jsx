@@ -46,11 +46,6 @@ export default function OSMTextInput({
                     placeholder='Search here'
                     value={query}
                     onChangeText={handleInputChange}
-                    onFocus={() => {
-                        if (query.length > 0) {
-                            setModalVisible(true);
-                        }
-                    }}
                 />
                 <TouchableOpacity
                     className='absolute right-4'
