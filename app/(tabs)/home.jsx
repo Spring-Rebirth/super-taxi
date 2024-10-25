@@ -14,6 +14,20 @@ import signOutIcon from '../../assets/icons/out.png';
 import { useFetch } from '../../lib/fetch';
 import { images } from "@/constants";
 
+function ListHeader({ memoizedMap }) {
+    return (
+        <>
+            <Text className="text-xl font-semibold ml-4 my-5">
+                Your current location
+            </Text>
+            <View className="h-[300px] bg-transparent mx-4">{memoizedMap}</View>
+            <Text className="text-xl font-semibold ml-4 my-5">
+                Recent Rides
+            </Text>
+        </>
+    );
+}
+
 export default function Home() {
     const { user } = useUser(); // 获取当前用户信息
     const { setUserLocation, setDestinationLocation } = useLocationStore();
@@ -26,6 +40,8 @@ export default function Home() {
     const lastRequestTime = useRef(0);
     const debounceTimer = useRef(null);
     const cache = useRef({});
+    const memoizedMap = useMemo(() => <CustomMap />, []);
+
 
     // 处理地点搜索
     const searchLocation = async (query) => {
@@ -144,7 +160,10 @@ export default function Home() {
         requestLocation();
     }, []);
 
-    const memoizedMap = useMemo(() => <CustomMap />, []);
+    const memoizedHeader = useMemo(() => {
+        return <ListHeader memoizedMap={memoizedMap} />;
+    }, [memoizedMap]);
+
 
     return (
         <View className="my-8 bg-[#F6F8FA] h-screen">
@@ -178,19 +197,10 @@ export default function Home() {
                 />
             </View>
 
-            <Text className="text-xl font-semibold ml-4 my-5">
-                Your current location
-            </Text>
-            <View className="h-[300px] bg-transparent mx-4">{memoizedMap}</View>
-
             <FlatList
                 style={{ marginBottom: 100 }}
                 data={ridesData}
-                ListHeaderComponent={() => (
-                    <Text className="text-xl font-semibold ml-4 my-5">
-                        Recent Rides
-                    </Text>
-                )}
+                ListHeaderComponent={memoizedHeader}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
                 ListEmptyComponent={() => (
                     <View className="flex flex-col items-center justify-center">
