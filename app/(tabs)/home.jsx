@@ -29,10 +29,12 @@ export default function Home() {
         // 如果输入少于3个字符，清空结果
         if (query.length <= 2) {
             setSearchResults([]);
+            setIsLoading(false);
             return;
         }
 
-        setSearchResults([]);
+        setSearchResults(null); // null 表示搜索进行中
+        setIsLoading(true);
 
         // 防抖机制
         clearTimeout(debounceTimer.current);
@@ -55,7 +57,6 @@ export default function Home() {
 
             // 发起请求
             try {
-                setIsLoading(true);
                 const response = await axios.get(
                     `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`,
                     {

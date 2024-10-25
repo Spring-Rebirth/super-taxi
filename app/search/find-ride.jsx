@@ -34,8 +34,9 @@ export default function FindRide() {
             return; // 直接返回，避免不必要的请求
         }
 
-        setFromSearchResults([]);
-        setToSearchResults([]);
+        setFromSearchResults(null);
+        setToSearchResults(null);
+        setIsLoading(true);
 
         // 防抖机制
         clearTimeout(debounceTimer.current);
@@ -62,7 +63,6 @@ export default function FindRide() {
 
             // 发起请求
             try {
-                setIsLoading(true);
                 const response = await axios.get(
                     `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`,
                     {

@@ -70,17 +70,19 @@ export default function OSMTextInput({
                     <View style={styles.modalContent}>
                         {isLoading ? (
                             <ActivityIndicator size="large" color="#000" />
-                        ) : searchResults && searchResults.length > 0 ? (
-                            searchResults.map((item) => (
-                                <TouchableOpacity key={item.place_id} onPress={() => handleSelect(item)}>
-                                    <View style={styles.item}>
-                                        <Text>{item.display_name}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            ))
-                        ) : (
-                            <Text style={styles.noResults}>No results found</Text>
-                        )}
+                        ) : searchResults ? (
+                            searchResults.length > 0 ? (
+                                searchResults.map((item) => (
+                                    <TouchableOpacity key={item.place_id} onPress={() => handleSelect(item)}>
+                                        <View style={styles.item}>
+                                            <Text>{item.display_name}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                ))
+                            ) : (
+                                <Text style={styles.noResults}>No results found</Text>
+                            )
+                        ) : null}
                     </View>
                 </TouchableOpacity>
             </Modal>
