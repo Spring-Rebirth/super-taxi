@@ -34,7 +34,7 @@ export default function FindRide() {
             return; // 直接返回，避免不必要的请求
         }
 
-        setFromSearchResults(null);
+        setFromSearchResults(null); // null 表示搜索进行中
         setToSearchResults(null);
         setIsLoading(true);
 
