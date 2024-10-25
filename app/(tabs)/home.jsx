@@ -17,6 +17,7 @@ export default function Home() {
     const { setUserLocation, setDestinationLocation } = useLocationStore();
     const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
     const { signOut } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
 
     // 使用 useRef 来持久化变量
     const lastRequestTime = useRef(0);
@@ -52,6 +53,7 @@ export default function Home() {
 
             // 发起请求
             try {
+                setIsLoading(true);
                 const response = await axios.get(
                     `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`,
                     {
@@ -64,6 +66,8 @@ export default function Home() {
                 setSearchResults(response.data); // 设置搜索结果
             } catch (error) {
                 console.error('请求错误:', error);
+            } finally {
+                setIsLoading(false); // 结束加载
             }
         }, 500); // 500 毫秒的防抖时间
     };
@@ -166,6 +170,7 @@ export default function Home() {
                     icon={searchIcon}
                     onSearch={searchLocation}
                     searchResults={searchResults}
+                    isLoading={isLoading}
                     onSelectResult={handleResultPress}
                 />
             </View>

@@ -1,5 +1,5 @@
 import 'react-native-get-random-values';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import pinIcon from '../assets/icons/pin.png';
 
@@ -11,6 +11,7 @@ export default function OSMTextInput({
     value,
     searchResults,
     onSelectResult,
+    isLoading,
 }) {
     const [query, setQuery] = useState(value || '');
     const [modalVisible, setModalVisible] = useState(false);
@@ -67,7 +68,9 @@ export default function OSMTextInput({
             >
                 <TouchableOpacity style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
                     <View style={styles.modalContent}>
-                        {searchResults && searchResults.length > 0 ? (
+                        {isLoading ? (
+                            <ActivityIndicator size="large" color="#000" />
+                        ) : searchResults && searchResults.length > 0 ? (
                             searchResults.map((item) => (
                                 <TouchableOpacity key={item.place_id} onPress={() => handleSelect(item)}>
                                     <View style={styles.item}>

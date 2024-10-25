@@ -17,6 +17,7 @@ export default function FindRide() {
 
     const [fromSearchResults, setFromSearchResults] = useState([]); // 为 From 输入框管理搜索结果
     const [toSearchResults, setToSearchResults] = useState([]); // 为 To 输入框管理搜索结果
+    const [isLoading, setIsLoading] = useState(false);
 
     const lastRequestTime = useRef(0);
     const debounceTimer = useRef(null);
@@ -58,6 +59,7 @@ export default function FindRide() {
 
             // 发起请求
             try {
+                setIsLoading(true);
                 const response = await axios.get(
                     `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`,
                     {
@@ -76,6 +78,8 @@ export default function FindRide() {
                 }
             } catch (error) {
                 console.error('请求错误:', error);
+            } finally {
+                setIsLoading(false); // 结束加载
             }
         }, 500); // 500 毫秒的防抖时间
     };
@@ -126,6 +130,7 @@ export default function FindRide() {
                         value={userAddress}
                         onSearch={(query) => searchLocation(query, 'from')}
                         searchResults={fromSearchResults}
+                        isLoading={isLoading}
                         onSelectResult={(item) => handleResultPress(item, 'from')}
                     />
                 </View>
