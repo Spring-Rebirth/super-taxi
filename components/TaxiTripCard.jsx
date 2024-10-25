@@ -48,7 +48,9 @@ export default function TaxiTripCard({ data }) {
                             source={toIcon}
                             resizeMode='contain'
                         />
-                        <Text>{destination_address}</Text>
+                        <Text>
+                            {destination_address}
+                        </Text>
                     </View>
 
                     <View

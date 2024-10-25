@@ -4,13 +4,47 @@ import { Image, Text, TextInput, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
 import { images } from "@/constants";
+import { fetchAPI } from "../lib/fetch";
+import { useLocationStore } from "../store";
+import { useAuth } from "@clerk/clerk-expo";
 
-
-const Payment = () => {
+const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
     const [success, setSuccess] = useState(false);
     const bottomSheetRef = useRef(null);
     const [showCheck, setShowCheck] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
+    const { userId } = useAuth();
+    const {
+        userAddress,
+        userLongitude,
+        userLatitude,
+        destinationLatitude,
+        destinationAddress,
+        destinationLongitude,
+    } = useLocationStore();
+
+    const handleCreateRide = async () => {
+        await fetchAPI("/(api)/ride/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                origin_address: userAddress,
+                destination_address: destinationAddress,
+                origin_latitude: userLatitude,
+                origin_longitude: userLongitude,
+                destination_latitude: destinationLatitude,
+                destination_longitude: destinationLongitude,
+                ride_time: rideTime.toFixed(0),
+                fare_price: parseInt(amount) * 100,
+                payment_status: "paid",
+                driver_id: driverId,
+                user_id: userId,
+            }),
+        });
+
+    }
 
     return (
         <>
@@ -53,8 +87,8 @@ const Payment = () => {
                             setSuccess(true);
                             setShowCheck(false);
                             setIsDisabled(true);
+                            handleCreateRide();
                         }}
-
                     />
                 </View>
 
