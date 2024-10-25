@@ -14,7 +14,7 @@ const Rides = () => {
             <FlatList
                 data={recentRides}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
-                keyExtractor={(index) => index.toString()}
+                keyExtractor={(item, index) => index.toString()}
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={{
                     paddingBottom: 100,
