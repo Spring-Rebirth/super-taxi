@@ -47,6 +47,7 @@ export default function OSMTextInput({
                     placeholder='Search here'
                     value={query}
                     onChangeText={handleInputChange}
+                    onSubmitEditing={handleSearch}
                 />
                 <TouchableOpacity
                     className='absolute right-4'
