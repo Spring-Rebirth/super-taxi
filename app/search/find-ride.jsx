@@ -25,7 +25,7 @@ export default function FindRide() {
 
     const searchLocation = async (query, type) => {
         // 清空结果条件
-        if (query.length <= 2) {
+        if (query.length < 2) {
             if (type === 'from') {
                 setFromSearchResults([]); // 清空 From 搜索结果
             } else if (type === 'to') {

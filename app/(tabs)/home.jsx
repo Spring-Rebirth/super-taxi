@@ -27,7 +27,7 @@ export default function Home() {
     // 处理地点搜索
     const searchLocation = async (query) => {
         // 如果输入少于3个字符，清空结果
-        if (query.length <= 2) {
+        if (query.length < 2) {
             setSearchResults([]);
             setIsLoading(false);
             return;
