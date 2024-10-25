@@ -48,7 +48,7 @@ export default function TaxiTripCard({ data }) {
                             source={toIcon}
                             resizeMode='contain'
                         />
-                        <Text>
+                        <Text className='w-40' numberOfLines={2} ellipsizeMode={'tail'}>
                             {destination_address}
                         </Text>
                     </View>
@@ -62,7 +62,9 @@ export default function TaxiTripCard({ data }) {
                             source={pinIcon}
                             resizeMode='contain'
                         />
-                        <Text>{origin_address}</Text>
+                        <Text className='w-40' numberOfLines={2} ellipsizeMode={'tail'}>
+                            {origin_address}
+                        </Text>
                     </View>
                 </View>
             </View>
