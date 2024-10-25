@@ -1,8 +1,7 @@
 import 'react-native-get-random-values';
-import { View, Text, Image, TextInput, FlatList, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import React, { useState } from 'react';
 import pinIcon from '../assets/icons/pin.png';
-import { create } from 'react-test-renderer';
 
 export default function OSMTextInput({
     icon,
