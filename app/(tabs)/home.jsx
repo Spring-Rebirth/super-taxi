@@ -138,11 +138,23 @@ export default function Home() {
             });
             console.log('address:', JSON.stringify(address, null, 2));
 
+            const formattedAddress = [
+                address[0].region,
+                address[0].city,
+                address[0].district,
+                address[0].subregion || address[0].suburb,
+                address[0].commercial,
+                address[0].street && address[0].streetNumber
+                    ? `${address[0].street} ${address[0].streetNumber}`
+                    : address[0].street
+            ]
+                .filter(Boolean)
+                .join(' ');
 
             setUserLocation({
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude,
-                address: address[0].formattedAddress,
+                address: formattedAddress
             });
         }
 
