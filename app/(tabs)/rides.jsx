@@ -15,7 +15,7 @@ const Rides = () => {
                 data={recentRides}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
                 keyExtractor={(item, index) => index.toString()}
-                className="px-5"
+                className=""
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={{
                     paddingBottom: 100,
@@ -39,7 +39,7 @@ const Rides = () => {
                 )}
                 ListHeaderComponent={
                     <>
-                        <Text className="text-2xl font-JakartaBold my-5">All Rides</Text>
+                        <Text className="text-2xl font-JakartaBold my-5 pl-5">All Rides</Text>
                     </>
                 }
             />
