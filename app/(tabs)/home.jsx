@@ -1,6 +1,6 @@
 import { useAuth, useUser } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
-import { FlatList, Image, Text, View, TouchableOpacity } from 'react-native';
+import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { ridesMock } from '../../constants/MockRides';
 import TaxiTripCard from '../../components/TaxiTripCard';
 import CustomMap from '../../components/CustomMap';
@@ -11,6 +11,8 @@ import OSMTextInput from '../../components/OSMTextInput';
 import searchIcon from '../../assets/icons/search.png';
 import axios from 'axios';
 import signOutIcon from '../../assets/icons/out.png';
+import { useFetch } from '../../lib/fetch';
+import { images } from "@/constants";
 
 export default function Home() {
     const { user } = useUser(); // 获取当前用户信息
@@ -18,6 +20,7 @@ export default function Home() {
     const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
     const { signOut } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+    const { data: ridesData, loading } = useFetch(`/(api)/ride/${user.id}`);
 
     // 使用 useRef 来持久化变量
     const lastRequestTime = useRef(0);
@@ -186,13 +189,30 @@ export default function Home() {
 
             <FlatList
                 style={{ marginBottom: 100 }}
-                data={ridesMock}
+                data={ridesData}
                 ListHeaderComponent={() => (
                     <Text className="text-xl font-semibold ml-4 my-5">
                         Recent Rides
                     </Text>
                 )}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
+                ListEmptyComponent={() => (
+                    <View className="flex flex-col items-center justify-center">
+                        {!loading ? (
+                            <>
+                                <Image
+                                    source={images.noResult}
+                                    className="w-20 h-20"
+                                    alt="No recent rides found"
+                                    resizeMode="contain"
+                                />
+                                <Text className="text-sm">No recent rides found</Text>
+                            </>
+                        ) : (
+                            <ActivityIndicator size="small" color="#000" />
+                        )}
+                    </View>
+                )}
             />
         </View>
     );
