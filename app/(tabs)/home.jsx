@@ -109,7 +109,7 @@ export default function Home() {
             address.building
         ]
             .filter(Boolean)
-            .join(' ');
+            .join(', ');
 
         setDestinationLocation({
             latitude: parseFloat(lat),
@@ -149,7 +149,7 @@ export default function Home() {
                     : address[0].street
             ]
                 .filter(Boolean)
-                .join(' ');
+                .join(', ');
 
             setUserLocation({
                 latitude: location.coords?.latitude,

@@ -101,7 +101,7 @@ export default function FindRide() {
             address.building
         ]
             .filter(Boolean)
-            .join(' ');
+            .join(', ');
 
         if (type === 'from') {
             setUserLocation({
