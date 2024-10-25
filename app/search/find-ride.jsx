@@ -34,6 +34,9 @@ export default function FindRide() {
             return; // 直接返回，避免不必要的请求
         }
 
+        setFromSearchResults([]);
+        setToSearchResults([]);
+
         // 防抖机制
         clearTimeout(debounceTimer.current);
         debounceTimer.current = setTimeout(async () => {

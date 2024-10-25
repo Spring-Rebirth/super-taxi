@@ -32,6 +32,8 @@ export default function Home() {
             return;
         }
 
+        setSearchResults([]);
+
         // 防抖机制
         clearTimeout(debounceTimer.current);
         debounceTimer.current = setTimeout(async () => {
