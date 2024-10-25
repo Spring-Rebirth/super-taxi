@@ -48,6 +48,7 @@ export default function FindRide() {
                 } else if (type === 'to') {
                     setToSearchResults(cache.current[query]); // 直接从缓存中获取 To 数据
                 }
+                setIsLoading(false);
                 return;
             }
 
