@@ -19,9 +19,12 @@ export default function OSMTextInput({
     // 当输入内容变化时，触发onSearch回调
     const handleInputChange = (text) => {
         setQuery(text);
-        onSearch(text); // 传递到父组件进行搜索处理
-        if (text.length > 0) {
-            setModalVisible(true);
+    };
+
+    const handleSearch = () => {
+        if (query.trim().length > 0) {
+            onSearch(query);
+            setModalVisible(true); // 假设搜索结果会通过 props 更新
         } else {
             setModalVisible(false);
         }
@@ -50,7 +53,15 @@ export default function OSMTextInput({
                         }
                     }}
                 />
-                <Image className='w-5 h-5 absolute right-4' source={icon} resizeMode={'contain'} />
+                <TouchableOpacity
+                    className='absolute right-4'
+                    onPress={handleSearch}
+                >
+                    <Image className='w-5 h-5'
+                        source={icon}
+                        resizeMode={'contain'}
+                    />
+                </TouchableOpacity>
             </View>
 
             {/* 搜索列表 */}
