@@ -131,6 +131,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 10,
         maxHeight: '80%',
+        position: 'absolute',
+        top: 126, // 距离顶部 100 个单位
+        left: 20, // 距离左边 20 个单位
+        right: 20, // 距离右边 20 个单位
     },
     item: {
         padding: 15,
