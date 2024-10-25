@@ -43,7 +43,7 @@ export default function OSMTextInput({
                 <Image className='w-5 h-5 absolute left-4' source={pinIcon} resizeMode={'contain'} />
                 <TextInput
                     style={[styles.input, textInputStyle]}
-                    className='mx-10'
+                    className='mx-14'
                     placeholder='Search here'
                     value={query}
                     onChangeText={handleInputChange}
