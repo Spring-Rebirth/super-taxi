@@ -131,12 +131,10 @@ export default function Home() {
             }
 
             let location = await Location.getCurrentPositionAsync();
-
             const address = await Location.reverseGeocodeAsync({
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude,
             });
-            console.log('address:', JSON.stringify(address, null, 2));
 
             const formattedAddress = [
                 address[0].region,
