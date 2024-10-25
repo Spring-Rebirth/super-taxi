@@ -2,8 +2,7 @@ import { View, Text } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { useLocationStore } from '../../store';
 import OSMTextInput from '../../components/OSMTextInput';
-import targetIcon from '../../assets/icons/target.png';
-import mapIcon from '../../assets/icons/map.png';
+import searchIcon from '../../assets/icons/search.png';
 import CustomButton from '../../components/CustomButton';
 import axios from 'axios';
 import { router } from 'expo-router';
@@ -122,7 +121,7 @@ export default function FindRide() {
                 <View className="items-center">
                     <OSMTextInput
                         containerStyle="bg-neutral-100"
-                        icon={targetIcon}
+                        icon={searchIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
                         value={userAddress}
                         onSearch={(query) => searchLocation(query, 'from')}
@@ -137,7 +136,7 @@ export default function FindRide() {
                 <View className="items-center">
                     <OSMTextInput
                         containerStyle="bg-neutral-100"
-                        icon={mapIcon}
+                        icon={searchIcon}
                         textInputStyle={{ backgroundColor: 'transparent' }}
                         value={destinationAddress}
                         onSearch={(query) => searchLocation(query, 'to')}
