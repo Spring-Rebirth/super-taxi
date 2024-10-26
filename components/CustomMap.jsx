@@ -12,11 +12,13 @@ import { useFetch } from '../lib/fetch'
 import pinIcon from '../assets/icons/pin.png'
 import axios from 'axios';
 import polyline from '@mapbox/polyline';
+import { useRoute } from '@react-navigation/native';
 
 export default function CustomMap({ myLocationHeight = 20 }) {
     const { data: drivers, loading, error } = useFetch('/(api)/driver');
     const { userLongitude, userLatitude, destinationLongitude, destinationLatitude } = useLocationStore();
     const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });
+    const route = useRoute();
     const { selectedDriver, setDrivers } = useDriverStore();
     const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [markers, setMarkers] = useState([]);
@@ -194,7 +196,7 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                     />
                 ))}
 
-                {destinationLatitude && destinationLongitude && (
+                {destinationLatitude && destinationLongitude && route.name !== 'home' && (
                     <>
                         <Marker
                             key={'destination'}
