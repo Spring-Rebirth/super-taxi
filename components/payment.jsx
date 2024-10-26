@@ -24,6 +24,10 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
         destinationLongitude,
     } = useLocationStore();
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     const handleCreateRide = async () => {
         try {
             setIsLoading(true);
@@ -46,6 +50,7 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
                     user_id: userId,
                 }),
             });
+            await sleep(1500);
         } catch (error) {
             console.log(error);
         } finally {
@@ -97,7 +102,7 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
                     <View className="w-full flex-row justify-center mt-6">
                         {isLoading && (
                             <ActivityIndicator
-                                className="absolute bottom-3 right-[80] z-10"
+                                className="absolute bottom-2.5 right-[72] z-10"
                                 size="small"
                                 color="#fff"
                             />
@@ -106,11 +111,11 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
                         <TouchableOpacity
                             className={`w-full bg-blue-500 py-3 rounded-full mt-4 ${isLoading ? 'opacity-50' : ''}`}
                             disabled={isLoading}
-                            onPress={() => {
-                                setSuccess(true);
-                                setShowCheck(false);
+                            onPress={async () => {
                                 setIsDisabled(true);
-                                handleCreateRide();
+                                await handleCreateRide();
+                                setShowCheck(false);
+                                setSuccess(true);
                             }}
                         >
                             <Text className="text-center text-white font-semibold">
