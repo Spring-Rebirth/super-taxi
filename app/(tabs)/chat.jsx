@@ -17,9 +17,6 @@ const Chat = () => {
                     <Text className="text-3xl font-JakartaBold mt-3">
                         No Messages Yet
                     </Text>
-                    <Text className="text-base mt-2 text-center px-7">
-                        Start a conversation with your friends and family
-                    </Text>
                 </View>
             </ScrollView>
         </SafeAreaView>
