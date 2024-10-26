@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     modalContent: {
         backgroundColor: '#fff',
         borderRadius: 10,
+        overflow: 'hidden',
         maxHeight: '80%',
         position: 'absolute',
         top: 126, // 距离顶部 100 个单位
