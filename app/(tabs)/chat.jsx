@@ -7,7 +7,7 @@ const Chat = () => {
         <SafeAreaView className="flex-1 bg-white p-5">
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <Text className="text-2xl font-JakartaBold">Chat</Text>
-                <View className="flex-1 h-fit flex justify-center items-center">
+                <View className="flex-1 h-fit flex justify-start items-center mt-44">
                     <Image
                         source={images.message}
                         alt="message"
