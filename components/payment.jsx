@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useState, useRef } from "react";
-import { ActivityIndicator, Image, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
 import { images } from "@/constants";
@@ -66,52 +66,61 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
                 isVisible={showCheck}
                 onBackdropPress={() => setShowCheck(false)}
             >
-                <View className='flex flex-col items-center justify-center bg-white p-7 rounded-2xl'>
-                    <Text className='text-2xl font-bold'>
-                        Add payment info
+                <View className="flex flex-col items-center justify-center bg-white p-6 rounded-3xl shadow-lg">
+                    <Text className="text-xl font-bold text-gray-800">
+                        Add Payment Information
                     </Text>
-                    <Text className='mt-4'>
-                        Bank card information
+                    <Text className="text-sm text-gray-600 mt-2">
+                        Bank Card Information
                     </Text>
-                    <View className='border border-gray-400 w-full h-32 mt-2'>
-                        <Text className='m-2'>Card Number</Text>
-                        <TextInput
-                            className='px-4'
-                            placeholder="Enter card number"
-                        />
-                        <View className='bg-gray-400 h-[1px]' />
-                        <Text className='m-2'>Password</Text>
-                        <TextInput
-                            className='px-4'
-                            placeholder="Enter password"
-                            secureTextEntry={true}
-                        />
+
+                    <View className="w-full mt-4">
+                        <View className="border border-gray-300 rounded-lg p-2 mb-4">
+                            <Text className="text-gray-500 text-sm mb-1">Card Number</Text>
+                            <TextInput
+                                className="px-4 py-2 border border-gray-300 rounded-lg"
+                                placeholder="Enter card number"
+                                keyboardType="number-pad"
+                            />
+                        </View>
+
+                        <View className="border border-gray-300 rounded-lg p-2">
+                            <Text className="text-gray-500 text-sm mb-1">Password</Text>
+                            <TextInput
+                                className="px-4 py-2 border border-gray-300 rounded-lg"
+                                placeholder="Enter password"
+                                secureTextEntry={true}
+                            />
+                        </View>
                     </View>
-                    <View className='w-full flex-row'>
+
+                    <View className="w-full flex-row justify-center mt-6">
                         {isLoading && (
                             <ActivityIndicator
-                                className='absolute bottom-3 right-[80] z-10'
-                                size={'small'}
+                                className="absolute bottom-3 right-[80] z-10"
+                                size="small"
                                 color="#fff"
                             />
                         )}
 
-                        <CustomButton
-                            containerStyle={'mt-8'}
-                            title={isLoading ? 'Paying' : 'Confirm'}
+                        <TouchableOpacity
+                            className={`w-full bg-blue-500 py-3 rounded-full mt-4 ${isLoading ? 'opacity-50' : ''}`}
+                            disabled={isLoading}
                             onPress={() => {
                                 setSuccess(true);
                                 setShowCheck(false);
                                 setIsDisabled(true);
                                 handleCreateRide();
                             }}
-                        />
+                        >
+                            <Text className="text-center text-white font-semibold">
+                                {isLoading ? 'Processing...' : 'Confirm Payment'}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-
-
                 </View>
-
             </ReactNativeModal>
+
 
             {/* ---------------------------------------------------- */}
             <ReactNativeModal
