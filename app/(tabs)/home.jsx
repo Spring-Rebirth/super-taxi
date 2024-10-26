@@ -167,8 +167,8 @@ export default function Home() {
     return (
         <View className="my-8 bg-[#F6F8FA] h-screen">
             <View className="my-2 px-8 flex-row justify-between items-center">
-                <Text className="text-xl my-4 font-semibold">
-                    Hello {user?.firstName || 'Mike'}
+                <Text className="text-xl my-4 font-semibold text-[#FF6B6B]">
+                    Hello, {user?.firstName || 'Mike'}
                 </Text>
                 <TouchableOpacity
                     onPress={async () => {
