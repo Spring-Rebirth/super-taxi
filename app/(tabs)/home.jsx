@@ -34,7 +34,7 @@ export default function Home() {
     const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
     const { signOut } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
-    const { data: ridesData, loading } = useFetch(`/(api)/ride/${user.id}`);
+    const { data: ridesData, loading } = useFetch(`/(api)/ride/${user?.id}`);
 
     // 使用 useRef 来持久化变量
     const lastRequestTime = useRef(0);
