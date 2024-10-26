@@ -23,7 +23,7 @@ export default function CustomMap({ myLocationHeight = 20 }) {
     const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [markers, setMarkers] = useState([]);
     const mapRef = useRef(null);
-
+    // console.log('router name:', route.name);
     // 获取用户位置并将地图中心移动到该位置
     const goToUserLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -192,7 +192,7 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                             longitude: marker.longitude
                         }}
                         title={marker.title}
-                        image={marker.id === selectedDriver ? selectedMkIcon : markerIcon}
+                        image={marker.id === selectedDriver && route.name === 'search' ? selectedMkIcon : markerIcon}
                     />
                 ))}
 
