@@ -1,8 +1,6 @@
 import { Driver, MarkerData } from "@/types/type";
 import axios from 'axios';
 
-const directionsAPI = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
-
 export const generateMarkersFromData = ({
     data,
     userLatitude,
