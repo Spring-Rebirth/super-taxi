@@ -16,7 +16,6 @@ export default function OSMTextInput({
     const [query, setQuery] = useState(value || '');
     const [modalVisible, setModalVisible] = useState(false);
 
-    // 当输入内容变化时，触发onSearch回调
     const handleInputChange = (text) => {
         setQuery(text);
     };
