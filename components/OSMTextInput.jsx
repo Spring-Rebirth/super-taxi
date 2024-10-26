@@ -23,7 +23,7 @@ export default function OSMTextInput({
     const handleSearch = () => {
         if (query.trim().length > 0) {
             onSearch(query);
-            setModalVisible(true); // 假设搜索结果会通过 props 更新
+            setModalVisible(true); // 搜索时打开modal，onSearch会传递加载状态显示在modal
         } else {
             setModalVisible(false);
         }
