@@ -48,7 +48,8 @@
       "apiUrl": "http://localhost:8081",
       "eas": {
         "projectId": "e107d9c5-851d-4682-a0f2-293d99ddd1ca"
-      }
+      },
+      "clerkPublishableKey": "pk_test_d2l0dHktcmFwdG9yLTg0LmNsZXJrLmFjY291bnRzLmRldiQ"
     },
     "owner": "fk-expo"
   }

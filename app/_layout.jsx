@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import { Slot, SplashScreen } from "expo-router";
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo';
 import { tokenCache } from '../lib/clerk/auth'
@@ -14,9 +15,9 @@ console.warn = (message) => {
 // 防止自动隐藏启动屏幕
 SplashScreen.preventAutoHideAsync();
 
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const clerkPublishableKey = Constants.expoConfig.extra.clerkPublishableKey;
 
-if (!publishableKey) {
+if (!clerkPublishableKey) {
 	throw new Error(
 		'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
 	);
@@ -29,7 +30,7 @@ export default function RootLayout() {
 	}, []);
 
 	return (
-		<ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+		<ClerkProvider publishableKey={clerkPublishableKey} tokenCache={tokenCache}>
 			<ClerkLoaded>
 				<Slot />
 			</ClerkLoaded>
