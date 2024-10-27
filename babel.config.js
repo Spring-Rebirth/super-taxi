@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const { plugins } = require("./tailwind.config");
 
 module.exports = function (api) {

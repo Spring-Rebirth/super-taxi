@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.EXPO_SECRET_STRIPE_API_KEY);
 export async function POST(request) {
     try {
         const body = await request.json();
-        const { payment_method_id, payment_intent_id, customer_id, client_secret } =
+        const { payment_method_id, payment_intent_id, customer_id } =
             body;
 
         if (!payment_method_id || !payment_intent_id || !customer_id) {

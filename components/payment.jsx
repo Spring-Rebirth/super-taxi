@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { ActivityIndicator, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
