@@ -10,7 +10,6 @@ import { useAuth } from "@clerk/clerk-expo";
 
 const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
     const [success, setSuccess] = useState(false);
-    const bottomSheetRef = useRef(null);
     const [showCheck, setShowCheck] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const { userId } = useAuth();

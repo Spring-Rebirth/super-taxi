@@ -41,7 +41,7 @@ export default function SignIn() {
         } catch (err) {
             console.error(JSON.stringify(err, null, 2))
         }
-    }, [isLoaded, emailAddress, password])
+    }, [isLoaded, signIn, emailAddress, password, setActive, router])
 
     return (
         <View className='w-screen h-full bg-white'>

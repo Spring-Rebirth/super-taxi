@@ -11,10 +11,10 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/(auth)/index.jsx",
     "app/_layout.jsx",
-    "constants/index.js"
+    "constants/index.js",
+    ".expo/types/**/*.ts"
   ]
 }

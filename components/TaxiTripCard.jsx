@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import toIcon from '../assets/icons/to.png'
 import pinIcon from '../assets/icons/pin.png'
 import { formatDate, formatTime } from '../lib/utils'
