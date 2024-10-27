@@ -1,7 +1,6 @@
 import { useAuth, useUser } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
 import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { ridesMock } from '../../constants/MockRides';
 import TaxiTripCard from '../../components/TaxiTripCard';
 import CustomMap from '../../components/CustomMap';
 import { useEffect, useState, useRef, useMemo } from 'react';
@@ -157,7 +156,7 @@ export default function Home() {
         }
 
         requestLocation();
-    }, []);
+    }, [setUserLocation]);
 
     const memoizedHeader = useMemo(() => {
         return <ListHeader memoizedMap={memoizedMap} />;

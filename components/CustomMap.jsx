@@ -69,7 +69,7 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                 setDrivers(drivers);
             })
         }
-    }, [markers, destinationLatitude, destinationLongitude])
+    }, [markers, destinationLatitude, destinationLongitude, userLatitude, userLongitude, setDrivers])
 
     const routeCache = useRef({});
     const debounceTimer = useRef(null);
