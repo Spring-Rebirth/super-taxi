@@ -1,4 +1,7 @@
 import { neon } from "@neondatabase/serverless";
+import Constants from 'expo-constants';
+
+const neonURL = Constants.expoConfig.extra.neonURL
 
 export async function POST(request) {
     try {
@@ -36,7 +39,7 @@ export async function POST(request) {
             );
         }
 
-        const sql = neon(`${process.env.DATABASE_URL}`);
+        const sql = neon(`${neonURL}`);
 
         const response = await sql`
       INSERT INTO rides ( 

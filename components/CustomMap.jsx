@@ -15,6 +15,7 @@ import polyline from '@mapbox/polyline';
 import { useRoute } from '@react-navigation/native';
 
 export default function CustomMap({ myLocationHeight = 20 }) {
+    // 试试改用模拟数据
     const { data: drivers, loading, error } = useFetch('/(api)/driver');
     const { userLongitude, userLatitude, destinationLongitude, destinationLatitude } = useLocationStore();
     const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });

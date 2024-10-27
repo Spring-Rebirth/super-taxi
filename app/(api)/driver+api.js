@@ -1,8 +1,11 @@
 import { neon } from "@neondatabase/serverless";
+import Constants from 'expo-constants';
+
+const neonURL = Constants.expoConfig.extra.neonURL
 
 export async function GET(request) {
     try {
-        const sql = neon(`${process.env.DATABASE_URL}`);
+        const sql = neon(`${neonURL}`);
         const response = await sql`SELECT * FROM drivers`;
 
         return Response.json({ data: response });

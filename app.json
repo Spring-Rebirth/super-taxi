@@ -49,7 +49,9 @@
       "eas": {
         "projectId": "e107d9c5-851d-4682-a0f2-293d99ddd1ca"
       },
-      "clerkPublishableKey": "pk_test_d2l0dHktcmFwdG9yLTg0LmNsZXJrLmFjY291bnRzLmRldiQ"
+      "clerkPublishableKey": "pk_test_d2l0dHktcmFwdG9yLTg0LmNsZXJrLmFjY291bnRzLmRldiQ",
+      "neonURL": "postgresql://super-taxi_DB_owner:8MajO1zqdICD@ep-steep-term-a11pbxls.ap-southeast-1.aws.neon.tech/super-taxi_DB?sslmode=require",
+      "GEOAPIFY_API_KEY": "8243fccfee5043dd8bc2e7628bd886c8"
     },
     "owner": "fk-expo"
   }

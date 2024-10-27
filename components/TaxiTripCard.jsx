@@ -1,8 +1,11 @@
+import Constants from 'expo-constants';
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import toIcon from '../assets/icons/to.png'
 import pinIcon from '../assets/icons/pin.png'
 import { formatDate, formatTime } from '../lib/utils'
+
+const geoapifyKey = Constants.expoConfig.extra.GEOAPIFY_API_KEY
 
 export default function TaxiTripCard({ data }) {
     const {
@@ -21,7 +24,7 @@ export default function TaxiTripCard({ data }) {
         'height=400',
         `center=lonlat:${destination_longitude},${destination_latitude}`,
         'zoom=14',
-        `apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
+        `apiKey=${geoapifyKey}`,
     ].join('&');
 
     return (
