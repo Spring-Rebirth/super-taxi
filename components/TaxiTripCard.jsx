@@ -5,7 +5,7 @@ import toIcon from '../assets/icons/to.png'
 import pinIcon from '../assets/icons/pin.png'
 import { formatDate, formatTime } from '../lib/utils'
 
-const geoapifyKey = Constants.expoConfig.extra.GEOAPIFY_API_KEY
+const geoapifyKey = "8243fccfee5043dd8bc2e7628bd886c8"
 
 export default function TaxiTripCard({ data }) {
     const {
@@ -24,7 +24,7 @@ export default function TaxiTripCard({ data }) {
         'height=400',
         `center=lonlat:${destination_longitude},${destination_latitude}`,
         'zoom=14',
-        `apiKey=${geoapifyKey}`,
+        `apiKey=8243fccfee5043dd8bc2e7628bd886c8`,
     ].join('&');
 
     return (

@@ -222,9 +222,6 @@ export default function Home() {
                 style={{ marginBottom: 100 }}
                 data={ridesData}
                 ListHeaderComponent={memoizedHeader}
-                ListFooterComponent={() => (
-                    <Button title="Test Sentry" onPress={() => { throw new Error('Hello, again, Sentry!'); }} />
-                )}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
                 ListEmptyComponent={() => (
                     <View className="flex flex-col items-center justify-center">
