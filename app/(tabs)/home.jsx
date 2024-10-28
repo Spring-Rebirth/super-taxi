@@ -1,6 +1,6 @@
 import { useAuth, useUser } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
-import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator, Button } from 'react-native';
 import TaxiTripCard from '../../components/TaxiTripCard';
 import CustomMap from '../../components/CustomMap';
 import { useEffect, useState, useRef, useMemo } from 'react';
@@ -29,7 +29,6 @@ function ListHeader({ memoizedMap }) {
 
 export default function Home() {
     const { user } = useUser(); // 获取当前用户信息
-    console.log('user:', JSON.stringify(user, null, 2));
     const { setUserLocation, setDestinationLocation } = useLocationStore();
     const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
     const { signOut } = useAuth();
@@ -223,6 +222,9 @@ export default function Home() {
                 style={{ marginBottom: 100 }}
                 data={ridesData}
                 ListHeaderComponent={memoizedHeader}
+                ListFooterComponent={() => (
+                    <Button title="Test Sentry" onPress={() => { throw new Error('Hello, again, Sentry!'); }} />
+                )}
                 renderItem={({ item }) => <TaxiTripCard data={item} />}
                 ListEmptyComponent={() => (
                     <View className="flex flex-col items-center justify-center">
