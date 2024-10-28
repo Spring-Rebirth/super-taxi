@@ -41,7 +41,7 @@
       ],
       "expo-secure-store",
       [
-        "@sentry/react-native/expo",
+        "@sentry/react-native",
         {
           "organization": "myst-seed",
           "project": "super-taxi",
