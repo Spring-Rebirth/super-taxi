@@ -13,7 +13,7 @@ import { useRouter } from 'expo-router'
 import { useSignUp } from '@clerk/clerk-expo'
 import CustomModal from '../../components/CustomModal'
 import check from '../../assets/images/check.png'
-import { fetchAPI } from '../../lib/fetch'
+import { api } from '../../api-mock';
 import OAuth from '../../components/OAuth'
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -60,15 +60,17 @@ export default function SignUp() {
             })
 
             if (completeSignUp.status === 'complete') {
-                // TODO: 添加用户信息到数据库
-                await fetchAPI("/(api)/user", {
-                    method: "POST",
-                    body: JSON.stringify({
+                //  添加用户信息到本地存储
+                try {
+                    await api.createUser({
                         name: username,
                         email: emailAddress,
                         clerkId: completeSignUp.createdUserId
-                    })
-                });
+                    });
+                } catch (error) {
+                    console.error('Error creating user:', error);
+                    // 根据需要处理错误，例如显示错误消息或提示用户重试
+                }
 
                 setVerifySuccess(true);
                 await sleep(3000);
