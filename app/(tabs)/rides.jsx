@@ -3,11 +3,35 @@ import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TaxiTripCard from "@/components/TaxiTripCard";
 import { images } from "@/constants";
-import { useFetch } from "@/lib/fetch";
+import { useEffect, useState } from "react";
+import { api } from "../../api-mock";
 
 const Rides = () => {
     const { user } = useUser();
-    const { data: recentRides, loading } = useFetch(`/(api)/ride/${user?.id}`);
+    const [recentRides, setRecentRides] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchRecentRides = async () => {
+            if (!user?.id) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                setLoading(true);
+                const response = await api.getUserRides(user.id);
+                setRecentRides(response.data);
+            } catch (err) {
+                console.error('Error fetching recent rides:', err);
+                // 根据需要设置错误状态
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRecentRides();
+    }, [user]);
 
     return (
         <SafeAreaView className="flex-1 bg-white">

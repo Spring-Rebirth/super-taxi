@@ -4,9 +4,9 @@ import { ActivityIndicator, Image, Text, TextInput, TouchableOpacity, View } fro
 import { ReactNativeModal } from "react-native-modal";
 import CustomButton from "@/components/CustomButton";
 import { images } from "@/constants";
-import { fetchAPI } from "../lib/fetch";
 import { useLocationStore } from "../store";
 import { useAuth } from "@clerk/clerk-expo";
+import { api } from "../api-mock";
 
 const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
     const [success, setSuccess] = useState(false);
@@ -22,6 +22,7 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
         destinationAddress,
         destinationLongitude,
     } = useLocationStore();
+    const _rideTime = Number(rideTime);
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -30,32 +31,27 @@ const Payment = ({ fullName, email, amount, driverId, rideTime }) => {
     const handleCreateRide = async () => {
         try {
             setIsLoading(true);
-            await fetchAPI("/(api)/ride/create", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    origin_address: userAddress,
-                    destination_address: destinationAddress,
-                    origin_latitude: userLatitude,
-                    origin_longitude: userLongitude,
-                    destination_latitude: destinationLatitude,
-                    destination_longitude: destinationLongitude,
-                    ride_time: rideTime.toFixed(0),
-                    fare_price: parseInt(amount) * 100,
-                    payment_status: "paid",
-                    driver_id: driverId,
-                    user_id: userId,
-                }),
+            await api.createRide({
+                origin_address: userAddress,
+                destination_address: destinationAddress,
+                origin_latitude: userLatitude,
+                origin_longitude: userLongitude,
+                destination_latitude: destinationLatitude,
+                destination_longitude: destinationLongitude,
+                ride_time: Math.round(_rideTime),
+                fare_price: parseFloat(amount) * 100,
+                payment_status: "paid",
+                driver_id: driverId,
+                user_id: userId,
             });
+            // 如果不再需要模拟延迟，可以移除 sleep 函数
             await sleep(1500);
         } catch (error) {
             console.log(error);
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     return (
         <>

@@ -8,7 +8,7 @@ import markerIcon from '../assets/icons/marker.png'
 import selectedMkIcon from '../assets/icons/selected-marker.png'
 import * as Location from 'expo-location'; // 用于获取用户位置
 import userLocationIcon from '../assets/icons/target.png';
-import { useFetch } from '../lib/fetch'
+import { driverMock } from '../constants/MockDrivers'
 import pinIcon from '../assets/icons/pin.png'
 import axios from 'axios';
 import polyline from '@mapbox/polyline';
@@ -16,7 +16,8 @@ import { useRoute } from '@react-navigation/native';
 
 export default function CustomMap({ myLocationHeight = 20 }) {
     // 试试改用模拟数据
-    const { data: drivers, loading, error } = useFetch('/(api)/driver');
+    const drivers = driverMock;
+
     const { userLongitude, userLatitude, destinationLongitude, destinationLatitude } = useLocationStore();
     const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });
     const route = useRoute();
@@ -157,18 +158,10 @@ export default function CustomMap({ myLocationHeight = 20 }) {
     }, [routeCoordinates]);
 
 
-    if (loading || !userLatitude || !userLongitude) {
+    if (!userLatitude || !userLongitude) {
         return (
             <View className='w-full h-full justify-center items-center'>
                 <ActivityIndicator size={'small'} color={'#000'} />
-            </View>
-        );
-    }
-
-    if (error) {
-        return (
-            <View className='w-full h-full justify-center items-center'>
-                <Text>Error: {error}</Text>
             </View>
         );
     }

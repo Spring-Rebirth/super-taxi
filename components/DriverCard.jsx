@@ -4,10 +4,12 @@ import { icons } from "@/constants";
 import { formatTime } from "@/lib/utils";
 
 const DriverCard = ({ item, selected, setSelected }) => {
+    const isSelected = selected === Number(item.id);
+
     return (
         <TouchableOpacity
             onPress={setSelected}
-            className={`${selected === item.id ? "bg-general-600" : "bg-white"
+            className={`${isSelected ? "bg-general-600" : "bg-white"
                 } flex flex-row items-center justify-between py-5 px-3 rounded-xl`}
         >
             <Image

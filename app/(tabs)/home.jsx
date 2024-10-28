@@ -10,8 +10,8 @@ import OSMTextInput from '../../components/OSMTextInput';
 import searchIcon from '../../assets/icons/search.png';
 import axios from 'axios';
 import signOutIcon from '../../assets/icons/out.png';
-import { useFetch } from '../../lib/fetch';
 import { images } from "@/constants";
+import { api } from '../../api-mock';
 
 function ListHeader({ memoizedMap }) {
     return (
@@ -33,13 +33,36 @@ export default function Home() {
     const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
     const { signOut } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
-    const { data: ridesData, loading } = useFetch(`/(api)/ride/${user?.id}`);
+    const [ridesData, setRidesData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // 使用 useRef 来持久化变量
     const lastRequestTime = useRef(0);
     const debounceTimer = useRef(null);
     const cache = useRef({});
     const memoizedMap = useMemo(() => <CustomMap />, []);
+
+    useEffect(() => {
+        const fetchUserRides = async () => {
+            if (!user?.id) {
+                setLoading(false);
+                return;
+            }
+            try {
+                setLoading(true);
+                const response = await api.getUserRides(user.id);
+                setRidesData(response.data);
+            } catch (err) {
+                console.error('Error fetching user rides:', err);
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserRides();
+    }, [user]);
 
 
     // 处理地点搜索

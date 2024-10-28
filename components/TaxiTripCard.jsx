@@ -81,7 +81,7 @@ export default function TaxiTripCard({ data }) {
                         Date & Time
                     </Text>
                     <Text className='text-xs'>
-                        {formatDate(created_at)}, {formatTime(ride_time)}
+                        {formatDate(created_at)}, {ride_time}
                     </Text>
                 </View>
                 <View className='bg-[#FFFFFF] h-[1px]' />
