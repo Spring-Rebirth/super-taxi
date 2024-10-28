@@ -29,6 +29,7 @@ function ListHeader({ memoizedMap }) {
 
 export default function Home() {
     const { user } = useUser(); // 获取当前用户信息
+    console.log('user:', JSON.stringify(user, null, 2));
     const { setUserLocation, setDestinationLocation } = useLocationStore();
     const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
     const { signOut } = useAuth();
@@ -190,7 +191,7 @@ export default function Home() {
         <View className="my-8 bg-[#F6F8FA] h-screen">
             <View className="my-2 px-8 flex-row justify-between items-center">
                 <Text className="text-xl my-4 font-semibold text-[#FF6B6B]">
-                    Hello, {user?.firstName || 'Mike'}
+                    Hello, {user?.username || 'Mike'}
                 </Text>
                 <TouchableOpacity
                     onPress={async () => {
