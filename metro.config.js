@@ -1,7 +1,13 @@
-// This replaces `const { getDefaultConfig } = require('expo/metro-config');`
-const { getSentryExpoConfig } = require('@sentry/react-native/metro');
+const { getDefaultConfig } = require('expo/metro-config');
 
-// This replaces `const config = getDefaultConfig(__dirname);`
-const config = getSentryExpoConfig(__dirname);
+module.exports = (() => {
+    const config = getDefaultConfig(__dirname);
 
-module.exports = config;
+    // 添加 Sentry 支持
+    config.resolver.extraNodeModules = {
+        ...config.resolver.extraNodeModules,
+        '@sentry/react-native': require.resolve('@sentry/react-native'),
+    };
+
+    return config;
+})();
