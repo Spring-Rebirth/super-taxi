@@ -1,11 +1,9 @@
-import Constants from 'expo-constants';
 import { View, Text, Image } from 'react-native'
 import React from 'react'
 import toIcon from '../assets/icons/to.png'
 import pinIcon from '../assets/icons/pin.png'
-import { formatDate, formatTime } from '../lib/utils'
+import { formatDate } from '../lib/utils'
 
-const geoapifyKey = "8243fccfee5043dd8bc2e7628bd886c8"
 
 export default function TaxiTripCard({ data }) {
     const {
