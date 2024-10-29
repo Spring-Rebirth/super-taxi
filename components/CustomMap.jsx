@@ -188,8 +188,9 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                             latitude: userLatitude,
                             longitude: userLongitude
                         }}
-                        image={pointIcon}
-                    />
+                    >
+                        <Image source={pointIcon} style={{ width: 20, height: 20 }} resizeMode='contain' />
+                    </Marker>
                 )}
 
                 {destinationLatitude && destinationLongitude && route.name !== 'home' && (
@@ -201,8 +202,9 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                                 latitude: destinationLatitude,
                                 longitude: destinationLongitude
                             }}
-                            image={pinIcon}
-                        />
+                        >
+                            <Image source={pinIcon} style={{ width: 20, height: 20 }} resizeMode='contain' />
+                        </Marker>
 
                         {/* 显示路线 */}
                         {routeCoordinates.length > 0 && (
