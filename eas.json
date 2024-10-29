@@ -21,8 +21,5 @@
   },
   "submit": {
     "production": {}
-  },
-  "runtimeVersion": {
-    "policy": "1.0"
   }
 }
