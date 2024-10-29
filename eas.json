@@ -15,10 +15,14 @@
       "autoIncrement": true,
       "android": {
         "buildType": "apk"
-      }
+      },
+      "channel": "main"
     }
   },
   "submit": {
     "production": {}
+  },
+  "runtimeVersion": {
+    "policy": "1.0"
   }
 }
