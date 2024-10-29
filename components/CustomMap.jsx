@@ -186,7 +186,7 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                             longitude: marker.longitude
                         }}
                         title={marker.title}
-                        image={marker.id === selectedDriver && route.name === 'search' ? selectedMkIcon : markerIcon}
+                        image={marker.id == selectedDriver && route.name === 'search' ? selectedMkIcon : markerIcon}
                     />
                 ))}
 
