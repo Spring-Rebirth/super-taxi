@@ -10,7 +10,9 @@ const routingInstrumentation = new ReactNavigationInstrumentation();
 
 Sentry.init({
 	dsn: 'https://344ccafd865b926c0b5b840646ea3da9@o4508196155424768.ingest.de.sentry.io/4508201520791632',
-	debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+	/* If `true`, Sentry will try to print out useful debugging information if something 
+	goes wrong with sending the event. Set it to `false` in production */
+	debug: false,
 });
 
 const originalWarn = console.warn;
