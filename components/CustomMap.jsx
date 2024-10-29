@@ -179,18 +179,7 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                 userInterfaceStyle={'light'}
                 showsPointsOfInterest={false}
             >
-                {/* 生产环境图标尺寸异常 */}
-                {/* {markers.map(marker => (
-                    <Marker
-                        key={marker.id}
-                        coordinate={{
-                            latitude: marker.latitude,
-                            longitude: marker.longitude
-                        }}
-                        title={marker.title}
-                        image={marker.id == selectedDriver && route.name === 'search' ? selectedMkIcon : markerIcon}
-                    />
-                ))} */}
+
                 {userLatitude && userLongitude && (
                     <Marker
                         key={'currentLocation'}
