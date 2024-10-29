@@ -15,7 +15,7 @@ import axios from 'axios';
 import polyline from '@mapbox/polyline';
 import { useRoute } from '@react-navigation/native';
 
-export default function CustomMap({ myLocationHeight = 20 }) {
+export default function CustomMap({ myLocationHeight = 60 }) {
     // 试试改用模拟数据
     const drivers = driverMock;
 
