@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useDriverStore } from '../store/index'
 import markerIcon from '../assets/icons/marker.png'
 import selectedMkIcon from '../assets/icons/selected-marker.png'
+import pointIcon from '../assets/icons/point.png'
 import * as Location from 'expo-location'; // 用于获取用户位置
 import userLocationIcon from '../assets/icons/target.png';
 import { driverMock } from '../constants/MockDrivers'
@@ -178,7 +179,8 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                 userInterfaceStyle={'light'}
                 showsPointsOfInterest={false}
             >
-                {markers.map(marker => (
+                {/* 生产环境图标尺寸异常 */}
+                {/* {markers.map(marker => (
                     <Marker
                         key={marker.id}
                         coordinate={{
@@ -188,7 +190,18 @@ export default function CustomMap({ myLocationHeight = 20 }) {
                         title={marker.title}
                         image={marker.id == selectedDriver && route.name === 'search' ? selectedMkIcon : markerIcon}
                     />
-                ))}
+                ))} */}
+                {userLatitude && userLongitude && (
+                    <Marker
+                        key={'currentLocation'}
+                        title='Current Location'
+                        coordinate={{
+                            latitude: userLatitude,
+                            longitude: userLongitude
+                        }}
+                        image={pointIcon}
+                    />
+                )}
 
                 {destinationLatitude && destinationLongitude && route.name !== 'home' && (
                     <>
