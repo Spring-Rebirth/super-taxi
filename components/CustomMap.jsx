@@ -1,13 +1,11 @@
-import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
+import { View, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import MapView, { PROVIDER_OSM, Marker, Polyline } from 'react-native-maps'
 import { useLocationStore } from '../store/index'
 import { calculateDriverTimes, calculateRegion, generateMarkersFromData } from '../lib/map'
 import { useEffect, useRef, useState } from 'react'
 import { useDriverStore } from '../store/index'
-import markerIcon from '../assets/icons/marker.png'
-import selectedMkIcon from '../assets/icons/selected-marker.png'
 import pointIcon from '../assets/icons/point.png'
-import * as Location from 'expo-location'; // 用于获取用户位置
+import * as Location from 'expo-location';
 import userLocationIcon from '../assets/icons/target.png';
 import { driverMock } from '../constants/MockDrivers'
 import pinIcon from '../assets/icons/pin.png'
@@ -23,11 +21,11 @@ export default function CustomMap({ myLocationHeight = 60 }) {
     const { userLongitude, userLatitude, destinationLongitude, destinationLatitude } = useLocationStore();
     const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });
     const route = useRoute();
-    const { selectedDriver, setDrivers } = useDriverStore();
+    const { setDrivers } = useDriverStore();
     const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [markers, setMarkers] = useState([]);
     const mapRef = useRef(null);
-    // console.log('router name:', route.name);
+
     // 获取用户位置并将地图中心移动到该位置
     const goToUserLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();

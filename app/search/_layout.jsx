@@ -54,7 +54,7 @@ export default function RideLayout() {
                     </View>
 
                     <View className='absolute top-0 bottom-0 left-0 right-0'>
-                        <CustomMap myLocationHeight={360} />
+                        <CustomMap myLocationHeight={400} />
                     </View>
 
                 </View>
