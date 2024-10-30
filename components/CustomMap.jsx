@@ -14,6 +14,7 @@ import pinIcon from '../assets/icons/pin.png'
 import axios from 'axios';
 import polyline from '@mapbox/polyline';
 import { useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CustomMap({ myLocationHeight = 60 }) {
     // 试试改用模拟数据
@@ -45,6 +46,24 @@ export default function CustomMap({ myLocationHeight = 60 }) {
 
         mapRef.current.animateToRegion(userRegion, 1000); // 动画移动到用户位置
     };
+
+    useEffect(() => {
+        const initializeDrivers = async () => {
+            try {
+                const existingDrivers = await AsyncStorage.getItem('drivers');
+                if (existingDrivers === null) {
+                    await AsyncStorage.setItem('drivers', JSON.stringify(driverMock));
+                    console.log('司机数据已初始化');
+                } else {
+                    console.log('司机数据已存在');
+                }
+            } catch (error) {
+                console.error('初始化司机数据失败:', error);
+            }
+        };
+
+        initializeDrivers();
+    }, []);
 
     useEffect(() => {
         if (Array.isArray(drivers)) {
