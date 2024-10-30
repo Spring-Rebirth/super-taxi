@@ -5,6 +5,8 @@ import { tokenCache } from '../lib/clerk/auth'
 import { useEffect } from "react";
 import * as Sentry from '@sentry/react-native';
 import { ReactNavigationInstrumentation } from '@sentry/react-native';
+import * as Updates from 'expo-updates';
+import { Alert } from 'react-native';
 
 const routingInstrumentation = new ReactNavigationInstrumentation();
 
@@ -44,11 +46,39 @@ function RootLayout() {
 			routingInstrumentation.registerNavigationContainer(ref);
 		}
 	}, [ref]);
-	// 直接在组件挂载后隐藏启动屏幕
 	useEffect(() => {
-		SplashScreen.hideAsync();
-	}, []);
+		const checkForUpdates = async () => {
+			try {
+				const update = await Updates.checkForUpdateAsync();
+				if (update.isAvailable) {
+					setIsUpdating(true);
+					await Updates.fetchUpdateAsync();
+					Alert.alert(
+						'Update Available',
+						'New update downloaded. Do you want to restart the app to apply the update?',
+						[
+							{
+								text: 'Later',
+								onPress: () => setIsUpdating(false),
+								style: 'cancel',
+							},
+							{
+								text: 'Restart',
+								onPress: () => Updates.reloadAsync(),
+							},
+						],
+						{ cancelable: false }
+					);
+				}
+			} catch (error) {
+				console.error('检查更新时发生错误:', error);
+			} finally {
+				SplashScreen.hideAsync();
+			}
+		};
 
+		checkForUpdates();
+	}, []);
 	return (
 		<ClerkProvider publishableKey={clerkPublishableKey} tokenCache={tokenCache}>
 			<ClerkLoaded>
