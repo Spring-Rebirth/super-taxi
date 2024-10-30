@@ -211,7 +211,7 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                             <Polyline
                                 coordinates={routeCoordinates}
                                 strokeWidth={4}
-                                strokeColor="blue"
+                                strokeColor="#1E90FF"
                             />
                         )}
                     </>

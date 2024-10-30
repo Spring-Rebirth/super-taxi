@@ -75,6 +75,7 @@ export default function SignUp() {
                         email: emailAddress,
                         clerkId: completeSignUp.createdUserId
                     });
+
                 } catch (error) {
                     console.error('Error creating user:', error);
                     // 根据需要处理错误，例如显示错误消息或提示用户重试
