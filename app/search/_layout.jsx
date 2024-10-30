@@ -48,7 +48,7 @@ export default function RideLayout() {
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Text className='text-xl ml-5'>
+                        <Text className='text-lg font-semibold ml-5'>
                             {pageName}
                         </Text>
                     </View>
