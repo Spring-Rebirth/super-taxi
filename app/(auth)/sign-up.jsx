@@ -15,6 +15,7 @@ import CustomModal from '../../components/CustomModal'
 import check from '../../assets/images/check.png'
 import { api } from '../../api-mock';
 import OAuth from '../../components/OAuth'
+import { StatusBar } from 'expo-status-bar';
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -97,6 +98,7 @@ export default function SignUp() {
 
     return (
         <View className='w-screen h-full bg-white'>
+            <StatusBar style='dark' />
             <ImageBackground
                 className='w-full h-40 justify-end'
                 source={signUpCar}

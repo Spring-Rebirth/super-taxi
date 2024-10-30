@@ -12,6 +12,7 @@ import axios from 'axios';
 import signOutIcon from '../../assets/icons/out.png';
 import { images } from "@/constants";
 import { api } from '../../api-mock';
+import { StatusBar } from 'expo-status-bar';
 
 function ListHeader({ memoizedMap }) {
     return (
@@ -188,6 +189,7 @@ export default function Home() {
 
     return (
         <View className="my-8 bg-[#F6F8FA] h-screen">
+            <StatusBar style="dark" />
             <View className="my-2 px-8 flex-row justify-between items-center">
                 <Text className="text-xl my-4 font-semibold text-[#FF6B6B]">
                     Hello, {user?.username || user?.firstName || 'Guest'}

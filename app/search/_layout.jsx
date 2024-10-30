@@ -7,6 +7,7 @@ import { router } from 'expo-router'
 import backArrowIcon from '../../assets/icons/back-arrow.png'
 import CustomMap from '../../components/CustomMap'
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
+import { StatusBar } from 'expo-status-bar';
 
 export default function RideLayout() {
     const bottomSheetRef = useRef(null);
@@ -36,6 +37,7 @@ export default function RideLayout() {
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
+            <StatusBar style='dark' />
             <View className='flex-1 bg-white'>
                 <View className='flex-1 bg-blue-500'>
                     <View className='flex-row absolute z-10 top-16 items-center justify-start px-5'>

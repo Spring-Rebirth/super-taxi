@@ -6,6 +6,7 @@ import { onboarding } from '../../constants/WelcomeText'
 import CustomButton from '../../components/CustomButton'
 import { Redirect, router } from "expo-router";
 import { SignedIn, SignedOut } from "@clerk/clerk-expo";
+import { StatusBar } from 'expo-status-bar'
 
 export default function Index() {
   const swiperRef = useRef(null);
@@ -14,6 +15,7 @@ export default function Index() {
 
   return (
     <>
+      <StatusBar style="dark" />
       <SignedIn>
         <Redirect href="/(tabs)" />
       </SignedIn>
