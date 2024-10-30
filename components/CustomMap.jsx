@@ -189,7 +189,7 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                             longitude: userLongitude
                         }}
                     >
-                        <Image source={pointIcon} style={{ width: 20, height: 20 }} resizeMode='contain' />
+                        <Image source={pointIcon} style={{ width: 26, height: 26 }} resizeMode='contain' />
                     </Marker>
                 )}
 
@@ -203,7 +203,7 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                                 longitude: destinationLongitude
                             }}
                         >
-                            <Image source={pinIcon} style={{ width: 20, height: 20 }} resizeMode='contain' />
+                            <Image source={pinIcon} style={{ width: 26, height: 26 }} resizeMode='contain' />
                         </Marker>
 
                         {/* 显示路线 */}
