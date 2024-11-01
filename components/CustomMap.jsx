@@ -199,7 +199,7 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                 {userLatitude && userLongitude && (
                     <Marker
                         key={'currentLocation'}
-                        title='Current Location'
+                        title='Your Location'
                         coordinate={{
                             latitude: userLatitude,
                             longitude: userLongitude
