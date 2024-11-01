@@ -17,11 +17,8 @@ import { StatusBar } from 'expo-status-bar';
 function ListHeader({ memoizedMap }) {
     return (
         <>
-            <Text className="text-xl font-semibold ml-4 my-5">
-                Your current location
-            </Text>
-            <View className="h-[300px] bg-transparent mx-4">{memoizedMap}</View>
-            <Text className="text-xl font-semibold ml-4 my-5">
+            <View className="h-[300px] bg-transparent mx-4 mt-5">{memoizedMap}</View>
+            <Text className="text-xl font-semibold ml-8 my-5 text-[#4682B4]">
                 Recent Rides
             </Text>
         </>
