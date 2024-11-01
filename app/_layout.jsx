@@ -2,7 +2,7 @@ import Constants from 'expo-constants';
 import { Slot, SplashScreen, useNavigationContainerRef } from "expo-router";
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo';
 import { tokenCache } from '../lib/clerk/auth'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as Sentry from '@sentry/react-native';
 import { ReactNavigationInstrumentation } from '@sentry/react-native';
 import * as Updates from 'expo-updates';

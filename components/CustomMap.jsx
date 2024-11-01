@@ -53,8 +53,6 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                 if (existingDrivers === null) {
                     await AsyncStorage.setItem('drivers', JSON.stringify(driverMock));
                     console.log('司机数据已初始化');
-                } else {
-                    console.log('司机数据已存在');
                 }
             } catch (error) {
                 console.error('初始化司机数据失败:', error);
