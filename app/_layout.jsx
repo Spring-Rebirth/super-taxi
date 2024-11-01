@@ -37,6 +37,8 @@ if (!clerkPublishableKey) {
 }
 
 function RootLayout() {
+	const [isUpdating, setIsUpdating] = useState(false);
+	const [canNavigate, setCanNavigate] = useState(false);
 
 	// Capture the NavigationContainer ref and register it with the instrumentation.
 	const ref = useNavigationContainerRef();
@@ -97,6 +99,17 @@ function RootLayout() {
 			routingInstrumentation.registerNavigationContainer(ref);
 		}
 	}, [ref]);
+
+	useEffect(() => {
+		if (canNavigate && !isUpdating) {
+			SplashScreen.hideAsync();
+		}
+	}, [canNavigate, isUpdating]);
+
+
+	if (isUpdating || !canNavigate) {
+		return null;
+	}
 
 	return (
 		<ClerkProvider publishableKey={clerkPublishableKey} tokenCache={tokenCache}>
