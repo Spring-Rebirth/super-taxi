@@ -13,6 +13,7 @@ import axios from 'axios';
 import polyline from '@mapbox/polyline';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserLocationIcon from '../components/UserLocationIcon';
 
 export default function CustomMap({ myLocationHeight = 60 }) {
     // 试试改用模拟数据
@@ -206,7 +207,7 @@ export default function CustomMap({ myLocationHeight = 60 }) {
                             longitude: userLongitude
                         }}
                     >
-                        <Image source={pointIcon} style={{ width: 26, height: 26 }} resizeMode='contain' />
+                        <UserLocationIcon />
                     </Marker>
                 )}
 
