@@ -41,44 +41,63 @@ function RootLayout() {
 	// Capture the NavigationContainer ref and register it with the instrumentation.
 	const ref = useNavigationContainerRef();
 
+
+	useEffect(() => {
+		async function checkForUpdates() {
+			try {
+				console.log('Checking for updates...');
+				const update = await Updates.checkForUpdateAsync();
+				console.log('Update available:', update.isAvailable);
+
+				if (update.isAvailable) {
+					console.log('Fetching update...');
+					setIsUpdating(true);
+					await Updates.fetchUpdateAsync();
+					console.log('Update fetched.');
+
+					Alert.alert(
+						'Update Available',
+						'A new update has been downloaded. Would you like to restart the app now?',
+						[
+							{
+								text: 'Later',
+								onPress: () => {
+									setIsUpdating(false);
+									setCanNavigate(true);
+								},
+								style: 'cancel',
+							},
+							{
+								text: 'Restart Now',
+								onPress: async () => {
+									console.log('Reloading app...');
+									await Updates.reloadAsync();
+								},
+							},
+						],
+						{ cancelable: false }
+					);
+
+				} else {
+					console.log('No updates available.');
+					setCanNavigate(true);
+				}
+			} catch (e) {
+				console.log('Error checking for updates:', e);
+				setCanNavigate(true);
+			}
+		}
+
+
+		checkForUpdates();
+	}, []);
+
 	useEffect(() => {
 		if (ref) {
 			routingInstrumentation.registerNavigationContainer(ref);
 		}
 	}, [ref]);
-	useEffect(() => {
-		const checkForUpdates = async () => {
-			try {
-				const update = await Updates.checkForUpdateAsync();
-				if (update.isAvailable) {
-					setIsUpdating(true);
-					await Updates.fetchUpdateAsync();
-					Alert.alert(
-						'Update Available',
-						'New update downloaded. Do you want to restart the app to apply the update?',
-						[
-							{
-								text: 'Later',
-								onPress: () => setIsUpdating(false),
-								style: 'cancel',
-							},
-							{
-								text: 'Restart',
-								onPress: () => Updates.reloadAsync(),
-							},
-						],
-						{ cancelable: false }
-					);
-				}
-			} catch (error) {
-				console.error('检查更新时发生错误:', error);
-			} finally {
-				SplashScreen.hideAsync();
-			}
-		};
 
-		checkForUpdates();
-	}, []);
 	return (
 		<ClerkProvider publishableKey={clerkPublishableKey} tokenCache={tokenCache}>
 			<ClerkLoaded>

@@ -13,9 +13,8 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "updates": {
-      "enabled": true,
-      "checkAutomatically": "ON_LOAD",
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/e107d9c5-851d-4682-a0f2-293d99ddd1ca"
     },
     "splash": {
       "image": "./assets/images/splash.png",
@@ -26,11 +25,6 @@
       "supportsTablet": true
     },
     "android": {
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyC2F9g3aOgbcldJcxtFlFFYovkT9YPLN7A"
-        }
-      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
