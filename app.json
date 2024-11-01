@@ -29,7 +29,12 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mystseed.supertaxi"
+      "package": "com.mystseed.supertaxi",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC2F9g3aOgbcldJcxtFlFFYovkT9YPLN7A"
+        }
+      }
     },
     "web": {
       "bundler": "metro",
