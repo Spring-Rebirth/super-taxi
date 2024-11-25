@@ -1,6 +1,6 @@
 import { useAuth, useUser } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
-import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator, Button } from 'react-native';
+import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator, Button, Alert } from 'react-native';
 import TaxiTripCard from '../../components/TaxiTripCard';
 import CustomMap from '../../components/CustomMap';
 import { useEffect, useState, useRef, useMemo } from 'react';
@@ -149,8 +149,20 @@ export default function Home() {
             if (status !== 'granted') {
                 return;
             }
+            let location;
 
-            let location = await Location.getCurrentPositionAsync();
+            try {
+                location = await Location.getCurrentPositionAsync();
+                // 使用位置信息的代码
+            } catch (error) {
+                console.error('获取位置信息时出错：', error);
+                Alert.alert(
+                    '位置信息错误',
+                    `获取位置信息时出错：${error.message}`,
+                    [{ text: '确定' }]
+                );
+            }
+
             const address = await Location.reverseGeocodeAsync({
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude,
