@@ -26,7 +26,6 @@ export default function TabsLayout() {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    position: 'absolute'
                 }
             }}
         >
