@@ -5,8 +5,11 @@ import homeIcon from '../../assets/icons/home.png'
 import chatIcon from '../../assets/icons/chat.png'
 import listIcon from '../../assets/icons/list.png'
 import profileIcon from '../../assets/icons/profile.png'
+import useKeyboardVisibility from '../../hooks/useKeyboardVisibility'
 
 export default function TabsLayout() {
+    const keyboardVisible = useKeyboardVisibility();
+
     return (
         <Tabs
             initialRouteName='home'
@@ -14,8 +17,8 @@ export default function TabsLayout() {
                 tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: 'white',
                 tabBarShowLabel: false,
-                tabBarHideOnKeyboard: true,
                 tabBarStyle: {
+                    display: keyboardVisible ? 'none' : 'flex',
                     backgroundColor: '#333333',
                     borderRadius: 50,
                     paddingBottom: 0,
