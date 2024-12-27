@@ -43,7 +43,6 @@ function RootLayout() {
 	// Capture the NavigationContainer ref and register it with the instrumentation.
 	const ref = useNavigationContainerRef();
 
-
 	useEffect(() => {
 		async function checkForUpdates() {
 			try {
@@ -89,7 +88,6 @@ function RootLayout() {
 				setCanNavigate(true);
 			}
 		}
-
 
 		checkForUpdates();
 	}, []);
