@@ -17,7 +17,9 @@ import { StatusBar } from 'expo-status-bar';
 function ListHeader({ memoizedMap }) {
     return (
         <>
-            <View className="h-[300px] bg-transparent mx-4 mt-5">{memoizedMap}</View>
+            <View className="h-[300px] bg-transparent mx-4 mt-5">
+                {memoizedMap}
+            </View>
             <Text className="text-xl font-semibold ml-8 my-5 text-[#4682B4]">
                 Recent Rides
             </Text>
@@ -61,7 +63,6 @@ export default function Home() {
 
         fetchUserRides();
     }, [user]);
-
 
     // 处理地点搜索
     const searchLocation = async (query) => {
@@ -156,6 +157,7 @@ export default function Home() {
                 // 使用位置信息的代码
             } catch (error) {
                 console.error('获取位置信息时出错：', error);
+                setError(error); // 设置错误信息
                 Alert.alert(
                     '位置信息错误',
                     `获取位置信息时出错：${error.message}`,
@@ -194,7 +196,6 @@ export default function Home() {
     const memoizedHeader = useMemo(() => {
         return <ListHeader memoizedMap={memoizedMap} />;
     }, [memoizedMap]);
-
 
     return (
         <View className="my-8 bg-[#F6F8FA] h-screen">
@@ -238,13 +239,19 @@ export default function Home() {
                     <View className="flex flex-col items-center justify-center">
                         {!loading ? (
                             <>
-                                <Image
-                                    source={images.noResult}
-                                    className="w-20 h-20"
-                                    alt="No recent rides found"
-                                    resizeMode="contain"
-                                />
-                                <Text className="text-sm">No recent rides found</Text>
+                                {error ? (
+                                    <Text className="text-sm text-red-500">Error: {error.message}</Text>
+                                ) : (
+                                    <>
+                                        <Image
+                                            source={images.noResult}
+                                            className="w-20 h-20"
+                                            alt="No recent rides found"
+                                            resizeMode="contain"
+                                        />
+                                        <Text className="text-sm">No recent rides found</Text>
+                                    </>
+                                )}
                             </>
                         ) : (
                             <ActivityIndicator size="small" color="#000" />
