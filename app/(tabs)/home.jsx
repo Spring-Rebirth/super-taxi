@@ -28,13 +28,13 @@ function ListHeader({ memoizedMap }) {
 }
 
 export default function Home() {
-    const { user } = useUser(); // 获取当前用户信息
+    const { user } = useUser();  // 获取当前用户信息
     const { setUserLocation, setDestinationLocation } = useLocationStore();
-    const [searchResults, setSearchResults] = useState([]); // 保存搜索结果
+    const [searchResults, setSearchResults] = useState([]);  // 保存搜索结果
     const { signOut } = useAuth();
-    const [isLoading, setIsLoading] = useState(false);
+    const [searchLoading, setSearchLoading] = useState(false);
     const [ridesData, setRidesData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);   // 屏幕加载状态
     const [error, setError] = useState(null);
 
     // 使用 useRef 来持久化变量
@@ -70,12 +70,12 @@ export default function Home() {
         // 如果输入少于3个字符，清空结果
         if (query.length < 2) {
             setSearchResults([]);
-            setIsLoading(false);
+            setSearchLoading(false);
             return;
         }
 
         setSearchResults(null); // null 表示搜索进行中
-        setIsLoading(true);
+        setSearchLoading(true);
 
         // 防抖机制
         clearTimeout(debounceTimer.current);
@@ -83,7 +83,7 @@ export default function Home() {
             // 如果缓存中已有结果，直接使用缓存
             if (cache.current[query]) {
                 setSearchResults(cache.current[query]);
-                setIsLoading(false);
+                setSearchLoading(false);
                 return;
             }
 
@@ -121,7 +121,7 @@ export default function Home() {
             } catch (error) {
                 console.error('请求错误:', error);
             } finally {
-                setIsLoading(false); // 结束加载
+                setSearchLoading(false); // 结束加载
             }
         }, 500); // 500 毫秒的防抖时间
     };
@@ -235,7 +235,7 @@ export default function Home() {
                     icon={searchIcon}
                     onSearch={searchLocation}
                     searchResults={searchResults}
-                    isLoading={isLoading}
+                    isLoading={searchLoading}
                     onSelectResult={handleResultPress}
                 />
             </View>
