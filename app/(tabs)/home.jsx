@@ -100,13 +100,12 @@ export default function Home() {
             // 发起请求
             try {
                 const response = await axios.get(
-                    `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=5`,
-                    {
-                        headers: {
-                            'User-Agent': 'super-taxi/1.0 (https://uber.com)',
-                        },
+                    `https://nominatim.openstreetmap.org/search?q=${query}` +
+                    `&format=json&addressdetails=1&limit=5`, {
+                    headers: {
+                        'User-Agent': 'super-taxi/1.0 (https://uber.com)',
                     }
-                );
+                });
 
                 // 缓存请求结果
                 cache.current[query] = response.data;
