@@ -1,6 +1,6 @@
 import { useAuth, useUser } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
-import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator, Button, Alert } from 'react-native';
+import { FlatList, Image, Text, View, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import TaxiTripCard from '../../components/TaxiTripCard';
 import CustomMap from '../../components/CustomMap';
 import { useEffect, useState, useRef, useMemo } from 'react';
@@ -41,6 +41,7 @@ export default function Home() {
     const lastRequestTime = useRef(0);
     const debounceTimer = useRef(null);
     const cache = useRef({});
+    const cacheLimit = 15;
     const memoizedMap = useMemo(() => <CustomMap />, []);
 
     useEffect(() => {
@@ -106,8 +107,17 @@ export default function Home() {
                         },
                     }
                 );
-                cache.current[query] = response.data; // 缓存请求结果
-                setSearchResults(response.data); // 设置搜索结果
+
+                // 缓存请求结果
+                cache.current[query] = response.data;
+
+                // 删除最早的缓存项
+                const keys = Object.keys(cache.current);
+                if (keys.length > cacheLimit) {
+                    delete cache.current[keys[0]];
+                }
+
+                setSearchResults(response.data);
             } catch (error) {
                 console.error('请求错误:', error);
             } finally {
@@ -153,8 +163,8 @@ export default function Home() {
             let location;
 
             try {
-                location = await Location.getCurrentPositionAsync();
                 // 使用位置信息的代码
+                location = await Location.getCurrentPositionAsync();
             } catch (error) {
                 console.error('获取位置信息时出错：', error);
                 setError(error); // 设置错误信息
